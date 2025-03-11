@@ -5,7 +5,7 @@ import process from "node:process";
 
 // Configuration for .env
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
-dotenv.config({ path: path.resolve(__dirname, "../.env") });
+dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
 // Secret Key
 const SECRET_KEY = process.env.JWT_SECRET_KEY;
