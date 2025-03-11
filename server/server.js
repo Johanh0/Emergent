@@ -2,8 +2,10 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import path from "path";
+import path from "node:path";
+import process from "node:process";
 import { fileURLToPath } from "url";
+
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -32,8 +34,10 @@ app.use((req, res, next) => {
 });
 
 // Routes IMPORTS
+import { adminRouter } from "./routes/admin.js";
 import { userRouter } from "./routes/user.js";
 
+app.use(`${API_VERSION}/admin`, adminRouter);
 app.use(`${API_VERSION}/user`, userRouter);
 
 app.get("*", (req, res) => {
