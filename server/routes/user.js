@@ -132,4 +132,104 @@ userRouter.post("/logout", (req, res) => {
     .json({ message: "Logout successful" });
 });
 
+userRouter.post("/missing-family", authenticateToken, async (req, res) => {
+  const user_id = req.user.id;
+  const { name, relationship, last_seen, location, description } = req.body;
+
+  //   Validate if the data is complete
+  if (
+    !user_id ||
+    !name ||
+    !relationship ||
+    !last_seen ||
+    !location ||
+    !description
+  ) {
+    return res.status(400).json({
+      error: "All fields are required",
+    });
+  }
+
+  try {
+    // Try to insert missing family member
+    const query =
+      "INSERT INTO missing_family (user_id, name, relationship, last_seen, location, description) VALUES (?, ?, ?, ?, ?, ?)";
+
+    const values = [
+      user_id,
+      name,
+      relationship,
+      last_seen,
+      location,
+      description,
+    ];
+
+    const [result] = await promisePool.execute(query, values);
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Error trying to add missing family:", error);
+    res.status(500).json({ error: "Error" });
+  }
+});
+
+userRouter.get("/missing-family", authenticateToken, async (req, res) => {
+  const user_id = req.user.id;
+
+  //   Validate if the data is complete
+  if (!user_id) {
+    return res.status(400).json({
+      error: "All fields are required",
+    });
+  }
+
+  try {
+    const query = "SELECT * FROM missing_family WHERE user_id = ?";
+    const [results] = await promisePool.execute(query, [user_id]);
+
+    res.status(200).json(results);
+  } catch (error) {
+    console.error("Error fetching missing family members:", error);
+    res.status(500).json({ error: "Error retrieving data" });
+  }
+});
+
+userRouter.delete(
+  "/missing-family/:id",
+  authenticateToken,
+  async (req, res) => {
+    const user_id = req.user.id;
+    const missing_id = req.params.id;
+
+    //   Validate if the data is complete
+    if (!user_id || !missing_id) {
+      return res.status(400).json({
+        error: "All fields are required",
+      });
+    }
+
+    try {
+      const checkQuery =
+        "SELECT * FROM missing_family WHERE id = ? AND user_id = ?";
+      const [rows] = await promisePool.execute(checkQuery, [
+        missing_id,
+        user_id,
+      ]);
+
+      if (rows.length === 0) {
+        return res.status(404).json({ error: "Family member not found" });
+      }
+
+      const deleteQuery =
+        "DELETE FROM missing_family WHERE id = ? AND user_id = ?";
+      await promisePool.execute(deleteQuery, [missing_id, user_id]);
+
+      res.status(200).json({ message: "Family member deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting missing family member:", error);
+      res.status(500).json({ error: "Error deleting data" });
+    }
+  }
+);
+
 export { userRouter };
