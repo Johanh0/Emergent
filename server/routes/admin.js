@@ -2,18 +2,18 @@ import express from "express";
 import bcrypt from "bcrypt";
 import { promisePool } from "../database/db.js";
 import { generateToken } from "../utils/jwt.js";
-import { authenticateToken } from "../middleware/auth.js";
+import { adminAuthenticateToken } from "../middleware/auth.js";
 const adminRouter = express.Router();
 
-adminRouter.get("/profile", authenticateToken, (req, res) => {
-  res.status(200).json({ message: "Access granted", user: req.user });
+adminRouter.get("/profile", adminAuthenticateToken, (req, res) => {
+  res.status(200).json({ message: "Access granted", admin: req.admin });
 });
 
 adminRouter.post("/signup", async (req, res) => {
-  const { first_name, last_name, email, password } = req.body;
+  const { email, password } = req.body;
 
-  //   Validate if the user data is complete
-  if (!first_name || !last_name || !email || !password) {
+  //   Validate if the admin data is complete
+  if (!email || !password) {
     return res.status(400).json({
       error: "All fields are required",
     });
@@ -24,31 +24,30 @@ adminRouter.post("/signup", async (req, res) => {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    // Try to insert new usert to the database
-    const query =
-      "INSERT INTO users (first_name, last_name, email, password, role) VALUES (?, ?, ?, ?, 'admin')";
-    const values = [first_name, last_name, email, hashedPassword];
+    // Try to insert new admin to the database
+    const query = "INSERT INTO admin ( email, password) VALUES (?, ?)";
+    const values = [email, hashedPassword];
 
     const [result] = await promisePool.execute(query, values);
 
-    console.log(`User created: ${result}`);
+    console.log(`Admin created: ${result}`);
 
-    // Search in the database the user and login after created the user
-    const query2 = "SELECT * FROM users WHERE email = ?";
-    const [user] = await promisePool.execute(query2, [email]);
+    // Search in the database the admin and login after created the admin
+    const query2 = "SELECT * FROM admin WHERE email = ?";
+    const [admin] = await promisePool.execute(query2, [email]);
 
-    if (!user.length) {
-      return res.status(404).json({ message: "User not found" });
+    if (!admin.length) {
+      return res.status(404).json({ message: "Admin not found" });
     }
 
     // Compare passwords
-    const passwordMatch = await bcrypt.compare(password, user[0].password);
+    const passwordMatch = await bcrypt.compare(password, admin[0].password);
 
     if (!passwordMatch) {
       return res.status(401).json({ message: "Invalid password" });
     }
     // Generate JWT token
-    const token = generateToken(user[0].user_id);
+    const token = generateToken(admin[0].id);
 
     res
       .cookie("authToken", token, {
@@ -60,21 +59,19 @@ adminRouter.post("/signup", async (req, res) => {
       .status(200)
       .json({
         message: "Account created successful",
-        first_name: user[0].first_name,
-        last_name: user[0].last_name,
-        email: user[0].email,
-        profile_image_url: user[0].profile_image_url,
+        email: admin[0].email,
+        profile_image_url: admin[0].profile_image_url,
       });
   } catch (error) {
-    console.error("Error trying to create the user:", error);
-    res.status(500).json({ error: "Error creating the user" });
+    console.error("Error trying to create the admin:", error);
+    res.status(500).json({ error: "Error creating the admin" });
   }
 });
 
 adminRouter.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
-  //   Validate if the user data is complete
+  //   Validate if the admin data is complete
   if (!email || !password) {
     return res.status(400).json({
       error: "All fields are required",
@@ -82,26 +79,26 @@ adminRouter.post("/login", async (req, res) => {
   }
 
   try {
-    // Search in the database the user
-    const query = "SELECT * FROM users WHERE email = ? AND role = 'admin'";
-    const [user] = await promisePool.execute(query, [email]);
+    // Search in the database the admin
+    const query = "SELECT * FROM admin WHERE email = ? ";
+    const [admin] = await promisePool.execute(query, [email]);
 
-    if (!user.length) {
-      return res.status(404).json({ message: "User not found" });
+    if (!admin.length) {
+      return res.status(404).json({ message: "Admin not found" });
     }
 
     // Compare passwords
-    const passwordMatch = await bcrypt.compare(password, user[0].password);
+    const passwordMatch = await bcrypt.compare(password, admin[0].password);
 
     if (!passwordMatch) {
       return res.status(401).json({ message: "Invalid password" });
     }
 
     // Generate JWT token
-    const token = generateToken(user[0].id);
+    const token = generateToken(admin[0].id);
 
     res
-      .cookie("authToken", token, {
+      .cookie("authAdminToken", token, {
         httpOnly: true,
         secure: false,
         sameSite: true,
@@ -110,10 +107,8 @@ adminRouter.post("/login", async (req, res) => {
       .status(200)
       .json({
         message: "Login successful",
-        first_name: user[0].first_name,
-        last_name: user[0].last_name,
-        email: user[0].email,
-        profile_image_url: user[0].profile_image_url,
+        email: admin[0].email,
+        profile_image_url: admin[0].profile_image_url,
       });
   } catch (error) {
     console.error("Error trying to login:", error);
