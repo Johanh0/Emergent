@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import AdminLogin from "../../components/auth/AdminLogin";
 
-const AdminProfile = () => {
+const adminAuth = () => {
   const navigate = useNavigate();
-
+  // Check if the admin is already logged in
   useEffect(() => {
     const isAdminLoggedIn = async () => {
       try {
@@ -17,16 +18,20 @@ const AdminProfile = () => {
         if (!response.ok) {
           throw new Error("Admin is not logged in");
         }
+
+        navigate("/admin/users");
       } catch (error) {
-        navigate("/admin_auth");
         throw new Error(error);
       }
     };
 
     isAdminLoggedIn();
   }, []);
-
-  return <div>AdminProfile</div>;
+  return (
+    <section className="flex justify-center items-center w-full h-screen">
+      <AdminLogin />
+    </section>
+  );
 };
 
-export default AdminProfile;
+export default adminAuth;

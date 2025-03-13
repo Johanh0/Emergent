@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import AdminLogin from "../components/auth/AdminLogin";
+import { useNavigate, Outlet } from "react-router-dom";
+import AdminNavbar from "../../components/admin/AdminNavbar";
 
-const adminAuth = () => {
+const AdminDashboard = () => {
   const navigate = useNavigate();
-  // Check if the admin is already logged in
+
   useEffect(() => {
     const isAdminLoggedIn = async () => {
       try {
@@ -18,9 +18,8 @@ const adminAuth = () => {
         if (!response.ok) {
           throw new Error("Admin is not logged in");
         }
-
-        navigate("/admin_profile");
       } catch (error) {
+        navigate("/admin_auth");
         throw new Error(error);
       }
     };
@@ -28,10 +27,18 @@ const adminAuth = () => {
     isAdminLoggedIn();
   }, []);
   return (
-    <section className="flex justify-center items-center w-full h-screen">
-      <AdminLogin />
-    </section>
+    <>
+      <main className="flex flex-col lg:flex-row gap-15 p-5 w-screen h-screen">
+        <section className="w-fill  lg:w-1/6">
+          <AdminNavbar />
+        </section>
+
+        <section className="w-full">
+          <Outlet />
+        </section>
+      </main>
+    </>
   );
 };
 
-export default adminAuth;
+export default AdminDashboard;

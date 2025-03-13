@@ -118,13 +118,92 @@ adminRouter.post("/login", async (req, res) => {
 
 adminRouter.post("/logout", (req, res) => {
   res
-    .clearCookie("authToken", {
+    .clearCookie("authAdminToken", {
       httpOnly: true,
       secure: false,
       sameSite: "strict",
     })
     .status(200)
     .json({ message: "Logout successful" });
+});
+
+adminRouter.get("/search_user", adminAuthenticateToken, async (req, res) => {
+  const { searchTerm, searchType } = req.query;
+
+  //   Validate the required data for search
+  if (!searchTerm || !searchType) {
+    return res.status(400).json({
+      error: "All fields are required",
+    });
+  }
+
+  try {
+    let query;
+
+    // Search in the database the user
+    switch (searchType) {
+      case "name":
+        query = "SELECT * FROM users WHERE firstName = ? ";
+
+        break;
+      case "email":
+        query = "SELECT * FROM users WHERE email = ? ";
+
+        break;
+    }
+
+    const [users] = await promisePool.execute(query, [searchTerm]);
+
+    if (!users.length) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(users);
+  } catch (error) {
+    console.error("Error trying to search user:", error);
+    res.status(500).json({ error: "Error searching the user" });
+  }
+});
+
+adminRouter.get("/all_users", adminAuthenticateToken, async (req, res) => {
+  try {
+    const query = "SELECT * FROM users";
+    const [users] = await promisePool.execute(query);
+
+    if (!users.length) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(users);
+  } catch (error) {
+    console.error("Error trying to search users:", error);
+    res.status(500).json({ error: "Error searching users" });
+  }
+});
+
+adminRouter.post("/delete_user", adminAuthenticateToken, async (req, res) => {
+  const { id, email } = req.body;
+
+  //   Validate if the admin data is complete
+  if (!id || !email) {
+    return res.status(400).json({
+      error: "All fields are required",
+    });
+  }
+
+  try {
+    // Search in the database the admin
+    const query = "DELETE FROM users WHERE id = ? AND email = ?";
+    const [result] = await promisePool.execute(query, [id, email]);
+
+    const query2 = "SELECT * FROM users";
+    const [users] = await promisePool.execute(query2);
+
+    res.status(200).json(users);
+  } catch (error) {
+    console.error("Error trying to login:", error);
+    res.status(500).json({ error: "Error login" });
+  }
 });
 
 export { adminRouter };

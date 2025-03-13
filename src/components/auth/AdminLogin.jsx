@@ -29,7 +29,7 @@ const AdminLogin = () => {
       }
 
       const data = await response.json();
-      navigate("/admin_profile");
+      navigate("/admin/users");
     } catch (error) {
       throw new Error(error);
     }
