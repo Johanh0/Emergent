@@ -11,6 +11,7 @@
     "server": "nodemon --watch server --ext js server/server.js"
   },
   "dependencies": {
+    "@heroicons/react": "^1.0.6",
     "@tailwindcss/vite": "^4.0.12",
     "axios": "^1.8.2",
     "bcrypt": "^5.1.1",
@@ -21,6 +22,7 @@
     "geoip-lite": "^1.4.10",
     "ip": "^2.0.1",
     "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.479.0",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.13.0",
     "react": "^19.0.0",
