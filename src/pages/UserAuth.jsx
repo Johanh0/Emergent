@@ -4,6 +4,7 @@ import { UserContext } from "../context/UserProvider";
 import UserLogin from "../components/auth/UserLogin";
 import UserSignup from "../components/auth/UserSignup";
 import { FaArrowLeft } from "react-icons/fa";
+import tornadoImg from "../assets/tornado.jpg";
 
 const UserAuth = () => {
   const navigate = useNavigate();
@@ -49,7 +50,13 @@ const UserAuth = () => {
           <UserSignup authView={() => setIsLoginView(!isLoginView)} />
         )}
       </div>
-      <div className="hidden lg:block bg-blue-100 w-full h-full rounded-2xl"></div>
+      <div className="hidden lg:block w-full h-full ">
+        <img
+          src={tornadoImg}
+          alt="Storm with ligthing in the clouds imagen"
+          className="w-full h-full object-cover rounded-2xl"
+        />
+      </div>
     </section>
   );
 };
