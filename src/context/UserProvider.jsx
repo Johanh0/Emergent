@@ -20,6 +20,7 @@ const UserProvider = ({ children }) => {
         }
 
         const userData = await response.json();
+
         setUser(userData);
       } catch (error) {
         setUser(null);

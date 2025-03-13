@@ -139,20 +139,22 @@ adminRouter.get("/search_user", adminAuthenticateToken, async (req, res) => {
 
   try {
     let query;
+    let queryParams = [];
 
     // Search in the database the user
     switch (searchType) {
       case "name":
-        query = "SELECT * FROM users WHERE firstName = ? ";
-
+        query =
+          "SELECT * FROM users WHERE firstName LIKE CONCAT('%', ?, '%') OR lastName LIKE CONCAT('%', ?, '%') OR CONCAT(firstName, ' ', lastName) LIKE CONCAT('%', ?, '%')";
+        queryParams = [searchTerm, searchTerm, searchTerm];
         break;
       case "email":
         query = "SELECT * FROM users WHERE email = ? ";
-
+        queryParams = [searchTerm];
         break;
     }
 
-    const [users] = await promisePool.execute(query, [searchTerm]);
+    const [users] = await promisePool.execute(query, queryParams);
 
     if (!users.length) {
       return res.status(404).json({ message: "User not found" });

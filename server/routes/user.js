@@ -5,11 +5,30 @@ import { generateToken } from "../utils/jwt.js";
 import { userAuthenticateToken } from "../middleware/auth.js";
 const userRouter = express.Router();
 
-userRouter.get("/profile", userAuthenticateToken, (req, res) => {
-  res.status(200).json({
-    message: "Access granted",
-    userAuth: req.user,
-  });
+userRouter.get("/profile", userAuthenticateToken, async (req, res) => {
+  const { id } = req.user;
+
+  try {
+    const query = "SELECT * FROM users WHERE id = ?";
+    const [user] = await promisePool.execute(query, [id]);
+
+    if (!user.length) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    console.log(user);
+
+    res.status(200).json({
+      message: "Login successful",
+      firstName: user[0].firstName,
+      lastName: user[0].lastName,
+      email: user[0].email,
+      profile_image_url: user[0].profile_image_url,
+    });
+  } catch (error) {
+    console.error("Error trying to login:", error);
+    res.status(500).json({ error: "Error login" });
+  }
 });
 
 userRouter.post("/signup", async (req, res) => {

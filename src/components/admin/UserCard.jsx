@@ -2,7 +2,7 @@ const UserCard = ({ user, onDeleteClick }) => {
   const { firstName, lastName, email } = user;
 
   return (
-    <div className="w-full flex-1 min-w-[500px] max-w-md bg-white shadow-md rounded-lg overflow-hidden border border-gray-200">
+    <div className="w-full flex-1 min-w-[500px] max-w-[500px] bg-white shadow-md rounded-lg overflow-hidden border border-gray-200">
       <div className="p-4">
         <div className="flex justify-between items-center">
           <div>

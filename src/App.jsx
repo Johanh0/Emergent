@@ -4,6 +4,7 @@ import AdminAuth from "./pages/admin/AdminAuth";
 import UserAuth from "./pages/userAuth";
 import Profile from "./pages/Profile";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminMain from "./pages/admin/AdminMain";
 import AdminUsers from "./pages/admin/AdminUsers";
 import AdminProfile from "./pages/admin/AdminProfile";
 
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="admin_auth" element={<AdminAuth />} />
 
           <Route path="admin" element={<AdminDashboard />}>
+            <Route path="dashboard" element={<AdminMain />} />
             <Route path="users" element={<AdminUsers />} />
             <Route path="profile" element={<AdminProfile />} />
           </Route>

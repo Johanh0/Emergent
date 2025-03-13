@@ -91,7 +91,7 @@ const AdminUsers = () => {
     <section className="flex flex-col gap-10 w-full h-full ">
       <UserSearch onSearch={onSearch} />
 
-      <div className="flex justify-around flex-wrap gap-5">
+      <div className="flex justify-start flex-wrap gap-5">
         {searchResult?.map((user) => (
           <UserCard
             onDeleteClick={() => onDeleteClick(user)}
