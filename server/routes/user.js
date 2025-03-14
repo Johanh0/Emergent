@@ -20,9 +20,11 @@ userRouter.get("/profile", userAuthenticateToken, async (req, res) => {
 
     res.status(200).json({
       message: "Login successful",
+      id: user[0].id,
       firstName: user[0].firstName,
       lastName: user[0].lastName,
       email: user[0].email,
+      role: user[0].role,
       profile_image_url: user[0].profile_image_url,
     });
   } catch (error) {
@@ -152,6 +154,44 @@ userRouter.post("/logout", (req, res) => {
     })
     .status(200)
     .json({ message: "Logout successful" });
+});
+
+userRouter.post("/update_user", userAuthenticateToken, async (req, res) => {
+  const { firstName, lastName, email, role, id } = req.body;
+
+  //   Validate if the user data is complete
+  if (!firstName || !lastName || !email || !role || !id) {
+    return res.status(400).json({
+      error: "All fields are required",
+    });
+  }
+
+  try {
+    const query =
+      "UPDATE users SET firstName = ?, lastName = ?, email = ?, role = ? WHERE id = ?";
+    const [user] = await promisePool.execute(query, [
+      firstName,
+      lastName,
+      email,
+      role,
+      id,
+    ]);
+
+    if (user.affectedRows === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Fetch updated user data
+    const [updatedUser] = await promisePool.execute(
+      "SELECT firstName, lastName, email, role, profile_image_url FROM users WHERE id = ?",
+      [id]
+    );
+
+    res.status(200).json(updatedUser[0]);
+  } catch (error) {
+    console.error("Error trying to update the user:", error);
+    res.status(500).json({ error: "Error uodating the user" });
+  }
 });
 
 userRouter.post("/missing-family", userAuthenticateToken, async (req, res) => {
