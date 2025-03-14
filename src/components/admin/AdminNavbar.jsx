@@ -31,23 +31,23 @@ const AdminNavbar = () => {
       </section>
 
       <section>
-        <ul className="flex flex-col gap-5">
+        <ul className="flex flex-row lg:flex-col gap-10 lg:gap-5">
           <li>
             <Link to="/admin/dashboard" className="flex gap-5 items-center">
-              <TbLayoutDashboardFilled className="text-md" />
-              <p className="text-mf font-bold">Dashboard</p>
+              <TbLayoutDashboardFilled className="text-3xl lg:text-md" />
+              <p className="hidden lg:block text-md font-bold">Dashboard</p>
             </Link>
           </li>
           <li>
             <Link to="/admin/users" className="flex gap-5 items-center">
-              <FaUserAlt className="text-md" />
-              <p className="text-mf font-bold">Users</p>
+              <FaUserAlt className="text-3xl lg:text-md" />
+              <p className="hidden lg:block text-md font-bold">Users</p>
             </Link>
           </li>
           <li>
-            <Link to="/admin/profile" className="flex gap-5 items-center">
-              <MdMarkEmailUnread className="text-md" />
-              <p className="text-mf font-bold">Messages</p>
+            <Link to="/admin/messages" className="flex gap-5 items-center">
+              <MdMarkEmailUnread className="text-3xl lg:text-md" />
+              <p className="hidden lg:block text-md font-bold">Messages</p>
             </Link>
           </li>
         </ul>
@@ -57,8 +57,8 @@ const AdminNavbar = () => {
         onClick={handleLogout}
         className="flex gap-3 items-center cursor-pointer"
       >
-        <HiOutlineLogout className=" text-2xl" />
-        <p className="text-lg font-bold">Logout</p>
+        <HiOutlineLogout className=" text-3xl lg:text-2xl" />
+        <p className="hidden lg:block text-lg font-bold">Logout</p>
       </section>
     </aside>
   );

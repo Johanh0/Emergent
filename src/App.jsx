@@ -6,7 +6,7 @@ import Profile from "./pages/Profile";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminMain from "./pages/admin/AdminMain";
 import AdminUsers from "./pages/admin/AdminUsers";
-import AdminProfile from "./pages/admin/AdminProfile";
+import AdminMessages from "./pages/admin/AdminMessages";
 
 const App = () => {
   return (
@@ -21,7 +21,7 @@ const App = () => {
           <Route path="admin" element={<AdminDashboard />}>
             <Route path="dashboard" element={<AdminMain />} />
             <Route path="users" element={<AdminUsers />} />
-            <Route path="profile" element={<AdminProfile />} />
+            <Route path="messages" element={<AdminMessages />} />
           </Route>
         </Routes>
       </Router>

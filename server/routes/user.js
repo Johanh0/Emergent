@@ -254,4 +254,29 @@ userRouter.delete(
   }
 );
 
+userRouter.post("/send_message", async (req, res) => {
+  const { name, email, subject, message } = req.body;
+
+  //   Validate if the user send all the data
+  if (!name || !email || !subject || !message) {
+    return res.status(400).json({
+      error: "All fields are required",
+    });
+  }
+
+  try {
+    const query =
+      "INSERT INTO messages (name, email, subject, message) VALUES (?, ?, ?, ?)";
+
+    const values = [name, email, subject, message];
+
+    const [result] = await promisePool.execute(query, values);
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Error trying to send messagee:", error);
+    res.status(500).json({ error: "Error sending message" });
+  }
+});
+
 export { userRouter };

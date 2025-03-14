@@ -1,9 +1,26 @@
 import express from "express";
 import bcrypt from "bcrypt";
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+import path from "node:path";
+import process from "node:process";
 import { promisePool } from "../database/db.js";
 import { generateToken } from "../utils/jwt.js";
 import { adminAuthenticateToken } from "../middleware/auth.js";
+
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+dotenv.config({ path: path.resolve(__dirname, "../../.env") });
+
 const adminRouter = express.Router();
+
+// Configuration to send an email
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
 
 adminRouter.get("/profile", adminAuthenticateToken, (req, res) => {
   res.status(200).json({ message: "Access granted", admin: req.admin });
@@ -205,6 +222,61 @@ adminRouter.post("/delete_user", adminAuthenticateToken, async (req, res) => {
   } catch (error) {
     console.error("Error trying to login:", error);
     res.status(500).json({ error: "Error login" });
+  }
+});
+
+adminRouter.get("/get_messages", adminAuthenticateToken, async (req, res) => {
+  try {
+    const query = "SELECT * FROM messages";
+    const [messages] = await promisePool.execute(query);
+    res.status(200).json(messages);
+  } catch (error) {
+    console.error("Error fetching messages:", error);
+    res.status(500).json({ error: "Error retrieving messages" });
+  }
+});
+
+adminRouter.delete(
+  "/delete_message",
+  adminAuthenticateToken,
+  async (req, res) => {
+    const { id } = req.body;
+
+    try {
+      const query = "DELETE FROM messages WHERE id = ?";
+      const [result] = await promisePool.execute(query, [id]);
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: "Message not found" });
+      }
+
+      res.status(200).json({ message: "Message deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting message:", error);
+      res.status(500).json({ error: "Error deleting message" });
+    }
+  }
+);
+
+adminRouter.post("/send_email", adminAuthenticateToken, async (req, res) => {
+  const { to, subject, message } = req.body;
+
+  if (!to || !subject || !message) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+
+  try {
+    await transporter.sendMail({
+      from: "johanherrera20000@gmail.com",
+      to,
+      subject,
+      text: message,
+    });
+
+    res.status(200).json({ success: "Email sent successfully" });
+  } catch (error) {
+    console.error("Error sending email:", error);
+    res.status(500).json({ error: "Failed to send email" });
   }
 });
 

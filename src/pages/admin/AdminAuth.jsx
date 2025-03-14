@@ -19,7 +19,7 @@ const adminAuth = () => {
           throw new Error("Admin is not logged in");
         }
 
-        navigate("/admin/users");
+        navigate("/admin/dashboard");
       } catch (error) {
         throw new Error(error);
       }
