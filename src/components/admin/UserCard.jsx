@@ -10,7 +10,6 @@ const UserCard = ({ user, onDeleteClick }) => {
               {firstName} {lastName}
             </h3>
             <div className="mt-1 flex items-center text-sm text-gray-600">
-              {/* Email icon */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"

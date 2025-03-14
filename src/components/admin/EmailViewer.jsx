@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 
 const EmailViewer = () => {
-  // Sample email data
   const [rows, setRows] = useState([]);
 
-  // Column definitions
   const columns = [
     { field: "name", headerName: "Name", width: 180 },
     { field: "email", headerName: "Email", width: 220 },
@@ -22,24 +20,20 @@ const EmailViewer = () => {
     },
   ];
 
-  // State for selected email and reply mode
   const [selectedEmail, setSelectedEmail] = useState(null);
   const [isReplying, setIsReplying] = useState(false);
   const [replyText, setReplyText] = useState("");
 
-  // Handle email selection
   const handleRowClick = (params) => {
     setSelectedEmail(params.row);
     setIsReplying(false);
   };
 
-  // Handle reply button click
   const handleReplyClick = () => {
     setIsReplying(true);
     setReplyText("");
   };
 
-  // Handle delete button click
   const handleDeleteClick = async () => {
     const id = selectedEmail.id;
     try {
@@ -74,7 +68,6 @@ const EmailViewer = () => {
     setIsReplying(false);
   };
 
-  // Handle sending the reply
   const handleSendReply = async () => {
     const to = selectedEmail.email;
     const subject = "Disaster Capstone Reply";
@@ -124,7 +117,6 @@ const EmailViewer = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-3 bg-white rounded-lg shadow overflow-hidden">
-          {/* DataGrid with Tailwind styles */}
           <div className="h-96 w-full">
             <DataGrid
               rows={rows}
@@ -149,7 +141,6 @@ const EmailViewer = () => {
           </div>
         </div>
 
-        {/* Selected email view panel */}
         {selectedEmail && !isReplying && (
           <div className="lg:col-span-3 bg-white rounded-lg shadow p-6">
             <div className="flex justify-between items-start mb-4">
@@ -184,7 +175,6 @@ const EmailViewer = () => {
           </div>
         )}
 
-        {/* Reply form */}
         {selectedEmail && isReplying && (
           <div className="lg:col-span-3 bg-white rounded-lg shadow p-6">
             <div className="mb-4">

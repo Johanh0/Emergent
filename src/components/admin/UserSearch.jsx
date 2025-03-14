@@ -26,7 +26,6 @@ const UserSearch = ({ onSearch }) => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
-              {/* Search icon */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
