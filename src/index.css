@@ -1,13 +1,14 @@
 @import "tailwindcss";
-@tailwind base;
+ /* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; 
 
 body {
   background-color: #1c1f33; /* Ensures dark background */
-  color: #eaeaea;
+  /* color: #eaeaea; */
 
-@theme {
+ 
+/* @theme {
   --color-bunker-50: #f1f5fe;
   --color-bunker-100: #e2e9fc;
   --color-bunker-200: #bed1f9;
@@ -19,4 +20,4 @@ body {
   --color-bunker-800: #0e327e;
   --color-bunker-900: #112c69;
   --color-bunker-950: #030712;
-}
+} */ 
