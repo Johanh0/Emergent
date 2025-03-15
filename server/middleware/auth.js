@@ -10,7 +10,7 @@ dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 // Secret Key
 const SECRET_KEY = process.env.JWT_SECRET_KEY;
 
-export const authenticateToken = (req, res, next) => {
+export const userAuthenticateToken = (req, res, next) => {
   // Read the token from cookies
   const token = req.cookies.authToken;
 
@@ -21,7 +21,24 @@ export const authenticateToken = (req, res, next) => {
   try {
     const decode = jwt.verify(token, SECRET_KEY);
     req.user = decode;
-    console.log(decode);
+    next();
+  } catch (error) {
+    console.error(error);
+    res.status(403).json({ message: "Invalid or expired token" });
+  }
+};
+
+export const adminAuthenticateToken = (req, res, next) => {
+  // Read the token from cookies
+  const token = req.cookies.authAdminToken;
+
+  if (!token) {
+    return res.status(401).json({ message: "Token required" });
+  }
+
+  try {
+    const decode = jwt.verify(token, SECRET_KEY);
+    req.admin = decode;
     next();
   } catch (error) {
     console.error(error);

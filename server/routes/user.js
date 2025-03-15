@@ -2,18 +2,42 @@ import express from "express";
 import bcrypt from "bcrypt";
 import { promisePool } from "../database/db.js";
 import { generateToken } from "../utils/jwt.js";
-import { authenticateToken } from "../middleware/auth.js";
+import { userAuthenticateToken } from "../middleware/auth.js";
 const userRouter = express.Router();
 
-userRouter.get("/profile", authenticateToken, (req, res) => {
-  res.status(200).json({ message: "Access granted", user: req.user });
+userRouter.get("/profile", userAuthenticateToken, async (req, res) => {
+  const { id } = req.user;
+
+  try {
+    const query = "SELECT * FROM users WHERE id = ?";
+    const [user] = await promisePool.execute(query, [id]);
+
+    if (!user.length) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    console.log(user);
+
+    res.status(200).json({
+      message: "Login successful",
+      id: user[0].id,
+      firstName: user[0].firstName,
+      lastName: user[0].lastName,
+      email: user[0].email,
+      role: user[0].role,
+      profile_image_url: user[0].profile_image_url,
+    });
+  } catch (error) {
+    console.error("Error trying to login:", error);
+    res.status(500).json({ error: "Error login" });
+  }
 });
 
 userRouter.post("/signup", async (req, res) => {
-  const { first_name, last_name, email, password } = req.body;
+  const { firstName, lastName, email, password } = req.body;
 
   //   Validate if the user data is complete
-  if (!first_name || !last_name || !email || !password) {
+  if (!firstName || !lastName || !email || !password) {
     return res.status(400).json({
       error: "All fields are required",
     });
@@ -26,8 +50,8 @@ userRouter.post("/signup", async (req, res) => {
 
     // Try to insert new usert to the database
     const query =
-      "INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)";
-    const values = [first_name, last_name, email, hashedPassword];
+      "INSERT INTO users (firstName, lastName, email, password) VALUES (?, ?, ?, ?)";
+    const values = [firstName, lastName, email, hashedPassword];
 
     const [result] = await promisePool.execute(query, values);
 
@@ -48,7 +72,7 @@ userRouter.post("/signup", async (req, res) => {
       return res.status(401).json({ message: "Invalid password" });
     }
     // Generate JWT token
-    const token = generateToken(user[0].user_id);
+    const token = generateToken(user[0].id);
 
     res
       .cookie("authToken", token, {
@@ -60,8 +84,8 @@ userRouter.post("/signup", async (req, res) => {
       .status(200)
       .json({
         message: "Account created successful",
-        first_name: user[0].first_name,
-        last_name: user[0].last_name,
+        firstName: user[0].firstName,
+        lastName: user[0].lastName,
         email: user[0].email,
         profile_image_url: user[0].profile_image_url,
       });
@@ -132,7 +156,45 @@ userRouter.post("/logout", (req, res) => {
     .json({ message: "Logout successful" });
 });
 
-userRouter.post("/missing-family", authenticateToken, async (req, res) => {
+userRouter.post("/update_user", userAuthenticateToken, async (req, res) => {
+  const { firstName, lastName, email, role, id } = req.body;
+
+  //   Validate if the user data is complete
+  if (!firstName || !lastName || !email || !role || !id) {
+    return res.status(400).json({
+      error: "All fields are required",
+    });
+  }
+
+  try {
+    const query =
+      "UPDATE users SET firstName = ?, lastName = ?, email = ?, role = ? WHERE id = ?";
+    const [user] = await promisePool.execute(query, [
+      firstName,
+      lastName,
+      email,
+      role,
+      id,
+    ]);
+
+    if (user.affectedRows === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Fetch updated user data
+    const [updatedUser] = await promisePool.execute(
+      "SELECT firstName, lastName, email, role, profile_image_url FROM users WHERE id = ?",
+      [id]
+    );
+
+    res.status(200).json(updatedUser[0]);
+  } catch (error) {
+    console.error("Error trying to update the user:", error);
+    res.status(500).json({ error: "Error uodating the user" });
+  }
+});
+
+userRouter.post("/missing-family", userAuthenticateToken, async (req, res) => {
   const user_id = req.user.id;
   const { name, relationship, last_seen, location, description } = req.body;
 
@@ -173,7 +235,7 @@ userRouter.post("/missing-family", authenticateToken, async (req, res) => {
   }
 });
 
-userRouter.get("/missing-family", authenticateToken, async (req, res) => {
+userRouter.get("/missing-family", userAuthenticateToken, async (req, res) => {
   const user_id = req.user.id;
 
   //   Validate if the data is complete
@@ -196,7 +258,7 @@ userRouter.get("/missing-family", authenticateToken, async (req, res) => {
 
 userRouter.delete(
   "/missing-family/:id",
-  authenticateToken,
+  userAuthenticateToken,
   async (req, res) => {
     const user_id = req.user.id;
     const missing_id = req.params.id;
@@ -231,5 +293,30 @@ userRouter.delete(
     }
   }
 );
+
+userRouter.post("/send_message", async (req, res) => {
+  const { name, email, subject, message } = req.body;
+
+  //   Validate if the user send all the data
+  if (!name || !email || !subject || !message) {
+    return res.status(400).json({
+      error: "All fields are required",
+    });
+  }
+
+  try {
+    const query =
+      "INSERT INTO messages (name, email, subject, message) VALUES (?, ?, ?, ?)";
+
+    const values = [name, email, subject, message];
+
+    const [result] = await promisePool.execute(query, values);
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Error trying to send messagee:", error);
+    res.status(500).json({ error: "Error sending message" });
+  }
+});
 
 export { userRouter };
