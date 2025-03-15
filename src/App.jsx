@@ -11,6 +11,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminMain from "./pages/admin/AdminMain";
 import AdminUsers from "./pages/admin/AdminUsers";
 import AdminMessages from "./pages/admin/AdminMessages";
+import FindHelp from "./pages/FindHelp";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/findhelp" element={<FindHelp />} />
           <Route path="/resources" element={<Resource />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/auth" element={<UserAuth />} />
