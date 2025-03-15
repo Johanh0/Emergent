@@ -22,6 +22,7 @@ const EmailViewer = () => {
 
   const [selectedEmail, setSelectedEmail] = useState(null);
   const [isReplying, setIsReplying] = useState(false);
+  const [replySubject, setReplySubject] = useState("");
   const [replyText, setReplyText] = useState("");
 
   const handleRowClick = (params) => {
@@ -70,7 +71,7 @@ const EmailViewer = () => {
 
   const handleSendReply = async () => {
     const to = selectedEmail.email;
-    const subject = "Disaster Capstone Reply";
+    const subject = replySubject;
     const message = replyText;
     try {
       const response = await fetch(
@@ -185,7 +186,14 @@ const EmailViewer = () => {
                 To: {selectedEmail.name} ({selectedEmail.email})
               </p>
             </div>
-            <div className="mb-4">
+            <div className="mb-4 flex flex-col gap-5">
+              <input
+                type="text"
+                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 "
+                placeholder="Subject"
+                value={replySubject}
+                onChange={(e) => setReplySubject(e.target.value)}
+              />
               <textarea
                 className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-64"
                 placeholder="Type your reply here..."

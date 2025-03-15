@@ -1,11 +1,20 @@
+import { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import DonationPaymentModal from "../components/DonationPaymentModal";
 
 const Home = () => {
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
   return (
     <>
       <Header />
-      <main>Home</main>
+      <main>
+        <DonationPaymentModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
+      </main>
       <Footer />
     </>
   );
