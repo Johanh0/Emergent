@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+body {
+  background-color: #161128; /* Ensures dark background */
+  color: #eaeaea;
+}
+
 @theme {
   --color-bunker-50: #f1f5fe;
   --color-bunker-100: #e2e9fc;
