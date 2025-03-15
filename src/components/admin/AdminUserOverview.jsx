@@ -24,6 +24,12 @@ const columns = [
     valueGetter: (value, row) => `${row.firstName || ""} ${row.lastName || ""}`,
   },
   {
+    field: "total_donated",
+    headerName: "Donated",
+    width: 150,
+    editable: false,
+  },
+  {
     field: "email",
     headerName: "Email",
     width: 250,
@@ -33,20 +39,27 @@ const columns = [
 
 const AdminUserOverview = ({ users }) => {
   return (
-    <Box sx={{ height: "100%", width: "100%" }}>
-      <DataGrid
-        rows={users}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
+    <section className="flex flex-col gap-3">
+      <div>
+        <p className="bg-gray-100 w-fit px-3 py-1 rounded-md font-bold">
+          Total of users: <span className=" font-normal">{users?.length}</span>
+        </p>
+      </div>
+      <Box sx={{ height: "100%", width: "100%" }}>
+        <DataGrid
+          rows={users}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
             },
-          },
-        }}
-        pageSizeOptions={[5]}
-      />
-    </Box>
+          }}
+          pageSizeOptions={[5]}
+        />
+      </Box>
+    </section>
   );
 };
 

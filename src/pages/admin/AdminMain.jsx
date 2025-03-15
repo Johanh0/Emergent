@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import AdminDonationsView from "../../components/admin/AdminDonationsView";
 import AdminUserOverview from "../../components/admin/AdminUserOverview";
 const AdminMain = () => {
   const [users, setUsers] = useState([]);
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -23,18 +25,21 @@ const AdminMain = () => {
   }, []);
   return (
     <section className="flex h-full flex-col gap-10">
-      <div className="flex gap-10 w-full h-fit">
-        <div className="flex items-center flex-1 bg-gray-100 text-black p-5 rounded-lg">
-          <h1 className="font-bold text-3xl">Dashboard Administrator</h1>
+      <div className="w-full h-fit">
+        <AdminDonationsView />
+      </div>
+      {/* <div className="flex gap-10 w-full h-fit">
+        <div className="flex  justify-start items-center flex-1 bg-gray-100 text-black p-5 rounded-lg">
+          <h3 className="font-bold text-2xl">Admin Dashboard</h3>
         </div>
 
         <div className="flex flex-col justify-center gap-2 w-1/3 bg-bunker-100 p-5 text-center rounded-lg">
           <h2 className=" font-bold text-md">USERS</h2>
           <p className="text-5xl">{users?.length}</p>
         </div>
-      </div>
+      </div> */}
 
-      <div className="h-full ">
+      <div className=" ">
         <AdminUserOverview users={users} />
       </div>
     </section>
