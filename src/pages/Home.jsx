@@ -49,6 +49,10 @@ const Home = () => {
                   <button className="px-6 py-3 font-bold rounded-lg bg-white border-3  border-orange-600 text-orange-500 hover:text-white hover:bg-orange-600">
                     Become a Volunteer
                   </button>
+                  {/* Donate Button */}
+                  <button className="px-6 py-3 font-bold rounded-lg bg-red-600 text-white border-3 border-red-600 hover:bg-white hover:text-red-600 transition-all">
+                    Donate
+                  </button>
                 </div>
               </div>
               {/* Right Side - Slideshow */}

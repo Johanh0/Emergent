@@ -46,6 +46,9 @@ const Header = () => {
             <Link to="/contact" className="hover:text-indigo-600 transition">
               Contact
             </Link>
+            <Link to="/donate" className="hover:text-indigo-600 transition">
+              Donate
+            </Link>
           </nav>
 
           {/* Account & Mobile Menu */}
