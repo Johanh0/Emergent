@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 body {
-  background-color: #1c1f33; /* Ensures dark background */
+  background-color: #161128; /* Ensures dark background */
   color: #eaeaea;
 
 @theme {

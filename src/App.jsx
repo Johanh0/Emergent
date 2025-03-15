@@ -21,7 +21,7 @@ const App = () => {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/auth" element={<UserAuth />} />
           <Route path="/profile" element={<Profile />} />
-           <Route path="/volunteer" element={<Volunteer />} />
+          <Route path="/volunteer" element={<Volunteer />} />
           <Route path="admin_auth" element={<AdminAuth />} />
 
           <Route path="admin" element={<AdminDashboard />}>

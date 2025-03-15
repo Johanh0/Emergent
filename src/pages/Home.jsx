@@ -13,7 +13,7 @@ import Footer from "../components/Footer";
 import FeatureCard from "../components/FeatureCard";
 import Testimonial from "../components/Testimonial";
 import FireEffect from "../components/FireEffect";
-import VolunteerOpportunities from "../components/VolunteerCard.jsx";
+import Services from "../components/Services.jsx";
 
 import Lottie from "lottie-react";
 import helpAnimation from "../assets/help.json";
@@ -57,37 +57,14 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Emergency Services */}
-        <section className="py-20">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl text-center font-bold text-white-800 mb-12">
-              Emergency Services
-            </h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              <FeatureCard
-                icon={<FaHouseMedical />}
-                title="Medical Assistance"
-                description="Connect with medical professionals and emergency responders."
-              />
-              <FeatureCard
-                icon={<FaUtensils />}
-                title="Food & Supplies"
-                description="Access emergency food, water, and essential supplies."
-              />
-              <FeatureCard
-                icon={<FaHouse />}
-                title="Shelter"
-                description="Find temporary housing and shelter services."
-              />
-            </div>
-          </div>
-        </section>
+        {/* Application Services */}
+        <Services />
 
         {/* Make a Difference Section */}
         <section className="py-20 bg-neutral-100">
           <div className="container mx-auto px-6">
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              {/* 🎥 Lottie Animation replacing Hero Image Placeholder */}
+              {/*Lottie Animation */}
               <div className="w-full max-w-md">
                 <Lottie
                   animationData={helpAnimation}
@@ -97,7 +74,7 @@ const Home = () => {
                 />
               </div>
               <div>
-                <h2 className="text-3xl text-gray-900 mb-6">
+                <h2 className="text-3xl font-bold text-gray-900 mb-6">
                   Make a Difference
                 </h2>
                 <p className="text-gray-600 mb-8">
@@ -118,22 +95,44 @@ const Home = () => {
                     <span>Community support</span>
                   </div>
                 </div>
-                <button className="px-6 py-3 border-3 hover:bg-orange-600 hover:text-white hover:border-orange-600 border-orange-600 text-orange-600 font-bold rounded-md bg-white text-orange-600 transition-all">
+                <button className="px-6 py-3 my-10 border-3 hover:bg-orange-600 hover:text-white hover:border-orange-600 border-orange-600 text-orange-600 font-bold rounded-lg bg-white text-orange-600 transition-all">
                   Start Volunteering
                 </button>
               </div>
             </div>
           </div>
         </section>
-        {/* Volunteer Opportunities Section */}
-        <VolunteerOpportunities />
 
+        <section className="py-20 bg-white">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl text-center font-bold text-gray-900 mb-12">
+              Emergency Services
+            </h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              <FeatureCard
+                icon={<FaHouseMedical />}
+                title="Medical Assistance"
+                description="Locate hospitals to access care from medical professionals and emergency responders."
+              />
+              <FeatureCard
+                icon={<FaUtensils />}
+                title="Food & Supplies"
+                description="Access emergency food, water, and essential supplies."
+              />
+              <FeatureCard
+                icon={<FaHouse />}
+                title="Shelter"
+                description="Find temporary housing and shelter services."
+              />
+            </div>
+          </div>
+        </section>
         {/* Ready to Make an Impact CTA */}
         <motion.section
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5 }}
-          className="py-20 text-center bg-[linear-gradient(to_right,#111827,#E11D48,#F97316,#111827)] text-white"
+          className="py-20 text-center bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] text-white"
         >
           <h3 className="text-4xl font-extrabold">Ready to Make an Impact?</h3>
           <p className="mt-4 text-lg max-w-2xl mx-auto text-gray-300">
@@ -154,17 +153,17 @@ const Home = () => {
           <div className="container mx-auto px-6">
             <div className="grid pt-20 md:grid-cols-3 gap-8">
               <Testimonial
-                avatar="https://api.dicebear.com/7.x/notionists/svg?scale=200&seed=123"
+                avatar="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg"
                 text="The platform helped me find immediate assistance during a crisis. Forever grateful for the volunteers."
                 name="Sarah M."
               />
               <Testimonial
-                avatar="https://api.dicebear.com/7.x/notionists/svg?scale=200&seed=456"
+                avatar="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg"
                 text="Volunteering here has been incredibly rewarding. I've met amazing people and made a real difference."
                 name="John D."
               />
               <Testimonial
-                avatar="https://api.dicebear.com/7.x/notionists/svg?scale=200&seed=789"
+                avatar="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-6.jpg"
                 text="The resources and training provided helped me become a better emergency responder."
                 name="Maria R. "
               />

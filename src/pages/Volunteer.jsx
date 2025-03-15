@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -6,40 +7,31 @@ const Volunteer = () => {
   const opportunities = [
     {
       id: 1,
-      title: "Elderly Care Assistant",
+      title: "Shelter Volunteer",
       description:
-        "Help seniors with daily activities and provide companionship.",
-      postedBy: "Sarah",
+        "Provide support to individuals and families in temporary housing in need.",
       location: "Downtown Area",
       timeAgo: "2h ago",
       status: "Available",
       statusColor: "bg-green-100 text-green-600",
-      avatar:
-        "https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg",
     },
     {
       id: 2,
       title: "Food Bank Helper",
       description: "Sort and distribute food packages to families in need.",
-      postedBy: "Michael",
       location: "East Side",
       timeAgo: "5h ago",
       status: "Urgent",
-      statusColor: "bg-yellow-100 text-yellow-600",
-      avatar:
-        "https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg",
+      statusColor: "bg-red-100 text-red-600",
     },
     {
       id: 3,
       title: "Environmental Cleanup",
       description: "Join our weekend cleanup drive at local parks and beaches.",
-      postedBy: "Emma",
       location: "Coastal Area",
       timeAgo: "1h ago",
       status: "New",
-      statusColor: "bg-blue-100 text-blue-600",
-      avatar:
-        "https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-6.jpg",
+      statusColor: "bg-indigo-100 text-indigo-600",
     },
   ];
 
@@ -48,7 +40,7 @@ const Volunteer = () => {
       <Header />
       <main className="pt-16 -mb-20 bg-gray-50 min-h-screen">
         {/* Page Title */}
-        <section className="py-25 text-center bg-gray-900 text-white">
+        <section className="py-25 text-center bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] text-white">
           <h1 className="text-5xl font-bold">Volunteer & Make a Difference</h1>
           <p className="mt-4 text-lg max-w-3xl mx-auto">
             Join our network of volunteers and contribute to causes that matter.
@@ -64,11 +56,13 @@ const Volunteer = () => {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {opportunities.map((opportunity) => (
-                <div
+                <motion.div
                   key={opportunity.id}
-                  className="bg-white  text-gray-900 rounded-xl shadow-lg overflow-hidden"
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  className="bg-white text-gray-900 rounded-xl shadow-lg overflow-hidden flex flex-col h-full border border-gray-200"
                 >
-                  <div className="p-6">
+                  <div className="p-6 flex-grow">
                     <div className="flex items-center justify-between mb-4">
                       <span
                         className={`px-3 py-1 ${opportunity.statusColor} rounded-full text-sm`}
@@ -86,35 +80,26 @@ const Volunteer = () => {
                     <p className="text-gray-600 mb-4">
                       {opportunity.description}
                     </p>
-                    <div className="flex items-center space-x-4">
-                      <img
-                        src={opportunity.avatar}
-                        className="w-10 h-10 rounded-full"
-                        alt={opportunity.postedBy}
-                      />
-                      <div>
-                        <p className="font-medium text-gray-900">
-                          Posted by {opportunity.postedBy}
-                        </p>
-                        <p className="text-sm text-gray-500">
-                          {opportunity.location}
-                        </p>
-                      </div>
+                    <div className="mt-auto">
+                      <p className="text-sm text-gray-500">
+                        {opportunity.location}
+                      </p>
                     </div>
                   </div>
-                  <div className="px-6 py-4 bg-gray-50 border-t">
-                    <button className="w-full py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
+                  {/* Apply Button - Aligned at Bottom */}
+                  <div className="px-6 py-4 bg-gray-50 mt-auto">
+                    <button className="w-full py-2 bg-red-500 text-white rounded-lg hover:bg-red-100 hover:text-red-600 transition">
                       Apply Now
                     </button>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
         </section>
 
         {/* Call to Action */}
-        <section className="py-16 mt-30 bg-[linear-gradient(to_right,#111827,#E11D48,#F97316,#111827)]   text-white text-center">
+        <section className="py-16 mt-30 bg-[#161128] text-white text-center">
           <h2 className="text-4xl font-bold">Start Volunteering Today</h2>
           <p className="mt-4 text-lg max-w-2xl mx-auto">
             Become part of a movement that makes a real impact. Sign up and take
