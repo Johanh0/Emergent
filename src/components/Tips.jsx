@@ -12,7 +12,7 @@ const Guidelines = () => {
       content: (
         <div className="p-4 bg-gray-50 rounded-lg shadow-inner">
           <strong>It is always good to have an emergency plan to get properly prepared for natural disasters.</strong>
-          <ul className="mt-2 space-y-2">
+          <ul className="space-y-2">
             <li className="mb-2"><strong>Create an Emergency Plan:</strong> Identify evacuation routes and meeting points. Assign roles to family members (For example: who grabs emergency supplies). Practice drills regularly.</li>
             <li className="mb-2"><strong>Build an Emergency Kit (72-hour survival kit):</strong> Water (1 gallon per person per day), non-perishable food (canned goods, energy bars, etc.), flashlight & extra batteries, first-aid kit & medications, important documents (IDs, insurance, bank info) in a waterproof bag, cash (ATMs might not work), multi-tool & whistle (for signaling help).</li>
             <li className="mb-2"><strong>Stay Informed:</strong> Download weather alert apps (NOAA, Red Cross, FEMA). Follow local emergency services on social media. Get a battery-powered radio for updates.</li>
@@ -147,7 +147,7 @@ const Guidelines = () => {
   ];
 
   return (
-    <div className="p-6 w-full">
+    <div className="p-6 w-full mt-36">
       {/* Main Dropdowns */}
       <div className="space-y-4 w-full">
         {mainDropdowns.map((dropdown) => (

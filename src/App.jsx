@@ -13,11 +13,14 @@ import AdminMain from "./pages/admin/AdminMain";
 import AdminUsers from "./pages/admin/AdminUsers";
 import AdminMessages from "./pages/admin/AdminMessages";
 import FindHelp from "./pages/FindHelp";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
     <>
       <Router>
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/findhelp" element={<FindHelp />} />
@@ -34,6 +37,7 @@ const App = () => {
             <Route path="messages" element={<AdminMessages />} />
           </Route>
         </Routes>
+        <Footer />
       </Router>
     </>
   );
