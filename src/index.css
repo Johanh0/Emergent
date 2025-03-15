@@ -1,4 +1,11 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #1c1f33; /* Ensures dark background */
+  color: #eaeaea;
 
 @theme {
   --color-bunker-50: #f1f5fe;
