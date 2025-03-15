@@ -319,4 +319,63 @@ userRouter.post("/send_message", async (req, res) => {
   }
 });
 
+userRouter.post("/send_donation", async (req, res) => {
+  const { id, firstName, lastName, email, amount } = req.body;
+  // const userId = req.user ? req.user.id : null; // Si el usuario está autenticado, usa su ID
+
+  // Validaciones
+  if (!firstName || !lastName || !email || !amount) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+  if (isNaN(amount) || amount <= 0) {
+    return res.status(400).json({ error: "Invalid donation amount" });
+  }
+
+  try {
+    // Insertar la donación en la base de datos
+    const query = `
+      INSERT INTO donations (user_id, firstName, lastName, email, amount)
+      VALUES (?, ?, ?, ?, ?)`;
+    await promisePool.execute(query, [id, firstName, lastName, email, amount]);
+
+    // Si el usuario está autenticado, actualizar el total donado
+    if (id) {
+      const updateQuery = `
+        UPDATE users
+        SET total_donated = total_donated + ?
+        WHERE id = ?`;
+      await promisePool.execute(updateQuery, [amount, id]);
+    }
+
+    res.status(201).json({ message: "Donation successful" });
+  } catch (error) {
+    console.error("Error processing donation:", error);
+    res.status(500).json({ error: "Error processing donation" });
+  }
+});
+
+userRouter.get("/donations", async (req, res) => {
+  try {
+    const query = "SELECT * FROM donations ORDER BY created_at DESC";
+    const [donations] = await promisePool.execute(query);
+
+    res.status(200).json(donations);
+  } catch (error) {
+    console.error("Error fetching donations:", error);
+    res.status(500).json({ error: "Error retrieving donations" });
+  }
+});
+
+userRouter.get("/donations/total", async (req, res) => {
+  try {
+    const query = "SELECT SUM(amount) AS total_donations FROM donations";
+    const [result] = await promisePool.execute(query);
+
+    res.status(200).json({ total_donations: result[0].total_donations || 0 });
+  } catch (error) {
+    console.error("Error calculating total donations:", error);
+    res.status(500).json({ error: "Error retrieving total donations" });
+  }
+});
+
 export { userRouter };

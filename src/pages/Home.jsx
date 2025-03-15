@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { FaUtensils } from "react-icons/fa";
 import { FaHouseMedical, FaHouse } from "react-icons/fa6";
 import {
@@ -14,6 +16,7 @@ import FeatureCard from "../components/FeatureCard";
 import Testimonial from "../components/Testimonial";
 import FireEffect from "../components/FireEffect";
 import Services from "../components/Services.jsx";
+import DonationPaymentModal from "../components/DonationPaymentModal";
 
 import Lottie from "lottie-react";
 import helpAnimation from "../assets/help.json";
@@ -23,6 +26,8 @@ import "slick-carousel/slick/slick-theme.css";
 import Slideshow from "../components/Slideshow";
 
 const Home = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <>
       <Header />
@@ -50,7 +55,10 @@ const Home = () => {
                     Become a Volunteer
                   </button>
                   {/* Donate Button */}
-                  <button className="px-6 py-3 font-bold rounded-lg bg-red-600 text-white border-3 border-red-600 hover:bg-white hover:text-red-600 transition-all">
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="px-6 py-3 font-bold rounded-lg bg-red-600 text-white border-3 border-red-600 hover:bg-white hover:text-red-600 transition-all"
+                  >
                     Donate
                   </button>
                 </div>
@@ -177,6 +185,10 @@ const Home = () => {
             </h2>
           </div>
         </section>
+        <DonationPaymentModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
       </main>
     </>
   );
