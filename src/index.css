@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
-body {
-  background-color: #161128; /* Ensures dark background */
+/* body {
+  background-color: #161128;
   color: #eaeaea;
-}
+} */
 
 @theme {
   --color-bunker-50: #f1f5fe;

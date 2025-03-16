@@ -31,7 +31,7 @@ const Home = () => {
   return (
     <>
       <Header />
-      <main
+      <section
         className="pt-16 min-h-screen flex flex-col justify-between
 "
       >
@@ -189,7 +189,7 @@ const Home = () => {
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
         />
-      </main>
+      </section>
     </>
   );
 };
