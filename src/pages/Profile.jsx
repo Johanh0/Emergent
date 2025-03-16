@@ -1,8 +1,6 @@
 import { useEffect, useContext, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserProvider";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -111,7 +109,6 @@ const Profile = () => {
   }, []);
   return (
     <>
-      <Header />
       <main>
         <div className="max-w-3xl mx-auto p-6">
           <div className="flex items-center mb-8">
@@ -298,7 +295,6 @@ const Profile = () => {
           </div>
         </div>
       </main>
-      <Footer />
     </>
   );
 };

@@ -31,7 +31,9 @@ const AdminDonationsView = () => {
 
   const names = donations.map((donation) => donation.firstName);
   const emails = donations.map((donation) => donation.email);
-  const amounts = donations.map((donation) => parseFloat(donation.amount));
+  const amounts = donations.map((donation) =>
+    parseFloat(donation.total_donated)
+  );
 
   const donationsTotal = amounts.reduce(
     (accumulator, currentValue) => accumulator + currentValue,
