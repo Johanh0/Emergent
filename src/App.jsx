@@ -45,6 +45,7 @@ const App = () => {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/findhelp" element={<FindHelp />} />
           <Route path="/resources" element={<Resource />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/auth" element={<UserAuth />} />
