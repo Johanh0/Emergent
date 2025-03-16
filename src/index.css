@@ -18,3 +18,8 @@
   --color-bunker-900: #112c69;
   --color-bunker-950: #030712;
 }
+
+placeholder {
+  color: black;
+}
+
