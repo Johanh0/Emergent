@@ -356,7 +356,12 @@ userRouter.post("/send_donation", async (req, res) => {
 
 userRouter.get("/donations", async (req, res) => {
   try {
-    const query = "SELECT * FROM donations ORDER BY created_at DESC";
+    const query = `
+  SELECT user_id, firstName, lastName, email, SUM(amount) AS total_donated
+  FROM donations
+  GROUP BY user_id, firstName, lastName, email
+
+`;
     const [donations] = await promisePool.execute(query);
 
     res.status(200).json(donations);
