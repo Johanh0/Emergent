@@ -20,8 +20,6 @@ const AdminDonationsView = () => {
         }
 
         const data = await response.json();
-        console.log(data);
-
         setDonations(data);
       } catch (error) {
         console.error("Error fetching donations:", error);

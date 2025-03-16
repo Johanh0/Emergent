@@ -28,7 +28,6 @@ const AdminMain = () => {
       <div className="w-full h-fit">
         <AdminDonationsView />
       </div>
-
       <div className=" ">
         <AdminUserOverview users={users} />
       </div>
