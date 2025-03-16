@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Home from "./pages/Home";
 // import Admin from "./pages/Admin";
 // import User from "./pages/User";
@@ -19,13 +24,28 @@ import FindHelp from "./pages/FindHelp";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
+const Layout = ({ children }) => {
+  const location = useLocation();
+  const hideHeaderRoutes = ["/auth", "/admin_auth"];
+  const isHidden =
+    hideHeaderRoutes.includes(location.pathname) ||
+    location.pathname.startsWith("/admin");
+
+  return (
+    <>
+      {!isHidden && <Header />}
+
+      <main className="min-h-screen">{children}</main>
+
+      {!isHidden && <Footer />}
+    </>
+  );
+};
+
 const App = () => {
   return (
     <Router>
-      {/* ✅ Header is outside of Routes so it appears on every page */}
-      <Header />
-
-      <main className="min-h-screen">
+      <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/find-help" element={<FindHelp />} />
@@ -44,9 +64,7 @@ const App = () => {
             <Route path="messages" element={<AdminMessages />} />
           </Route>
         </Routes>
-      </main>
-
-      <Footer />
+      </Layout>
     </Router>
   );
 };

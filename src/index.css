@@ -1,13 +1,9 @@
 @import "tailwindcss";
 
-body {
-  background-color: #161128; /* Ensures dark background */
+/* body {
+  background-color: #161128;
   color: #eaeaea;
-}
-
-placeholder {
-  color: black;
-}
+} */
 
 @theme {
   --color-bunker-50: #f1f5fe;
@@ -22,3 +18,8 @@ placeholder {
   --color-bunker-900: #112c69;
   --color-bunker-950: #030712;
 }
+
+placeholder {
+  color: black;
+}
+
