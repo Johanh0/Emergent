@@ -30,13 +30,11 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      {/* Renderiza el Header solo si la ruta no está en `hideHeaderRoutes` y no comienza con "/admin" */}
       {!isHidden && <Header />}
 
       <main className="min-h-screen">{children}</main>
 
-      {/* Renderiza el Footer en todas las páginas */}
-      <Footer />
+      {!isHidden && <Footer />}
     </>
   );
 };
