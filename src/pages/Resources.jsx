@@ -25,18 +25,9 @@ const Resource = () => {
   </div>
       )}
       <div className="mt-8">
-        <h2 className="text-xl font-semibold mb-4">Post Disaster Informational Video Guide</h2>
+        <h2 className="text-xl font-semibold mb-4 text-center">Watch this Post Disaster Informational Video Guide Below </h2>
         <div className="w-full aspect-w-16 aspect-h-9">
-          <iframe
-            width="100%"
-            height="415"
-            src="https://www.youtube.com/embed/gds9yFMEm2k?si=XYEXLyKFKrvjouJd"
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-          ></iframe>
+        <iframe width="100%" height="715" src="https://www.youtube.com/embed/iEznxKeRXHY?si=62QR4nSMcVNWalyR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
       </div>
     </div>

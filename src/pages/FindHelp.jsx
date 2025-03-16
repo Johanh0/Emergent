@@ -125,7 +125,7 @@ const FindHelp = () => {
   }, [selectedLocation]);
 
   return (
-    <div className="p-6 max-w-5xl mx-auto mt-36">
+    <div className="p-6 max-w-5xl mx-auto mt-48 bg-white text-black">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-xl font-semibold">Find Help</h1>
