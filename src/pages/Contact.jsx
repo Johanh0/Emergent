@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import { motion } from "framer-motion";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -82,49 +81,49 @@ export default function ContactPage() {
 
   return (
     <>
-      <section className="flex items-center justify-center min-h-screen bg-gray-100 p-6 relative">
-        <div className="bg-white p-10 rounded-lg shadow-md w-full max-w-2xl">
-          <h2 className="text-3xl font-bold text-center mb-6">Get in Touch</h2>
+      <main className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-700 p-6">
+        <motion.div
+          className="bg-white p-10 rounded-lg shadow-lg w-full max-w-3xl flex flex-col items-center"
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="text-4xl font-bold text-center text-black mb-6">
+            Get in Touch
+          </h2>
           <p className="text-gray-600 text-center mb-8">
             We'd love to hear from you! Fill out the form below and we'll get
             back to you as soon as possible.
           </p>
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div className="flex space-x-6">
-              <div className="w-1/2">
-                <input
-                  type="text"
-                  name="firstName"
-                  placeholder="First Name"
-                  className="w-full p-4 border rounded-lg"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                />
-                {errors.firstName && (
-                  <p className="text-red-500 text-sm">{errors.firstName}</p>
-                )}
-              </div>
-              <div className="w-1/2">
-                <input
-                  type="text"
-                  name="lastName"
-                  placeholder="Last Name"
-                  className="w-full p-4 border rounded-lg"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                />
-                {errors.lastName && (
-                  <p className="text-red-500 text-sm">{errors.lastName}</p>
-                )}
-              </div>
+          <form className="space-y-6 w-full max-w-lg" onSubmit={handleSubmit}>
+            <div className="flex gap-5">
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                className="w-1/2 p-4 border rounded-md text-lg bg-gray-100"
+                value={formData.firstName}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                className="w-1/2 p-4 border rounded-md text-lg bg-gray-100"
+                value={formData.lastName}
+                onChange={handleChange}
+                required
+              />
             </div>
             <input
               type="email"
               name="email"
               placeholder="Email"
-              className="w-full p-4 border rounded-lg"
+              className="w-full p-4 border rounded-md text-lg bg-gray-100"
               value={formData.email}
               onChange={handleChange}
+              required
             />
             {errors.email && (
               <p className="text-red-500 text-sm">{errors.email}</p>
@@ -133,9 +132,10 @@ export default function ContactPage() {
               type="text"
               name="subject"
               placeholder="Subject"
-              className="w-full p-4 border rounded-lg"
+              className="w-full p-4 border rounded-md text-lg bg-gray-100"
               value={formData.subject}
               onChange={handleChange}
+              required
             />
             {errors.subject && (
               <p className="text-red-500 text-sm">{errors.subject}</p>
@@ -143,23 +143,23 @@ export default function ContactPage() {
             <textarea
               name="message"
               placeholder="Your message here..."
-              className="w-full p-4 border rounded-lg h-40"
+              className="w-full p-4 border rounded-md h-40 text-lg bg-gray-100"
               value={formData.message}
               onChange={handleChange}
+              required
             ></textarea>
             {errors.message && (
               <p className="text-red-500 text-sm">{errors.message}</p>
             )}
-            <button
+            <motion.button
               type="submit"
-              className="w-full bg-black text-white p-4 rounded-lg hover:bg-gray-800 cursor-pointer"
+              className="w-full bg-black text-white p-4 rounded-md text-lg hover:bg-indigo-800 transition"
+              whileHover={{ scale: 1.05 }}
             >
               Send Message
-            </button>
+            </motion.button>
           </form>
-        </div>
-
-        {/* Modal */}
+{/* Modal */}
         {isModalOpen && (
           <div className="fixed inset-0 bg-gray-9 bg-opacity-50 backdrop-blur-sm flex justify-center items-center">
             <div className="bg-white p-6 rounded-lg shadow-lg w-80 text-center">
@@ -176,7 +176,8 @@ export default function ContactPage() {
             </div>
           </div>
         )}
-      </section>
+        </motion.div>
+      </main>
     </>
   );
 }

@@ -63,6 +63,7 @@ const AdminDonationsView = () => {
                 {
                   data: amounts,
                   label: "Amount Donated",
+                  color: "#E4572E",
                 },
               ]}
               xAxis={[{ scaleType: "point", data: names }]}
