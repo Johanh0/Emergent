@@ -142,7 +142,7 @@ const VolunteerModal = ({ isOpen, onClose }) => {
               </h2>
               <button
                 onClick={onClose}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-gray-500 hover:text-gray-700 cursor-pointer"
               >
                 ✕
               </button>
@@ -316,7 +316,7 @@ const VolunteerModal = ({ isOpen, onClose }) => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 font-medium transition-colors duration-300 disabled:bg-blue-400 cursor-pointer"
+                className="w-full bg-[#161128] text-white py-2 px-4 rounded-md font-medium transition-colors duration-300 disabled:bg-blue-400 cursor-pointer"
               >
                 Submit
               </button>

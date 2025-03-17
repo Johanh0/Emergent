@@ -5,6 +5,8 @@ import {
   useLocation,
 } from "react-router-dom";
 import Home from "./pages/Home";
+// import Admin from "./pages/Admin";
+// import User from "./pages/User";
 import ContactPage from "./pages/Contact";
 import Resource from "./pages/Resources";
 import AdminAuth from "./pages/admin/AdminAuth";
@@ -16,6 +18,7 @@ import AdminMain from "./pages/admin/AdminMain";
 import AdminUsers from "./pages/admin/AdminUsers";
 import AdminMessages from "./pages/admin/AdminMessages";
 import About from "./pages/About";
+import FindHelp from "./pages/FindHelp";
 
 // Import Header & Footer
 import Header from "./components/Header";
@@ -45,6 +48,7 @@ const App = () => {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/find-help" element={<FindHelp />} />
           <Route path="/resources" element={<Resource />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/auth" element={<UserAuth />} />

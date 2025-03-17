@@ -38,7 +38,7 @@ const Volunteer = () => {
 
   return (
     <>
-      <main className="pt-16 -mb-20 bg-gray-50 min-h-screen">
+      <main className="pt-16 bg-gray-50 min-h-screen flex flex-col justify-between">
         {/* Page Title */}
         <section className="py-25 text-center bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] text-white">
           <h1 className="text-5xl font-bold">Volunteer & Make a Difference</h1>
@@ -49,7 +49,7 @@ const Volunteer = () => {
         </section>
 
         {/* Volunteer Opportunities */}
-        <section className="py-16">
+        <section className="py-16 flex-grow">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl text-gray-900 font-bold text-center mb-12">
               Current Volunteer Opportunities
@@ -107,7 +107,7 @@ const Volunteer = () => {
         </section>
 
         {/* Call to Action */}
-        <section className="py-16 mt-30 bg-[#161128] text-white text-center">
+        <section className="py-16 -mb-20 bg-[#161128] text-white text-center w-full">
           <h2 className="text-4xl font-bold">Start Volunteering Today</h2>
           <p className="mt-4 text-lg max-w-2xl mx-auto">
             Become part of a movement that makes a real impact. Sign up and take

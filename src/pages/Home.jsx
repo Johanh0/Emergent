@@ -36,7 +36,10 @@ const Home = () => {
 "
       >
         {/* Hero Section */}
-        <section className="h-[600px] flex items-center bg-gray-100">
+        <section
+          className="h-[600px] flex items-center bg-white
+        "
+        >
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
@@ -77,7 +80,7 @@ const Home = () => {
         <Services />
 
         {/* Make a Difference Section */}
-        <section className="py-20 bg-neutral-100">
+        <section className="py-20 bg-white">
           <div className="container mx-auto px-6">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               {/*Lottie Animation */}
@@ -121,7 +124,7 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-gray-50">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl text-center font-bold text-gray-900 mb-12">
               Emergency Services
@@ -171,7 +174,7 @@ const Home = () => {
           </div>
         </motion.section>
         {/* Impact Stories Section */}
-        <section className="py-10">
+        <section className="py-10 -mb-20 bg-[#161128]">
           <div className="container mx-auto px-6">
             <div className="grid pt-20 md:grid-cols-3 gap-8">
               <Testimonial
@@ -190,7 +193,7 @@ const Home = () => {
                 name="Maria R. "
               />
             </div>
-            <h2 className="text-3xl text-center mt-20 mb-0">
+            <h2 className="text-3xl text-center text-white  mt-20 mb-0">
               Take It From Them{" "}
             </h2>
           </div>

@@ -160,7 +160,7 @@ const About = () => {
         </section>
 
         {/* Call to Action */}
-        <section className="py-16 text-white text-center ">
+        <section className="py-16 -mb-20 bg-[#161128] text-white text-center ">
           <div className="container mx-auto px-6">
             <h2 className="text-4xl font-bold mb-4">Join Us Today</h2>
             <p className="text-lg max-w-2xl mx-auto">
