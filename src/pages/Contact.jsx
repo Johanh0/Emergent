@@ -81,7 +81,6 @@ export default function ContactPage() {
 
   return (
     <>
-      <Header />
       <div className="flex flex-col min-h-screen">
         <main className="-mb-20 h-full flex-grow flex flex-col justify-center items-center bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] p-6 min-h-screen">
           <motion.div
