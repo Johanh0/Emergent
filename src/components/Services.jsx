@@ -1,5 +1,6 @@
 import { FaLeaf, FaHandsHelping, FaShieldAlt } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Services = () => {
   return (
@@ -36,9 +37,11 @@ const Services = () => {
                 </p>
               </div>
               <div className="px-6 py-4 bg-gray-50 border-t">
-                <button className="w-full py-2 bg-red-600 text-white rounded-lg hover:text-red-600 hover:bg-red-100">
-                  Learn More
-                </button>
+                <Link to={"/about"}>
+                  <button className="w-full py-2 bg-red-600 text-white rounded-lg hover:text-red-600 hover:bg-red-100">
+                    Learn More
+                  </button>
+                </Link>
               </div>
             </motion.div>
 
@@ -66,9 +69,11 @@ const Services = () => {
                 </p>
               </div>
               <div className="px-6 py-4 bg-gray-50 border-t">
-                <button className="w-full py-2 bg-orange-600 text-white rounded-lg hover:text-orange-600 hover:bg-orange-100">
-                  Find Help
-                </button>
+                <Link to={"/find-help"}>
+                  <button className="w-full py-2 bg-orange-600 text-white rounded-lg hover:text-orange-600 hover:bg-orange-100">
+                    Find Help
+                  </button>
+                </Link>
               </div>
             </motion.div>
 
@@ -96,9 +101,11 @@ const Services = () => {
                 </p>
               </div>
               <div className="px-6 py-4 bg-gray-50 border-t">
-                <button className="w-full py-2 bg-indigo-800 text-white rounded-lg hover:text-indigo-800 hover:bg-indigo-100">
-                  Get Prepared
-                </button>
+                <Link to={"/resources"}>
+                  <button className="w-full py-2 bg-indigo-800 text-white rounded-lg hover:text-indigo-800 hover:bg-indigo-100">
+                    Get Prepared
+                  </button>
+                </Link>
               </div>
             </motion.div>
           </div>

@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import VolunteerModal from "../components/VolunteerModal";
 
 const Volunteer = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   // Sample Volunteer Opportunities (You can replace with real data)
   const opportunities = [
     {
@@ -37,7 +38,6 @@ const Volunteer = () => {
 
   return (
     <>
-      <Header />
       <main className="pt-16 -mb-20 bg-gray-50 min-h-screen">
         {/* Page Title */}
         <section className="py-25 text-center bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] text-white">
@@ -88,7 +88,10 @@ const Volunteer = () => {
                   </div>
                   {/* Apply Button - Aligned at Bottom */}
                   <div className="px-6 py-4 bg-gray-50 mt-auto">
-                    <button className="w-full py-2 bg-red-500 text-white rounded-lg hover:bg-red-100 hover:text-red-600 transition">
+                    <button
+                      onClick={() => setIsModalOpen(true)}
+                      className="w-full py-2 bg-red-500 text-white rounded-lg hover:bg-red-100 hover:text-red-600 transition"
+                    >
                       Apply Now
                     </button>
                   </div>
@@ -96,6 +99,11 @@ const Volunteer = () => {
               ))}
             </div>
           </div>
+
+          <VolunteerModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+          />
         </section>
 
         {/* Call to Action */}

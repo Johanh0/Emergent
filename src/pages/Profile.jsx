@@ -133,6 +133,7 @@ const Profile = () => {
         credentials: "include",
       });
 
+      setUser(null);
       navigate("/");
     } catch (error) {}
   };

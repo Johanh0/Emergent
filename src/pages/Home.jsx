@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
 import { FaUtensils } from "react-icons/fa";
 import { FaHouseMedical, FaHouse } from "react-icons/fa6";
 import {
@@ -48,12 +48,16 @@ const Home = () => {
                   community. Together we can make a difference.
                 </p>
                 <div className="flex gap-4">
-                  <button className="px-6 py-3 font-bold border-3 border-orange-600 rounded-lg bg-orange-600 text-white hover:bg-white hover:text-orange-600 transition-all">
-                    Get Help Now
-                  </button>
-                  <button className="px-6 py-3 font-bold rounded-lg bg-white border-3  border-orange-600 text-orange-500 hover:text-white hover:bg-orange-600">
-                    Become a Volunteer
-                  </button>
+                  <Link to={"/find-help"}>
+                    <button className="px-6 py-3 font-bold border-3 border-orange-600 rounded-lg bg-orange-600 text-white hover:bg-white hover:text-orange-600 transition-all">
+                      Get Help Now
+                    </button>
+                  </Link>
+                  <Link to={"/volunteer"}>
+                    <button className="px-6 py-3 font-bold rounded-lg bg-white border-3  border-orange-600 text-orange-500 hover:text-white hover:bg-orange-600">
+                      Become a Volunteer
+                    </button>
+                  </Link>
                   {/* Donate Button */}
                   <button
                     onClick={() => setIsModalOpen(true)}
@@ -107,9 +111,11 @@ const Home = () => {
                     <span>Community support</span>
                   </div>
                 </div>
-                <button className="px-6 py-3 my-10 border-3 hover:bg-orange-600 hover:text-white hover:border-orange-600 border-orange-600 text-orange-600 font-bold rounded-lg bg-white text-orange-600 transition-all">
-                  Start Volunteering
-                </button>
+                <Link to={"/volunteer"}>
+                  <button className="px-6 py-3 my-10 border-3 hover:bg-orange-600 hover:text-white hover:border-orange-600 border-orange-600 text-orange-600 font-bold rounded-lg bg-white text-orange-600 transition-all">
+                    Start Volunteering
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -152,12 +158,16 @@ const Home = () => {
             your area.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-            <button className="px-6 py-3 bg-white text-blue-900 font-bold rounded-md shadow-lg hover:bg-opacity-80 transition-all">
-              Get Started
-            </button>
-            <button className="px-6 py-3 border-2 border-white text-white font-bold rounded-md hover:bg-white hover:text-blue-900 transition-all">
-              Learn More
-            </button>
+            <Link to={"/volunteer"}>
+              <button className="px-6 py-3 bg-white text-blue-900 font-bold rounded-md shadow-lg hover:bg-opacity-80 transition-all">
+                Get Started
+              </button>
+            </Link>
+            <Link to={"/about"}>
+              <button className="px-6 py-3 border-2 border-white text-white font-bold rounded-md hover:bg-white hover:text-blue-900 transition-all">
+                Learn More
+              </button>
+            </Link>
           </div>
         </motion.section>
         {/* Impact Stories Section */}

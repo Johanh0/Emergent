@@ -421,7 +421,7 @@ const DonationPaymentModal = ({ isOpen, onClose }) => {
               <div className="mt-6">
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 font-medium transition-colors duration-300 disabled:bg-blue-400 cursor-pointer"
+                  className="w-full bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 font-medium transition-colors duration-300 disabled:bg-blue-400 cursor-pointer"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (

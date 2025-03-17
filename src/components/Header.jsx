@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { UserContext } from "../context/UserProvider";
 import { Link } from "react-router-dom";
 import { FaHandHoldingHeart, FaBars, FaUserCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
@@ -14,6 +16,7 @@ const buttonVariants = {
 };
 
 const Header = () => {
+  const { user } = useContext(UserContext);
   return (
     <header className="fixed py-6 w-full bg-white border-b border-gray-200 z-50 shadow-md">
       <div className="container mx-auto px-4">
@@ -46,33 +49,49 @@ const Header = () => {
             <Link to="/contact" className="hover:text-indigo-600 transition">
               Contact
             </Link>
-            <Link to="/donate" className="hover:text-indigo-600 transition">
-              Donate
-            </Link>
           </nav>
 
           {/* Account & Mobile Menu */}
           <div className="flex items-center gap-4">
             {/* Sign Up Button with Framer Motion */}
-            <motion.button
+            {/* <motion.button
               variants={buttonVariants}
               whileHover="hover"
               className="px-4 py-2 text-gray-600 bg-white border-2 border-gray-900 rounded-lg font-bold"
             >
               Sign Up
-            </motion.button>
+            </motion.button> */}
 
             {/* Sign In Button with Framer Motion */}
-            <motion.button
-              variants={buttonVariants}
-              whileHover="hover"
-              className="px-4 py-2 text-gray-600 bg-white border-2 border-gray-900 rounded-lg font-bold"
-            >
-              Sign In
-            </motion.button>
-
-            {/* Account Icon */}
-            <FaUserCircle className="ml-8 text-4xl text-gray-700  hover:text-indigo-600 transition cursor-pointer" />
+            {!user ? (
+              <Link to={"/auth"}>
+                <motion.button
+                  variants={buttonVariants}
+                  whileHover="hover"
+                  className="px-4 py-2 text-gray-600 bg-white border-2 border-gray-900 rounded-lg font-bold"
+                >
+                  Sign In
+                </motion.button>
+              </Link>
+            ) : (
+              <Link to={"/profile"}>
+                <div className="flex gap-5">
+                  <div className=" w-[50px]">
+                    <img
+                      src={`http://localhost:3000/${user?.profile_image_url}`}
+                      alt="profile picture"
+                      className="w-full rounded-full"
+                    />
+                  </div>
+                  <div>
+                    <p className=" font-bold">
+                      {user?.firstName} {user?.lastName}
+                    </p>
+                    <p className=" text-sm text-gray-500">{user?.email}</p>
+                  </div>
+                </div>
+              </Link>
+            )}
 
             {/* Mobile Menu Button */}
             <button className="md:hidden text-gray-600">
