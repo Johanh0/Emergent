@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -41,8 +39,36 @@ export default function ContactPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (validate()) {
       setIsModalOpen(true);
+      try {
+        const name = formData.firstName + " " + formData.lastName;
+        const { email, subject, message } = formData;
+
+        const response = await fetch(
+          "http://localhost:3000/api/v1/user/send_message",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name, email, subject, message }),
+            mode: "cors",
+            credentials: "include",
+          }
+        );
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Error trying to login");
+        }
+
+        const data = await response.json();
+      } catch (error) {
+        throw new Error(error);
+      }
+
       setFormData({
         firstName: "",
         lastName: "",
@@ -55,7 +81,6 @@ export default function ContactPage() {
 
   return (
     <>
-      <Header />
       <main className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-700 p-6">
         <motion.div
           className="bg-white p-10 rounded-lg shadow-lg w-full max-w-3xl flex flex-col items-center"
@@ -100,6 +125,9 @@ export default function ContactPage() {
               onChange={handleChange}
               required
             />
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email}</p>
+            )}
             <input
               type="text"
               name="subject"
@@ -109,6 +137,9 @@ export default function ContactPage() {
               onChange={handleChange}
               required
             />
+            {errors.subject && (
+              <p className="text-red-500 text-sm">{errors.subject}</p>
+            )}
             <textarea
               name="message"
               placeholder="Your message here..."
@@ -117,6 +148,9 @@ export default function ContactPage() {
               onChange={handleChange}
               required
             ></textarea>
+            {errors.message && (
+              <p className="text-red-500 text-sm">{errors.message}</p>
+            )}
             <motion.button
               type="submit"
               className="w-full bg-black text-white p-4 rounded-md text-lg hover:bg-indigo-800 transition"
@@ -125,9 +159,25 @@ export default function ContactPage() {
               Send Message
             </motion.button>
           </form>
+{/* Modal */}
+        {isModalOpen && (
+          <div className="fixed inset-0 bg-gray-9 bg-opacity-50 backdrop-blur-sm flex justify-center items-center">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-80 text-center">
+              <h3 className="text-xl font-semibold">Thank You!</h3>
+              <p className="text-gray-600 mt-2">
+                We will get back to you shortly.
+              </p>
+              <button
+                className="mt-4 bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 cursor-pointer"
+                onClick={() => setIsModalOpen(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
         </motion.div>
       </main>
-      <Footer />
     </>
   );
 }
