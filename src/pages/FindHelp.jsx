@@ -48,7 +48,8 @@ const FindHelp = () => {
             params: { city, state },
             headers: {
               "x-rapidapi-key": RAPID_API_KEY,
-              "x-rapidapi-host": "homeless-shelters-and-foodbanks-api.p.rapidapi.com",
+              "x-rapidapi-host":
+                "homeless-shelters-and-foodbanks-api.p.rapidapi.com",
             },
           }
         );
@@ -65,7 +66,8 @@ const FindHelp = () => {
               type: item?.type || "No type available",
               full_address: item?.full_address || "No address available",
               phone_number: item?.phone_number || "No phone number available",
-              business_hours: item?.business_hours || "No business hours available",
+              business_hours:
+                item?.business_hours || "No business hours available",
               latitude: item?.latitude || null,
               longitude: item?.longitude || null,
             }))
@@ -132,7 +134,9 @@ const FindHelp = () => {
         <button
           className="bg-orange-600 text-white px-4 py-2 rounded-lg flex items-center cursor-pointer"
           onClick={() =>
-            setModalContent("For More Assistance, Dial 211 Which Serves As a Central Point For Accessing Information And Referrals To Various Social Services And Community Organizations.")
+            setModalContent(
+              "For More Assistance, Dial 211 Which Serves As a Central Point For Accessing Information And Referrals To Various Social Services And Community Organizations."
+            )
           }
         >
           <PhoneCall className="mr-2" size={18} /> Need More Assistance?
@@ -223,8 +227,12 @@ const FindHelp = () => {
                   className="border-b pb-3 mb-3 cursor-pointer"
                   onClick={() => setSelectedLocation(shelter)}
                 >
-                  <p className="font-semibold">{shelter.name || "No name available"}</p>
-                  <p className="text-sm">{shelter.full_address || "No address available"}</p>
+                  <p className="font-semibold">
+                    {shelter.name || "No name available"}
+                  </p>
+                  <p className="text-sm">
+                    {shelter.full_address || "No address available"}
+                  </p>
                   <p className="text-sm font-semibold">
                     {shelter.phone_number || "No phone number available"}
                   </p>

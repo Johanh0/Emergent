@@ -36,7 +36,7 @@ const Services = () => {
                 </p>
               </div>
               <div className="px-6 py-4 bg-gray-50 border-t">
-                <button className="w-full py-2 bg-red-600 text-white rounded-lg hover:text-red-600 hover:bg-red-100">
+                <button className="w-full py-2 bg-red-100 text-red-600 rounded-lg hover:text-white hover:bg-red-600">
                   Learn More
                 </button>
               </div>
@@ -66,7 +66,7 @@ const Services = () => {
                 </p>
               </div>
               <div className="px-6 py-4 bg-gray-50 border-t">
-                <button className="w-full py-2 bg-orange-600 text-white rounded-lg hover:text-orange-600 hover:bg-orange-100">
+                <button className="w-full py-2 bg-orange-100 text-orange-600 rounded-lg hover:text-white hover:bg-orange-600">
                   Find Help
                 </button>
               </div>
@@ -96,7 +96,7 @@ const Services = () => {
                 </p>
               </div>
               <div className="px-6 py-4 bg-gray-50 border-t">
-                <button className="w-full py-2 bg-indigo-800 text-white rounded-lg hover:text-indigo-800 hover:bg-indigo-100">
+                <button className="w-full py-2 bg-indigo-100 text-indigo-600 rounded-lg hover:text-white hover:bg-indigo-600">
                   Get Prepared
                 </button>
               </div>

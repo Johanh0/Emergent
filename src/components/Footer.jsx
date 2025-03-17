@@ -22,7 +22,6 @@ const Footer = () => {
               <li>Find Help</li>
               <li>Volunteer</li>
               <li>Resources</li>
-              <li>Donate</li>
             </ul>
           </div>
           <div>
