@@ -10,8 +10,6 @@ import {
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import FeatureCard from "../components/FeatureCard";
 import Testimonial from "../components/Testimonial";
 import FireEffect from "../components/FireEffect";
@@ -30,7 +28,6 @@ const Home = () => {
 
   return (
     <>
-      <Header />
       <section
         className="pt-16 min-h-screen flex flex-col justify-between
 "
@@ -84,12 +81,12 @@ const Home = () => {
           <div className="container mx-auto px-6">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               {/*Lottie Animation */}
-              <div className="w-full max-w-md">
+              <div className=" w-full max-w-md">
                 <Lottie
                   animationData={helpAnimation}
                   loop={true}
                   autoplay={true}
-                  className="w-150 h-150"
+                  className="w-full md:w-150 h-150"
                 />
               </div>
               <div>

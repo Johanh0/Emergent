@@ -1,8 +1,10 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../context/UserProvider";
 import { Link } from "react-router-dom";
-import { FaHandHoldingHeart, FaBars, FaUserCircle } from "react-icons/fa";
+import { FaHandHoldingHeart, FaBars } from "react-icons/fa";
+import { IoMdClose } from "react-icons/io";
 import { motion } from "framer-motion";
+import BurgerMenu from "./BurgerMenu";
 
 const buttonVariants = {
   hover: {
@@ -17,6 +19,7 @@ const buttonVariants = {
 
 const Header = () => {
   const { user } = useContext(UserContext);
+  const [isBurgerOpen, setIsBurgerOpen] = useState(true);
   return (
     <header className="fixed py-6 w-full bg-white border-b border-gray-200 z-50 shadow-md">
       <div className="container mx-auto px-4">
@@ -30,7 +33,7 @@ const Header = () => {
           </div>
 
           {/* Navigation */}
-          <nav className="hidden md:flex items-center space-x-8 text-gray-700">
+          <nav className="hidden lg:flex items-center space-x-8 text-gray-700">
             <Link to="/" className="hover:text-indigo-600 transition">
               Home
             </Link>
@@ -53,50 +56,66 @@ const Header = () => {
 
           {/* Account & Mobile Menu */}
           <div className="flex items-center gap-4">
-            {/* Sign Up Button with Framer Motion */}
-            {/* <motion.button
-              variants={buttonVariants}
-              whileHover="hover"
-              className="px-4 py-2 text-gray-600 bg-white border-2 border-gray-900 rounded-lg font-bold"
-            >
-              Sign Up
-            </motion.button> */}
-
             {/* Sign In Button with Framer Motion */}
             {!user ? (
-              <Link to={"/auth"}>
-                <motion.button
-                  variants={buttonVariants}
-                  whileHover="hover"
-                  className="px-4 py-2 text-gray-600 bg-white border-2 border-gray-900 rounded-lg font-bold"
-                >
-                  Sign In
-                </motion.button>
-              </Link>
+              <div className="hidden lg:flex gap-3">
+                <Link to={"/auth?view=sign-in"}>
+                  <motion.button
+                    variants={buttonVariants}
+                    whileHover="hover"
+                    className="px-4 py-2 text-gray-600 bg-white border-2 border-gray-900 rounded-lg font-bold cursor-pointer"
+                  >
+                    Sign In
+                  </motion.button>
+                </Link>
+
+                <Link to={"/auth?view=sign-up"}>
+                  <motion.button
+                    variants={buttonVariants}
+                    whileHover="hover"
+                    className="px-4 py-2 text-gray-600 bg-white border-2 border-gray-900 rounded-lg font-bold cursor-pointer"
+                  >
+                    Sign Up
+                  </motion.button>
+                </Link>
+              </div>
             ) : (
-              <Link to={"/profile"}>
-                <div className="flex gap-5">
-                  <div className=" w-[50px]">
-                    <img
-                      src={`http://localhost:3000/${user?.profile_image_url}`}
-                      alt="profile picture"
-                      className="w-full rounded-full"
-                    />
+              <div className="hidden lg:flex">
+                <Link to={"/profile"}>
+                  <div className="flex gap-5">
+                    <div className=" w-[50px] h-[50px]">
+                      <img
+                        src={`http://localhost:3000/${user?.profile_image_url}`}
+                        alt="profile picture"
+                        className="w-full h-full object-cover rounded-full"
+                      />
+                    </div>
+                    <div>
+                      <p className=" font-bold">
+                        {user?.firstName} {user?.lastName}
+                      </p>
+                      <p className=" text-sm text-gray-500">{user?.email}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className=" font-bold">
-                      {user?.firstName} {user?.lastName}
-                    </p>
-                    <p className=" text-sm text-gray-500">{user?.email}</p>
-                  </div>
-                </div>
-              </Link>
+                </Link>
+              </div>
             )}
 
             {/* Mobile Menu Button */}
-            <button className="md:hidden text-gray-600">
-              <FaBars className="text-2xl" />
-            </button>
+            <div className="relative">
+              <button
+                onClick={() => setIsBurgerOpen(!isBurgerOpen)}
+                className="lg:hidden text-gray-600"
+              >
+                {isBurgerOpen ? (
+                  <IoMdClose className="text-4xl" />
+                ) : (
+                  <FaBars className="text-2xl" />
+                )}
+              </button>
+
+              <BurgerMenu isOpen={isBurgerOpen} />
+            </div>
           </div>
         </div>
       </div>

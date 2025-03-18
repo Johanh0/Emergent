@@ -81,7 +81,7 @@ export default function ContactPage() {
 
   return (
     <>
-      <section className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-700 p-6 pt-50 pb-50">
+      <section className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-700 p-6 md:pt-30 pb-50">
         <motion.div
           className="bg-white p-10 rounded-lg shadow-lg w-full max-w-3xl flex flex-col items-center"
           initial={{ y: -50, opacity: 0 }}

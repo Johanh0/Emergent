@@ -38,7 +38,7 @@ const Volunteer = () => {
 
   return (
     <>
-      <main className="pt-16 bg-gray-50 min-h-screen flex flex-col justify-between">
+      <main className="pt-7 bg-gray-50 min-h-screen flex flex-col justify-between">
         {/* Page Title */}
         <section className="py-25 text-center bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] text-white">
           <h1 className="text-5xl font-bold">Volunteer & Make a Difference</h1>

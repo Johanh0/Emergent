@@ -7,14 +7,11 @@ import {
   FaLightbulb,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 
 const About = () => {
   return (
     <>
-      <Header />
-      <main className="pt-16">
+      <section className="pt-7">
         {/* Hero Section */}
         <section className="text-white py-20 bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] text-center">
           <div className="container mx-auto px-6">
@@ -177,7 +174,7 @@ const About = () => {
             </div>
           </div>
         </section>
-      </main>
+      </section>
     </>
   );
 };
