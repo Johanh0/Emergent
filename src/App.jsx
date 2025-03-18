@@ -36,9 +36,7 @@ const Layout = ({ children }) => {
     <>
       {!isHidden && <Header />}
 
-      <main className="min-h-screen min-w-screen w-full pt-28 md:pt-20">
-        {children}
-      </main>
+      <main className="min-h-screen min-w-screen w-full ">{children}</main>
 
       {!isHidden && <Footer />}
     </>

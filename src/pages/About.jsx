@@ -13,10 +13,10 @@ const About = () => {
     <>
       <section className="pt-7">
         {/* Hero Section */}
-        <section className="text-white py-20 bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] text-center">
+        <section className="py-13 text-center bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] text-white">
           <div className="container mx-auto px-6">
             <h1 className="text-5xl mt-7 font-bold mb-4">About Us</h1>
-            <p className="text-lg max-w-3xl mx-auto">
+            <p className=" mt-8 text-lg max-w-3xl mx-auto">
               We are committed to providing essential resources, support, and
               safety education to communities in need. Whether you are looking
               for help, seeking to volunteer, or want to prepare for
@@ -165,11 +165,8 @@ const About = () => {
               communities, and educates people on safety.
             </p>
             <div className="mt-6 flex justify-center space-x-4">
-              <button className="px-6 py-3 bg-white text-blue-900 font-bold rounded-md shadow-lg hover:bg-opacity-80 transition-all">
+              <button className="px-6 py-3 bg-white text-red-600 font-bold rounded-md shadow-lg hover:bg-red-100 transition-all">
                 Get Involved
-              </button>
-              <button className="px-6 py-3 border-2 border-white text-white font-bold rounded-md hover:bg-white hover:text-blue-900 transition-all">
-                Learn More
               </button>
             </div>
           </div>
