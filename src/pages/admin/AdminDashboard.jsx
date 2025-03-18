@@ -28,8 +28,8 @@ const AdminDashboard = () => {
   }, [navigate]);
 
   return (
-    <motion.main
-      className="flex flex-col lg:flex-row gap-15 p-5 w-screen h-screen bg-gradient-to-r from-purple-600 to-indigo-700"
+    <motion.section
+      className="absolute left-0 top-0 flex flex-col lg:flex-row gap-15 p-5 w-screen min-h-screen h-fit bg-gradient-to-r from-purple-600 to-indigo-700"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -48,7 +48,7 @@ const AdminDashboard = () => {
         </h1>
         <Outlet />
       </motion.section>
-    </motion.main>
+    </motion.section>
   );
 };
 

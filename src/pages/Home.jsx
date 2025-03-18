@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
 import { FaUtensils } from "react-icons/fa";
 import { FaHouseMedical, FaHouse } from "react-icons/fa6";
 import {
@@ -10,8 +10,6 @@ import {
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import FeatureCard from "../components/FeatureCard";
 import Testimonial from "../components/Testimonial";
 import FireEffect from "../components/FireEffect";
@@ -30,7 +28,6 @@ const Home = () => {
 
   return (
     <>
-      <Header />
       <section
         className="pt-16 min-h-screen flex flex-col justify-between
 "
@@ -40,8 +37,8 @@ const Home = () => {
           className="h-[600px] flex items-center bg-white
         "
         >
-          <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="container mx-auto px-4 mt-20 lg:mt-0">
+            <div className="grid md:grid-cols-2 gap-12 items-center text-center lg:text-start">
               <div>
                 <h1 className="text-5xl font-bold text-gray-900 mb-6">
                   Emergency Aid & Support Network
@@ -50,13 +47,17 @@ const Home = () => {
                   Connect with volunteers and access emergency resources in your
                   community. Together we can make a difference.
                 </p>
-                <div className="flex gap-4">
-                  <button className="px-6 py-3 font-bold border-3 border-orange-600 rounded-lg bg-orange-600 text-white hover:bg-white hover:text-orange-600 transition-all">
-                    Get Help Now
-                  </button>
-                  <button className="px-6 py-3 font-bold rounded-lg bg-white border-3  border-orange-600 text-orange-500 hover:text-white hover:bg-orange-600">
-                    Become a Volunteer
-                  </button>
+                <div className="flex gap-4 justify-center lg:justify-start">
+                  <Link to={"/find-help"}>
+                    <button className="px-6 py-3 font-bold border-3 border-orange-600 rounded-lg bg-orange-600 text-white hover:bg-white hover:text-orange-600 transition-all">
+                      Get Help Now
+                    </button>
+                  </Link>
+                  <Link to={"/volunteer"}>
+                    <button className="px-6 py-3 font-bold rounded-lg bg-white border-3  border-orange-600 text-orange-500 hover:text-white hover:bg-orange-600">
+                      Become a Volunteer
+                    </button>
+                  </Link>
                   {/* Donate Button */}
                   <button
                     onClick={() => setIsModalOpen(true)}
@@ -67,7 +68,9 @@ const Home = () => {
                 </div>
               </div>
               {/* Right Side - Slideshow */}
-              <Slideshow />
+              <div className="flex justify-center">
+                <Slideshow />
+              </div>
             </div>
           </div>
         </section>
@@ -80,15 +83,15 @@ const Home = () => {
           <div className="container mx-auto px-6">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               {/*Lottie Animation */}
-              <div className="w-full max-w-md">
+              <div className=" w-full ">
                 <Lottie
                   animationData={helpAnimation}
                   loop={true}
                   autoplay={true}
-                  className="w-150 h-150"
+                  className="w-full md:w-150 h-150"
                 />
               </div>
-              <div>
+              <div className="text-center lg:text-start">
                 <h2 className="text-3xl font-bold text-gray-900 mb-6">
                   Make a Difference
                 </h2>
@@ -96,7 +99,7 @@ const Home = () => {
                   Join our network of volunteers and help those in need. Share
                   your skills and time to support your community.
                 </p>
-                <div className="space-y-4 text-gray-900">
+                <div className="space-y-4 text-gray-900 flex flex-col items-center lg:items-start">
                   <div className="flex items-center gap-3">
                     <FaCheck className="text-green-600" />
                     <span>Flexible scheduling</span>
@@ -110,9 +113,11 @@ const Home = () => {
                     <span>Community support</span>
                   </div>
                 </div>
-                <button className="px-6 py-3 my-10 border-3 hover:bg-orange-600 hover:text-white hover:border-orange-600 border-orange-600 text-orange-600 font-bold rounded-lg bg-white text-orange-600 transition-all">
-                  Start Volunteering
-                </button>
+                <Link to={"/volunteer"}>
+                  <button className="px-6 py-3 my-10 border-3 hover:bg-orange-600 hover:text-white hover:border-orange-600 border-orange-600 text-orange-600 font-bold rounded-lg bg-white text-orange-600 transition-all">
+                    Start Volunteering
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -155,12 +160,16 @@ const Home = () => {
             your area.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-            <button className="px-6 py-3 bg-white text-blue-900 font-bold rounded-md shadow-lg hover:bg-opacity-80 transition-all">
-              Get Started
-            </button>
-            <button className="px-6 py-3 border-2 border-white text-white font-bold rounded-md hover:bg-white hover:text-blue-900 transition-all">
-              Learn More
-            </button>
+            <Link to={"/volunteer"}>
+              <button className="px-6 py-3 bg-white text-blue-900 font-bold rounded-md shadow-lg hover:bg-opacity-80 transition-all">
+                Get Started
+              </button>
+            </Link>
+            <Link to={"/about"}>
+              <button className="px-6 py-3 border-2 border-white text-white font-bold rounded-md hover:bg-white hover:text-blue-900 transition-all">
+                Learn More
+              </button>
+            </Link>
           </div>
         </motion.section>
         {/* Impact Stories Section */}

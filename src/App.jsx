@@ -19,6 +19,7 @@ import AdminUsers from "./pages/admin/AdminUsers";
 import AdminMessages from "./pages/admin/AdminMessages";
 import About from "./pages/About";
 import FindHelp from "./pages/FindHelp";
+import NotFound from "./pages/NotFound";
 
 // Import Header & Footer
 import Header from "./components/Header";
@@ -35,7 +36,7 @@ const Layout = ({ children }) => {
     <>
       {!isHidden && <Header />}
 
-      <main className="min-h-screen">{children}</main>
+      <main className="min-h-screen min-w-screen w-full ">{children}</main>
 
       {!isHidden && <Footer />}
     </>
@@ -55,6 +56,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/volunteer" element={<Volunteer />} />
           <Route path="/about" element={<About />} />
+          <Route path="*" element={<NotFound />} />
 
           {/* Admin Routes */}
           <Route path="/admin_auth" element={<AdminAuth />} />

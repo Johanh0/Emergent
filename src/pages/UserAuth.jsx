@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { UserContext } from "../context/UserProvider";
 import { FaArrowLeft } from "react-icons/fa";
 import Lottie from "lottie-react";
@@ -10,8 +10,27 @@ import UserLogin from "../components/auth/UserLogin";
 
 const UserAuth = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const view = searchParams.get("view");
+  console.log(view);
   const { user } = useContext(UserContext);
-  const [isLoginView, setIsLoginView] = useState(true);
+  const [isLoginView, setIsLoginView] = useState(() => {
+    if (view) {
+      switch (view) {
+        case "sign-in":
+          return true;
+          break;
+
+        case "sign-up":
+          return false;
+          break;
+      }
+
+      return;
+    }
+
+    return true;
+  });
 
   useEffect(() => {
     const isUserLoggedIn = async () => {
@@ -33,8 +52,14 @@ const UserAuth = () => {
     isUserLoggedIn();
   }, []);
 
+  useEffect(() => {
+    const checkView = () => {};
+
+    checkView();
+  }, []);
+
   return (
-    <section className="flex w-screen h-screen p-5 md:p-10 gap-16 bg-gradient-to-r from-purple-600 to-indigo-700 justify-center items-center">
+    <section className="absolute top-0 left-0 flex w-screen h-screen p-5 md:p-10 gap-16 bg-gradient-to-r from-purple-600 to-indigo-700 justify-center items-center">
       {/* Left Side: Enlarged User Login/Signup Form */}
       <motion.div
         className="relative flex flex-col justify-center items-center bg-white p-16 rounded-lg shadow-lg w-full max-w-2xl"

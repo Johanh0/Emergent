@@ -7,7 +7,7 @@ const Resource = () => {
   return (
     <div className=" full-w">
       {/* Page Title */}
-      <section className="py-14.5 mt-20 text-center bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] text-white">
+      <section className="py-20 text-center bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] text-white">
         <h1 className="text-5xl font-bold">Emergency Safety Tips</h1>
         <p className="mt-8 text-lg max-w-3xl mx-auto">
           Stay informed and prepared with our comprehensive emergency safety

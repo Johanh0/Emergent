@@ -39,7 +39,7 @@ const AdminNavbar = () => {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <h3 className="text-2xl text-center font-bold">Capstone</h3>
+        <h3 className="text-2xl text-center font-bold">Emergent</h3>
       </motion.section>
 
       <motion.section

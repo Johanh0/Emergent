@@ -28,7 +28,7 @@ const adminAuth = () => {
     isAdminLoggedIn();
   }, []);
   return (
-    <section className="flex justify-center items-center w-full h-screen">
+    <section className="absolute top-0 left-0 flex justify-center items-center w-full h-screen">
       <AdminLogin />
     </section>
   );
