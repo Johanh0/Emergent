@@ -29,8 +29,7 @@ const Home = () => {
   return (
     <>
       <section
-        className="pt-16 min-h-screen flex flex-col justify-between
-"
+        className="pt-16 min-h-screen flex flex-col justify-between"
       >
         {/* Hero Section */}
         <section
@@ -40,7 +39,9 @@ const Home = () => {
           <div className="container mx-auto px-4 mt-20 lg:mt-0">
             <div className="grid md:grid-cols-2 gap-12 items-center text-center lg:text-start">
               <div>
-                <h1 className="text-5xl font-bold text-gray-900 mb-6">
+                <h1
+                  className="text-5xl font-bold text-gray-900 mb-6"
+                >
                   Emergency Aid & Support Network
                 </h1>
                 <p className="text-xl text-gray-600 mb-8">
