@@ -31,6 +31,7 @@ const Slideshow = () => {
             src="src/assets/NDR-4.jpeg"
             alt="Food & Water Distribution"
             className="w-full h-96 object-cover rounded-lg"
+            data-testid="slideshow-image1"
           />
         </div>
         <div>
@@ -38,6 +39,7 @@ const Slideshow = () => {
             src="src/assets/NDR-3.jpeg"
             alt="Emergency Shelters"
             className="w-full h-96 object-cover rounded-lg"
+            data-testid="slideshow-image2"
           />
         </div>
         <div>
@@ -45,6 +47,7 @@ const Slideshow = () => {
             src="src/assets/NDR.jpeg"
             alt="Emergency Shelters"
             className="w-full h-96 object-cover rounded-lg"
+            data-testid="slideshow-image3"
           />
         </div>
       </Slider>

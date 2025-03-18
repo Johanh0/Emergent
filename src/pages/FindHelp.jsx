@@ -208,6 +208,7 @@ const FindHelp = () => {
           {isHospitalMode
             ? hospitals.map((hospital, index) => (
                 <div
+                data-testid="result-item"
                   key={index}
                   className="border-b pb-3 mb-3 cursor-pointer"
                   onClick={() => setSelectedLocation(hospital)}
@@ -219,6 +220,7 @@ const FindHelp = () => {
               ))
             : shelters.map((shelter, index) => (
                 <div
+                data-testid="result-item"
                   key={index}
                   className="border-b pb-3 mb-3 cursor-pointer"
                   onClick={() => setSelectedLocation(shelter)}
@@ -237,25 +239,6 @@ const FindHelp = () => {
           <div id="map" className="w-full h-96"></div>
         </div>
       </div>
-
-      {/* YouTube Video Section */}
-      {/* <div className="mt-8">
-        <h2 className="text-xl font-semibold mb-4">Emergency Preparedness Guide</h2>
-        <div className="w-full aspect-w-16 aspect-h-9">
-          <iframe
-            width="100%"
-            height="415"
-            src="https://www.youtube.com/embed/gds9yFMEm2k?si=XYEXLyKFKrvjouJd"
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-          ></iframe>
-        </div>
-      </div> */}
-
-      {/* <Guidelines /> */}
 
       {/* MODAL */}
       {modalContent && (

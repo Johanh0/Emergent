@@ -82,7 +82,7 @@ export default function ContactPage() {
 
   return (
     <>
-      <section className="flex items-center justify-center min-h-screen bg-gray-100 p-6 relative">
+      <section className="flex items-center justify-center min-h-screen bg-gray-100 p-6 relative" data-testid="conatct-form">
         <div className="bg-white p-10 rounded-lg shadow-md w-full max-w-2xl">
           <h2 className="text-3xl font-bold text-center mb-6">Get in Touch</h2>
           <p className="text-gray-600 text-center mb-8">

@@ -32,15 +32,16 @@ const Home = () => {
     <>
       <Header />
       <section
-        className="pt-16 min-h-screen flex flex-col justify-between
-"
+        className="pt-16 min-h-screen flex flex-col justify-between"
       >
         {/* Hero Section */}
         <section className="h-[600px] flex items-center bg-gray-100">
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <h1 className="text-5xl font-bold text-gray-900 mb-6">
+                <h1
+                  className="text-5xl font-bold text-gray-900 mb-6"
+                >
                   Emergency Aid & Support Network
                 </h1>
                 <p className="text-xl text-gray-600 mb-8">
@@ -107,7 +108,7 @@ const Home = () => {
                     <span>Community support</span>
                   </div>
                 </div>
-                <button className="px-6 py-3 my-10 border-3 hover:bg-orange-600 hover:text-white hover:border-orange-600 border-orange-600 text-orange-600 font-bold rounded-lg bg-white text-orange-600 transition-all">
+                <button className="px-6 py-3 my-10 border-3 hover:bg-orange-600 hover:text-white hover:border-orange-600 border-orange-600 text-orange-600 font-bold rounded-lg bg-white text-orange-600 transition-all" data-test="start-volunteering">
                   Start Volunteering
                 </button>
               </div>

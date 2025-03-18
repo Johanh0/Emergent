@@ -34,7 +34,7 @@ const About = () => {
             <h2 className="text-3xl font-bold text-gray-900 mb-8">
               Our Mission
             </h2>
-            <p className="text-lg max-w-3xl mx-auto text-gray-600">
+            <p className="text-lg max-w-3xl mx-auto text-gray-600" data-testid="Our mission">
               Our mission is to empower individuals and communities by
               connecting them with life-saving resources, educational tools, and
               emergency response networks. We strive to build a world where
@@ -89,7 +89,7 @@ const About = () => {
                 className="bg-gray-50 rounded-lg p-6 shadow-md"
               >
                 <FaShieldAlt className="text-indigo-800 text-5xl mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-xl font-bold text-gray-900 mb-3" data-testid="safety & emergency">
                   Safety & Emergency Education
                 </h3>
                 <p className="text-gray-600">
