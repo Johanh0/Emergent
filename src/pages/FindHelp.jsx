@@ -127,127 +127,138 @@ const FindHelp = () => {
   }, [selectedLocation]);
 
   return (
-    <div className="p-6 max-w-5xl mx-auto mt-48 bg-white text-black">
-      {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-xl font-semibold">Find Help</h1>
-        <button
-          className="bg-orange-600 text-white px-4 py-2 rounded-lg flex items-center cursor-pointer"
-          onClick={() =>
-            setModalContent(
-              "For More Assistance, Dial 211 Which Serves As a Central Point For Accessing Information And Referrals To Various Social Services And Community Organizations."
-            )
-          }
-        >
-          <PhoneCall className="mr-2" size={18} /> Need More Assistance?
-        </button>
-      </div>
-
-      {/* Buttons for Food Banks/Shelters and Hospitals */}
-      <div className="flex gap-2 mb-4">
-        <button
-          className={`${
-            !isHospitalMode
-              ? "bg-black text-white" // Active state (no hover effect)
-              : "bg-gray-100 text-black hover:bg-white hover:text-black" // Inactive state (with hover effect)
-          } px-6 py-2 rounded-lg transition-colors cursor-pointer w-full font-bold`}
-          onClick={() => setIsHospitalMode(false)}
-        >
-          Food Banks & Shelters
-        </button>
-        <button
-          className={`${
-            isHospitalMode
-              ? "bg-black text-white" // Active state (no hover effect)
-              : "bg-gray-100 text-black hover:bg-white hover:text-black" // Inactive state (with hover effect)
-          } px-6 py-2 rounded-lg transition-colors cursor-pointer w-full font-bold`}
-          onClick={() => setIsHospitalMode(true)}
-        >
-          Hospitals & Medical Centers
-        </button>
-      </div>
-
-      {/* Search Bar */}
-      <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-semibold mb-4">
-          {isHospitalMode
-            ? "Find Nearby Medical Assistance"
-            : "Find Nearby Food Banks and Shelters"}
-        </h2>
-        <div className="flex gap-2">
-          <input
-            type="text"
-            placeholder="Enter City"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Enter State (e.g., NY)"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-            value={state}
-            onChange={(e) => setState(e.target.value)}
-          />
+    <div className="min-h-screen bg-gray-100 mt-27">
+      {/* ✅ Gradient Header Section */}
+      <section className="py-17 pb-34 pt-8 bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] text-white text-center ">
+        <h1 className="text-5xl font-bold">Find Help</h1>
+        <p className="mt-10 text-lg max-w-3xl mx-auto">
+          Use this page to help you locate medical assistance, food banks, and
+          shelters near you. Just Click the results to display the location!
+        </p>
+      </section>
+      <div className="p-6 rounded-lg max-w-5xl mx-auto mt-25 mb-25 bg-white text-black">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-xl font-semibold">
+            Select an option then add your location:
+          </h1>
           <button
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center cursor-pointer"
-            onClick={handleSearch}
+            className="bg-orange-600 hover:bg-orange-500 text-white px-4 py-2 rounded-lg flex items-center cursor-pointer"
+            onClick={() =>
+              setModalContent(
+                "For More Assistance, Dial 211 Which Serves As a Central Point For Accessing Information And Referrals To Various Social Services And Community Organizations."
+              )
+            }
           >
-            <Search className="mr-2" size={18} /> Search
+            <PhoneCall className="mr-2" size={18} /> Need More Assistance?
           </button>
         </div>
-      </div>
 
-      {/* Results Section */}
-      <div className="grid grid-cols-2 gap-4 mt-6">
-        {/* List of Results */}
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h3 className="text-lg font-semibold mb-3">
+        {/* Buttons for Food Banks/Shelters and Hospitals */}
+        <div className="flex gap-2 mb-4">
+          <button
+            className={`${
+              !isHospitalMode
+                ? "bg-black text-white" // Active state (no hover effect)
+                : "bg-gray-100 text-black hover:bg-white hover:text-black" // Inactive state (with hover effect)
+            } px-6 py-2 rounded-lg transition-colors cursor-pointer w-full font-bold`}
+            onClick={() => setIsHospitalMode(false)}
+          >
+            Food Banks & Shelters
+          </button>
+          <button
+            className={`${
+              isHospitalMode
+                ? "bg-black text-white" // Active state (no hover effect)
+                : "bg-gray-100 text-black hover:bg-white hover:text-black" // Inactive state (with hover effect)
+            } px-6 py-2 rounded-lg transition-colors cursor-pointer w-full font-bold`}
+            onClick={() => setIsHospitalMode(true)}
+          >
+            Hospitals & Medical Centers
+          </button>
+        </div>
+
+        {/* Search Bar */}
+        <div className="bg-gray-100 p-6 rounded-lg shadow-md">
+          <h2 className="text-2xl font-semibold mb-4">
             {isHospitalMode
-              ? `Nearby Hospitals (${hospitals.length} found)`
-              : `Nearby Food Banks and Shelters (${shelters.length} found)`}
-          </h3>
-          {loading && <p className="text-gray-500">Loading...</p>}
-          {error && <p className="text-red-500">{error}</p>}
-          {isHospitalMode
-            ? hospitals.map((hospital, index) => (
-                <div
-                  key={index}
-                  className="border-b pb-3 mb-3 cursor-pointer"
-                  onClick={() => setSelectedLocation(hospital)}
-                >
-                  <p className="font-semibold">{hospital.name}</p>
-                  <p className="text-sm">{hospital.address}</p>
-                  <p className="text-sm font-semibold">{hospital.phone}</p>
-                </div>
-              ))
-            : shelters.map((shelter, index) => (
-                <div
-                  key={index}
-                  className="border-b pb-3 mb-3 cursor-pointer"
-                  onClick={() => setSelectedLocation(shelter)}
-                >
-                  <p className="font-semibold">
-                    {shelter.name || "No name available"}
-                  </p>
-                  <p className="text-sm">
-                    {shelter.full_address || "No address available"}
-                  </p>
-                  <p className="text-sm font-semibold">
-                    {shelter.phone_number || "No phone number available"}
-                  </p>
-                </div>
-              ))}
+              ? "Find Nearby Medical Assistance"
+              : "Find Nearby Food Banks and Shelters"}
+          </h2>
+          <div className="flex gap-2">
+            <input
+              type="text"
+              placeholder="Enter City"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Enter State (e.g., NY)"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+              value={state}
+              onChange={(e) => setState(e.target.value)}
+            />
+            <button
+              className="bg-indigo-900  hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center cursor-pointer"
+              onClick={handleSearch}
+            >
+              <Search className="mr-2" size={18} /> Search
+            </button>
+          </div>
         </div>
 
-        {/* Map Section */}
-        <div className="bg-gray-200 flex justify-center items-center text-gray-600 text-lg font-semibold rounded-lg shadow-md">
-          <div id="map" className="w-full h-96"></div>
-        </div>
-      </div>
+        {/* Results Section */}
+        <div className="grid grid-cols-2 gap-4 mt-6">
+          {/* List of Results */}
+          <div className="bg-white p-4 rounded-lg shadow-md">
+            <h3 className="text-lg font-semibold mb-3">
+              {isHospitalMode
+                ? `Nearby Hospitals (${hospitals.length} found)`
+                : `Nearby Food Banks and Shelters (${shelters.length} found)`}
+            </h3>
+            {loading && <p className="text-gray-500">Loading...</p>}
+            {error && <p className="text-red-500">{error}</p>}
+            {isHospitalMode
+              ? hospitals.map((hospital, index) => (
+                  <div
+                    key={index}
+                    className="border-b pb-3 mb-3 cursor-pointer"
+                    onClick={() => setSelectedLocation(hospital)}
+                  >
+                    <p className="font-semibold">{hospital.name}</p>
+                    <p className="text-sm">{hospital.address}</p>
+                    <p className="text-sm font-semibold">{hospital.phone}</p>
+                  </div>
+                ))
+              : shelters.map((shelter, index) => (
+                  <div
+                    key={index}
+                    className="border-b pb-3 mb-3 cursor-pointer"
+                    onClick={() => setSelectedLocation(shelter)}
+                  >
+                    <p className="font-semibold">
+                      {shelter.name || "No name available"}
+                    </p>
+                    <p className="text-sm">
+                      {shelter.full_address || "No address available"}
+                    </p>
+                    <p className="text-sm font-semibold">
+                      {shelter.phone_number || "No phone number available"}
+                    </p>
+                  </div>
+                ))}
+          </div>
 
-      {/* YouTube Video Section */}
-      {/* <div className="mt-8">
+          {/* Map Section */}
+          <div className="bg-gray-200 flex justify-center items-center text-gray-600 text-lg font-semibold rounded-lg shadow-md">
+            <div id="map" className="w-full h-96"></div>
+          </div>
+        </div>
+
+        {/* YouTube Video Section */}
+        {/* <div className="mt-8">
         <h2 className="text-xl font-semibold mb-4">Emergency Preparedness Guide</h2>
         <div className="w-full aspect-w-16 aspect-h-9">
           <iframe
@@ -263,23 +274,44 @@ const FindHelp = () => {
         </div>
       </div> */}
 
-      {/* <Guidelines /> */}
+        {/* <Guidelines /> */}
 
-      {/* MODAL */}
-      {modalContent && (
-        <div className="fixed inset-0 bg-gray-9 bg-opacity-10 backdrop-blur-sm flex justify-center items-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md">
-            {/* <h2 className="text-xl font-semibold mb-4">Assistance Information</h2> */}
-            <p>{modalContent}</p>
-            <button
-              className="mt-4 bg-black text-white px-4 py-2 rounded-lg cursor-pointer"
-              onClick={() => setModalContent(null)}
+        {/* MODAL */}
+        {modalContent && (
+          <div className="fixed inset-0 bg-gray-9 bg-opacity-10 backdrop-blur-sm flex justify-center items-center">
+            <div className="bg-white p-6 rounded-lg shadow-lg max-w-md">
+              {/* <h2 className="text-xl font-semibold mb-4">Assistance Information</h2> */}
+              <p>{modalContent}</p>
+              <button
+                className="mt-4 bg-black text-white px-4 py-2 rounded-lg cursor-pointer"
+                onClick={() => setModalContent(null)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+      {/* Call to Action */}
+      <section className="py-16 -mb-20 bg-[#161128] text-white text-center ">
+        <div className="container mx-auto px-6">
+          <h2 className="text-4xl font-bold mb-4">Having an Emergency?</h2>
+          <p className="text-lg max-w-2xl mx-auto">
+            Find the right contact for your emergency.
+          </p>
+          <div className="mt-6 flex justify-center space-x-4">
+            <a
+              href="https://www.apartmentguide.com/blog/emergency-phone-numbers/"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              Close
-            </button>
+              <button className="px-6 py-3 bg-white text-red-600 font-bold rounded-md shadow-lg hover:bg-red-100 transition-all">
+                Find Contact
+              </button>
+            </a>
           </div>
         </div>
-      )}
+      </section>
     </div>
   );
 };

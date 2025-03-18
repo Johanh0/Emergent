@@ -81,33 +81,34 @@ export default function ContactPage() {
 
   return (
     <>
-      <main className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-700 p-6">
-        <motion.div
-          className="bg-white p-10 rounded-lg shadow-lg w-full max-w-3xl flex flex-col items-center"
-          initial={{ y: -50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h2 className="text-4xl font-bold text-center text-black mb-6">
-            Get in Touch
-          </h2>
-          <p className="text-gray-600 text-center mb-8">
-            We'd love to hear from you! Fill out the form below and we'll get
-            back to you as soon as possible.
-          </p>
-          <form className="space-y-6 w-full max-w-lg" onSubmit={handleSubmit}>
-            <div className="flex gap-5">
-              <input
-                type="text"
-                name="firstName"
-                placeholder="First Name"
-                className="w-1/2 p-4 border rounded-md text-lg bg-gray-100"
-                value={formData.firstName}
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="text"
+      <div className="flex flex-col min-h-screen">
+        <main className="-mb-20 h-full flex-grow flex flex-col justify-center items-center bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] p-6 min-h-screen">
+          <motion.div
+            className="bg-white p-10 rounded-lg shadow-lg w-full max-w-3xl flex flex-col items-center"
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-4xl font-bold text-center text-black mb-6">
+              Get in Touch
+            </h2>
+            <p className="text-gray-600 text-center mb-8">
+              We'd love to hear from you! Fill out the form below and we'll get
+              back to you as soon as possible.
+            </p>
+            <form className="space-y-6 w-full max-w-lg" onSubmit={handleSubmit}>
+              <div className="flex gap-5">
+                <input
+                  type="text"
+                  name="firstName"
+                  placeholder="First Name"
+                  className="w-1/2 p-4 border rounded-md text-lg bg-gray-100"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  required
+                />
+                <input
+                  type="text"
                 name="lastName"
                 placeholder="Last Name"
                 className="w-1/2 p-4 border rounded-md text-lg bg-gray-100"
@@ -178,6 +179,7 @@ export default function ContactPage() {
         )}
         </motion.div>
       </main>
+</div>
     </>
   );
 }
