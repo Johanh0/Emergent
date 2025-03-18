@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import VolunteerModal from "../components/VolunteerModal";
 
 const Volunteer = () => {
@@ -113,9 +114,11 @@ const Volunteer = () => {
             Become part of a movement that makes a real impact. Sign up and take
             your first step toward meaningful change.
           </p>
-          <button className="mt-8 px-8 py-3 bg-white text-red-600 font-bold rounded-lg hover:bg-red-100 transition">
-            Sign Up Now
-          </button>
+          <Link to={"/auth?view=sign-up"}>
+            <button className="mt-8 px-8 py-3 bg-white text-red-600 font-bold rounded-lg hover:bg-red-100 transition">
+              Sign Up Now
+            </button>
+          </Link>
         </section>
       </main>
     </>

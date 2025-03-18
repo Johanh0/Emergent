@@ -7,6 +7,7 @@ import {
   FaLightbulb,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const About = () => {
   return (
@@ -165,9 +166,11 @@ const About = () => {
               communities, and educates people on safety.
             </p>
             <div className="mt-6 flex justify-center space-x-4">
-              <button className="px-6 py-3 bg-white text-red-600 font-bold rounded-md shadow-lg hover:bg-red-100 transition-all">
-                Get Involved
-              </button>
+              <Link to={"/auth?view=sign-up"}>
+                <button className="px-6 py-3 bg-white text-red-600 font-bold rounded-md shadow-lg hover:bg-red-100 transition-all">
+                  Get Involved
+                </button>
+              </Link>
             </div>
           </div>
         </section>
