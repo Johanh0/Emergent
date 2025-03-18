@@ -37,8 +37,8 @@ const Home = () => {
           className="h-[600px] flex items-center bg-white
         "
         >
-          <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="container mx-auto px-4 mt-20 lg:mt-0">
+            <div className="grid md:grid-cols-2 gap-12 items-center text-center lg:text-start">
               <div>
                 <h1 className="text-5xl font-bold text-gray-900 mb-6">
                   Emergency Aid & Support Network
@@ -47,7 +47,7 @@ const Home = () => {
                   Connect with volunteers and access emergency resources in your
                   community. Together we can make a difference.
                 </p>
-                <div className="flex gap-4">
+                <div className="flex gap-4 justify-center lg:justify-start">
                   <Link to={"/find-help"}>
                     <button className="px-6 py-3 font-bold border-3 border-orange-600 rounded-lg bg-orange-600 text-white hover:bg-white hover:text-orange-600 transition-all">
                       Get Help Now
@@ -68,7 +68,9 @@ const Home = () => {
                 </div>
               </div>
               {/* Right Side - Slideshow */}
-              <Slideshow />
+              <div className="flex justify-center">
+                <Slideshow />
+              </div>
             </div>
           </div>
         </section>
@@ -81,7 +83,7 @@ const Home = () => {
           <div className="container mx-auto px-6">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               {/*Lottie Animation */}
-              <div className=" w-full max-w-md">
+              <div className=" w-full ">
                 <Lottie
                   animationData={helpAnimation}
                   loop={true}
@@ -89,7 +91,7 @@ const Home = () => {
                   className="w-full md:w-150 h-150"
                 />
               </div>
-              <div>
+              <div className="text-center lg:text-start">
                 <h2 className="text-3xl font-bold text-gray-900 mb-6">
                   Make a Difference
                 </h2>
@@ -97,7 +99,7 @@ const Home = () => {
                   Join our network of volunteers and help those in need. Share
                   your skills and time to support your community.
                 </p>
-                <div className="space-y-4 text-gray-900">
+                <div className="space-y-4 text-gray-900 flex flex-col items-center lg:items-start">
                   <div className="flex items-center gap-3">
                     <FaCheck className="text-green-600" />
                     <span>Flexible scheduling</span>

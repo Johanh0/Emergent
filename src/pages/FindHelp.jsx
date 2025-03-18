@@ -127,9 +127,9 @@ const FindHelp = () => {
   }, [selectedLocation]);
 
   return (
-    <div className="min-h-screen bg-gray-100 mt-27">
+    <div className="min-h-screen bg-gray-100">
       {/* ✅ Gradient Header Section */}
-      <section className="py-17 pb-34 pt-8 bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] text-white text-center ">
+      <section className="py-20 pb-34  bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] text-white text-center ">
         <h1 className="text-5xl font-bold">Find Help</h1>
         <p className="mt-10 text-lg max-w-3xl mx-auto">
           Use this page to help you locate medical assistance, food banks, and

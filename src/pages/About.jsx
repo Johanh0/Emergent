@@ -12,9 +12,9 @@ import { Link } from "react-router-dom";
 const About = () => {
   return (
     <>
-      <section className="pt-7">
+      <section className="">
         {/* Hero Section */}
-        <section className="py-13 text-center bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] text-white">
+        <section className="py-20 text-center bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] text-white">
           <div className="container mx-auto px-6">
             <h1 className="text-5xl mt-7 font-bold mb-4">About Us</h1>
             <p className=" mt-8 text-lg max-w-3xl mx-auto">
@@ -158,7 +158,7 @@ const About = () => {
         </section>
 
         {/* Call to Action */}
-        <section className="py-16 -mb-20 bg-[#161128] text-white text-center ">
+        <section className="py-16 bg-[#161128] text-white text-center ">
           <div className="container mx-auto px-6">
             <h2 className="text-4xl font-bold mb-4">Join Us Today</h2>
             <p className="text-lg max-w-2xl mx-auto">

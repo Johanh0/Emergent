@@ -21,7 +21,7 @@ const Header = () => {
   const { user } = useContext(UserContext);
   const [isBurgerOpen, setIsBurgerOpen] = useState(true);
   return (
-    <header className="fixed py-6 w-full bg-white border-b border-gray-200 z-50 shadow-md">
+    <header className="  py-6 w-full bg-white border-b border-gray-200 z-50 shadow-md">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -55,7 +55,7 @@ const Header = () => {
           </nav>
 
           {/* Account & Mobile Menu */}
-          <div className="flex items-center gap-10">
+          <div className="flex items-center gap-5">
             {/* Sign In Button with Framer Motion */}
             {!user ? (
               <div className=" flex gap-3">

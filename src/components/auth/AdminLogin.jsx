@@ -54,7 +54,7 @@ const AdminLogin = () => {
             <input
               type="email"
               placeholder="Enter email"
-              className="w-full mr-3 outline-none bg-transparent text-gray-700 text-lg"
+              className="w-full mr-3 pl-3 outline-none bg-transparent text-gray-700 text-lg"
               onChange={(e) => setEmail(e.target.value)}
               required
             />
@@ -66,7 +66,7 @@ const AdminLogin = () => {
             <input
               type="password"
               placeholder="Enter password"
-              className="w-full mr-3 outline-none bg-transparent text-gray-700 text-lg"
+              className="w-full mr-3 pl-3 outline-none bg-transparent text-gray-700 text-lg"
               onChange={(e) => setPassword(e.target.value)}
               required
             />

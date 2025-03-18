@@ -3,11 +3,11 @@ import { FaTwitter, FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-100 pt-20">
+    <footer className="bg-gray-100 pt-20 text-center lg:text-start">
       <div className="container mx-auto px-4 py-5">
         <div className="grid md:grid-cols-4 gap-8">
-          <div>
-            <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+          <div className="">
+            <h2 className="text-xl font-bold text-gray-900 flex items-center justify-center lg:justify-start gap-2">
               EmergencyAid
             </h2>
             <p className="text-gray-600 mt-2">
@@ -47,7 +47,7 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-gray-800 mb-4">
               Follow Us
             </h3>
-            <div className="flex gap-4 text-gray-600">
+            <div className="flex justify-center lg:justify-start gap-4 text-gray-600">
               <FaTwitter />
               <FaFacebook />
               <FaInstagram />
