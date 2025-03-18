@@ -109,51 +109,77 @@ export default function ContactPage() {
                 />
                 <input
                   type="text"
-                  name="lastName"
-                  placeholder="Last Name"
-                  className="w-1/2 p-4 border rounded-md text-lg bg-gray-100"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                className="w-full p-4 border rounded-md text-lg bg-gray-100"
-                value={formData.email}
+                name="lastName"
+                placeholder="Last Name"
+                className="w-1/2 p-4 border rounded-md text-lg bg-gray-100"
+                value={formData.lastName}
                 onChange={handleChange}
                 required
               />
-              <input
-                type="text"
-                name="subject"
-                placeholder="Subject"
-                className="w-full p-4 border rounded-md text-lg bg-gray-100"
-                value={formData.subject}
-                onChange={handleChange}
-                required
-              />
-              <textarea
-                name="message"
-                placeholder="Your message here..."
-                className="w-full p-4 border rounded-md h-40 text-lg bg-gray-100"
-                value={formData.message}
-                onChange={handleChange}
-                required
-              ></textarea>
-              <motion.button
-                type="submit"
-                className="w-full bg-black text-white p-4 rounded-md text-lg  transition"
-                whileHover={{ scale: 1.05 }}
+            </div>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              className="w-full p-4 border rounded-md text-lg bg-gray-100"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email}</p>
+            )}
+            <input
+              type="text"
+              name="subject"
+              placeholder="Subject"
+              className="w-full p-4 border rounded-md text-lg bg-gray-100"
+              value={formData.subject}
+              onChange={handleChange}
+              required
+            />
+            {errors.subject && (
+              <p className="text-red-500 text-sm">{errors.subject}</p>
+            )}
+            <textarea
+              name="message"
+              placeholder="Your message here..."
+              className="w-full p-4 border rounded-md h-40 text-lg bg-gray-100"
+              value={formData.message}
+              onChange={handleChange}
+              required
+            ></textarea>
+            {errors.message && (
+              <p className="text-red-500 text-sm">{errors.message}</p>
+            )}
+            <motion.button
+              type="submit"
+              className="w-full bg-black text-white p-4 rounded-md text-lg hover:bg-indigo-800 transition"
+              whileHover={{ scale: 1.05 }}
+            >
+              Send Message
+            </motion.button>
+          </form>
+{/* Modal */}
+        {isModalOpen && (
+          <div className="fixed inset-0 bg-gray-9 bg-opacity-50 backdrop-blur-sm flex justify-center items-center">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-80 text-center">
+              <h3 className="text-xl font-semibold">Thank You!</h3>
+              <p className="text-gray-600 mt-2">
+                We will get back to you shortly.
+              </p>
+              <button
+                className="mt-4 bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 cursor-pointer"
+                onClick={() => setIsModalOpen(false)}
               >
-                Send Message
-              </motion.button>
-            </form>
-          </motion.div>
-        </main>
-      </div>
+                Close
+              </button>
+            </div>
+          </div>
+        )}
+        </motion.div>
+      </main>
+</div>
     </>
   );
 }
