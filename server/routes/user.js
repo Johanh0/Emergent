@@ -1,9 +1,43 @@
 import express from "express";
 import bcrypt from "bcrypt";
+import multer from "multer";
+import path from "node:path";
+import fs from "node:fs";
 import { promisePool } from "../database/db.js";
 import { generateToken } from "../utils/jwt.js";
 import { userAuthenticateToken } from "../middleware/auth.js";
 const userRouter = express.Router();
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+const uploadDir = path.join(__dirname, "../uploads");
+
+// Upload Configuration
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+// Initializate multer
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith("image/")) {
+      cb(null, true);
+    } else {
+      cb(new Error("El archivo debe ser una imagen"), false);
+    }
+  },
+  limits: {
+    fileSize: 1024 * 1024 * 5,
+  },
+});
 
 userRouter.get("/profile", userAuthenticateToken, async (req, res) => {
   const { id } = req.user;
@@ -15,8 +49,6 @@ userRouter.get("/profile", userAuthenticateToken, async (req, res) => {
     if (!user.length) {
       return res.status(404).json({ message: "User not found" });
     }
-
-    console.log(user);
 
     res.status(200).json({
       message: "Login successful",
@@ -193,6 +225,67 @@ userRouter.post("/update_user", userAuthenticateToken, async (req, res) => {
     res.status(500).json({ error: "Error uodating the user" });
   }
 });
+
+userRouter.post(
+  "/upload",
+  userAuthenticateToken,
+  upload.single("image"),
+  async (req, res) => {
+    if (!req.file) {
+      return res.status(400).json({ error: "You need to upload an image" });
+    }
+
+    const { id } = req.user;
+
+    if (!id) {
+      return res.status(400).json({ error: "User ID is required" });
+    }
+
+    try {
+      const [currentUser] = await promisePool.execute(
+        "SELECT profile_image_url FROM users WHERE id = ?",
+        [id]
+      );
+
+      const oldImageFilename = currentUser[0]?.profile_image_url;
+      const imageFilename = req.file.filename;
+
+      const query = "UPDATE users SET profile_image_url = ? WHERE id = ?";
+      const [result] = await promisePool.execute(query, [imageFilename, id]);
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      if (oldImageFilename && oldImageFilename !== "user.jpg") {
+        const oldImagePath = path.join(uploadDir, oldImageFilename);
+
+        fs.access(oldImagePath, fs.constants.F_OK, (err) => {
+          if (!err) {
+            fs.unlink(oldImagePath, (unlinkErr) => {
+              if (unlinkErr) {
+                console.error("Error deleting old image:", unlinkErr);
+              }
+            });
+          }
+        });
+      }
+
+      const [updatedUser] = await promisePool.execute(
+        "SELECT firstName, lastName, email, role, profile_image_url FROM users WHERE id = ?",
+        [id]
+      );
+
+      res.status(200).json({
+        message: "Image successfully uploaded and user profile updated",
+        user: updatedUser[0],
+      });
+    } catch (error) {
+      console.error("Error updating user profile image:", error);
+      res.status(500).json({ error: "Error updating profile image" });
+    }
+  }
+);
 
 userRouter.post("/missing-family", userAuthenticateToken, async (req, res) => {
   const user_id = req.user.id;

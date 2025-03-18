@@ -17,7 +17,7 @@ const Slideshow = () => {
   };
 
   return (
-    <div className="w-full max-w-lg overflow-hidden">
+    <div className=" w-full max-w-lg overflow-hidden">
       <Slider {...settings}>
         <div>
           <img

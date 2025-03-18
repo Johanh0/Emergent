@@ -45,10 +45,10 @@ const UserSignup = ({ authView }) => {
     <form
       onSubmit={(event) => handleSignup(event)}
       action=""
-      className="flex flex-col gap-10 w-1/2"
+      className="flex flex-col gap-0 w-2.9/3"
     >
       <div>
-        <p className=" text-3xl font-bold">Help Disaster Victims</p>
+        <p className=" mb-10 text-3xl font-bold">Join the community!</p>
       </div>
       <div className="flex flex-col gap-10">
         <div className="flex gap-5">
@@ -140,7 +140,7 @@ const UserSignup = ({ authView }) => {
           <Submit valueContent="Sign up" />
         </div>
       </div>
-      <div className="w-full h-[2px] bg-gray-100"></div>
+      <div className="w-full my-10 h-[2px] bg-gray-100"></div>
       <div className="flex justify-center">
         <p>
           Already have an account?{" "}

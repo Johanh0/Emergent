@@ -44,7 +44,7 @@ const UserLogin = ({ authView }) => {
     <form
       onSubmit={(event) => handleLogin(event)}
       action=""
-      className="flex flex-col gap-10 w-1/2"
+      className="flex flex-col gap-10 w-2/3"
     >
       <div>
         <p className=" text-3xl font-bold">Nice to see you again!</p>
