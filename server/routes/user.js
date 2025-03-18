@@ -257,7 +257,7 @@ userRouter.post(
         return res.status(404).json({ message: "User not found" });
       }
 
-      if (oldImageFilename && oldImageFilename !== "default-profile.jpg") {
+      if (oldImageFilename && oldImageFilename !== "user.jpg") {
         const oldImagePath = path.join(uploadDir, oldImageFilename);
 
         fs.access(oldImagePath, fs.constants.F_OK, (err) => {

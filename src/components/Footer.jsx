@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { FaTwitter, FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
@@ -18,11 +19,18 @@ const Footer = () => {
               Quick Links
             </h3>
             <ul className="space-y-2 text-gray-600">
-              <li>About Us</li>
-              <li>Find Help</li>
-              <li>Volunteer</li>
-              <li>Resources</li>
-              <li>Donate</li>
+              <Link to={"/about"}>
+                <li>About Us</li>
+              </Link>
+              <Link to={"/find-help"}>
+                <li>Find Help</li>
+              </Link>
+              <Link to={"/volunteer"}>
+                <li>Volunteer</li>
+              </Link>
+              <Link to={"/resources"}>
+                <li>Resources</li>
+              </Link>
             </ul>
           </div>
           <div>

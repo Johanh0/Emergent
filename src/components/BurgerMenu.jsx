@@ -1,11 +1,15 @@
+import { useContext } from "react";
+import { UserContext } from "../context/UserProvider";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const BurgerMenu = ({ isOpen }) => {
+  const { user } = useContext(UserContext);
   return (
     <div
       className={`${
         isOpen ? "absolute" : "hidden"
-      } lg:hidden right-0 bg-gray-100 px-4 py-3 rounded-lg min-w-[150px]`}
+      } lg:hidden right-0 top-12 bg-gray-100 px-4 py-3 rounded-lg min-w-[150px]`}
     >
       <ul className="flex flex-col items-end gap-2">
         <li>
@@ -38,11 +42,13 @@ const BurgerMenu = ({ isOpen }) => {
             <p>Contact</p>
           </Link>
         </li>
-        <li>
-          <Link to={"/"}>
-            <p>Account</p>
-          </Link>
-        </li>
+        {user && (
+          <li>
+            <Link to={"/profile"}>
+              <p>Account</p>
+            </Link>
+          </li>
+        )}
       </ul>
     </div>
   );

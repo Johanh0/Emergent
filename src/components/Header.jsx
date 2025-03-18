@@ -55,10 +55,10 @@ const Header = () => {
           </nav>
 
           {/* Account & Mobile Menu */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-10">
             {/* Sign In Button with Framer Motion */}
             {!user ? (
-              <div className="hidden lg:flex gap-3">
+              <div className=" flex gap-3">
                 <Link to={"/auth?view=sign-in"}>
                   <motion.button
                     variants={buttonVariants}
