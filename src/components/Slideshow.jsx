@@ -2,6 +2,10 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import slideImg1 from "../assets/NDR.jpeg";
+import slideImg2 from "../assets/NDR-2.jpeg";
+import slideImg3 from "../assets/NDR-3.jpeg";
+import slideImg4 from "../assets/NDR-4.jpeg";
 
 const Slideshow = () => {
   // Slideshow settings
@@ -21,30 +25,34 @@ const Slideshow = () => {
       <Slider {...settings}>
         <div>
           <img
-            src="src/assets/NDR-2.jpeg"
+            src={slideImg2}
             alt="Disaster Relief Volunteers"
             className="w-full h-96 object-cover rounded-lg"
+            loading="lazy"
           />
         </div>
         <div>
           <img
-            src="src/assets/NDR-4.jpeg"
+            src={slideImg4}
             alt="Food & Water Distribution"
             className="w-full h-96 object-cover rounded-lg"
+            loading="lazy"
           />
         </div>
         <div>
           <img
-            src="src/assets/NDR-3.jpeg"
+            src={slideImg3}
             alt="Emergency Shelters"
             className="w-full h-96 object-cover rounded-lg"
+            loading="lazy"
           />
         </div>
         <div>
           <img
-            src="src/assets/NDR.jpeg"
+            src={slideImg1}
             alt="Emergency Shelters"
             className="w-full h-96 object-cover rounded-lg"
+            loading="lazy"
           />
         </div>
       </Slider>
