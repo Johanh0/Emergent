@@ -1,0 +1,17 @@
+CREATE DATABASE IF NOT EXISTS capstone;
+
+USE capstone;
+
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    firstName VARCHAR(255) NOT NULL,
+    lastName VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL, 
+    role ENUM('volunteer', 'help-seeker') DEFAULT 'volunteer', 
+    profile_image_url VARCHAR(255),
+    total_donated DECIMAL(10,2) DEFAULT 0.00,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
