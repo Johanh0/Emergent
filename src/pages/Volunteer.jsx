@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -6,13 +5,6 @@ import VolunteerModal from "../components/VolunteerModal";
 
 const Volunteer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-=======
-import { motion } from "framer-motion";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-
-const Volunteer = () => {
->>>>>>> main
   // Sample Volunteer Opportunities (You can replace with real data)
   const opportunities = [
     {
@@ -47,31 +39,18 @@ const Volunteer = () => {
 
   return (
     <>
-<<<<<<< HEAD
       <main className=" bg-gray-50 min-h-screen flex flex-col justify-between">
         {/* Page Title */}
         <section className="py-20 text-center bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] text-white">
           <h1 className="text-5xl font-bold">Volunteer & Make a Difference</h1>
           <p className="mt-8 text-lg max-w-3xl mx-auto">
-=======
-      <Header />
-      <main className="pt-16 -mb-20 bg-gray-50 min-h-screen">
-        {/* Page Title */}
-        <section className="py-25 text-center bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] text-white">
-          <h1 className="text-5xl font-bold">Volunteer & Make a Difference</h1>
-          <p className="mt-4 text-lg max-w-3xl mx-auto">
->>>>>>> main
             Join our network of volunteers and contribute to causes that matter.
             Browse opportunities and take action today.
           </p>
         </section>
 
         {/* Volunteer Opportunities */}
-<<<<<<< HEAD
         <section className="py-16 flex-grow">
-=======
-        <section className="py-16">
->>>>>>> main
           <div className="container mx-auto px-4">
             <h2 className="text-3xl text-gray-900 font-bold text-center mb-12">
               Current Volunteer Opportunities
@@ -110,14 +89,10 @@ const Volunteer = () => {
                   </div>
                   {/* Apply Button - Aligned at Bottom */}
                   <div className="px-6 py-4 bg-gray-50 mt-auto">
-<<<<<<< HEAD
                     <button
                       onClick={() => setIsModalOpen(true)}
                       className="w-full py-2 bg-red-500 text-white rounded-lg hover:bg-red-100 hover:text-red-600 transition"
                     >
-=======
-                    <button className="w-full py-2 bg-red-500 text-white rounded-lg hover:bg-red-100 hover:text-red-600 transition">
->>>>>>> main
                       Apply Now
                     </button>
                   </div>
@@ -125,7 +100,6 @@ const Volunteer = () => {
               ))}
             </div>
           </div>
-<<<<<<< HEAD
 
           <VolunteerModal
             isOpen={isModalOpen}
@@ -135,28 +109,16 @@ const Volunteer = () => {
 
         {/* Call to Action */}
         <section className="py-16  bg-[#161128] text-white text-center w-full">
-=======
-        </section>
-
-        {/* Call to Action */}
-        <section className="py-16 mt-30 bg-[#161128] text-white text-center">
->>>>>>> main
           <h2 className="text-4xl font-bold">Start Volunteering Today</h2>
           <p className="mt-4 text-lg max-w-2xl mx-auto">
             Become part of a movement that makes a real impact. Sign up and take
             your first step toward meaningful change.
           </p>
-<<<<<<< HEAD
           <Link to={"/auth?view=sign-up"}>
             <button className="mt-8 px-8 py-3 bg-white text-red-600 font-bold rounded-lg hover:bg-red-100 transition">
               Sign Up Now
             </button>
           </Link>
-=======
-          <button className="mt-8 px-8 py-3 bg-white text-red-600 font-bold rounded-lg hover:bg-red-100 transition">
-            Sign Up Now
-          </button>
->>>>>>> main
         </section>
       </main>
     </>

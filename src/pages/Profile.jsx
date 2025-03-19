@@ -1,10 +1,7 @@
 import { useEffect, useContext, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserProvider";
-<<<<<<< HEAD
 import { HiOutlineLogout } from "react-icons/hi";
-=======
->>>>>>> main
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -34,7 +31,6 @@ const Profile = () => {
     console.log(firstName, lastName, email, role, id);
 
     try {
-<<<<<<< HEAD
       const response = await fetch("/api/v1/user/update_user", {
         method: "POST",
         headers: {
@@ -44,20 +40,6 @@ const Profile = () => {
         mode: "cors",
         credentials: "include",
       });
-=======
-      const response = await fetch(
-        "http://localhost:3000/api/v1/user/update_user",
-        {
-          method: "POST", // Cambia a "PUT" si el backend lo soporta
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ firstName, lastName, email, role, id }),
-          mode: "cors",
-          credentials: "include",
-        }
-      );
->>>>>>> main
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -66,10 +48,7 @@ const Profile = () => {
 
       const data = await response.json();
       setUser(data);
-<<<<<<< HEAD
       setProfileData(data);
-=======
->>>>>>> main
       setIsEditing(false);
     } catch (error) {
       console.error("Error updating user:", error);
@@ -83,12 +62,8 @@ const Profile = () => {
   };
 
   // Handle file selection
-<<<<<<< HEAD
   // Handle file selection
   const handleFileChange = async (e) => {
-=======
-  const handleFileChange = (e) => {
->>>>>>> main
     const file = e.target.files[0];
     if (!file) return;
 
@@ -99,7 +74,6 @@ const Profile = () => {
       return;
     }
 
-<<<<<<< HEAD
     try {
       // Create FormData to send the file
       const formData = new FormData();
@@ -159,47 +133,23 @@ const Profile = () => {
       setUser(null);
       navigate("/");
     } catch (error) {}
-=======
-    // Create a URL for the selected file
-    const fileURL = URL.createObjectURL(file);
-    setProfileData({
-      ...profileData,
-      photoUrl: fileURL,
-    });
-    setEditFormData({
-      ...editFormData,
-      photoUrl: fileURL,
-    });
->>>>>>> main
   };
 
   useEffect(() => {
     const isUserLoggedIn = async () => {
       try {
-<<<<<<< HEAD
         const response = await fetch("/api/v1/user/profile", {
           credentials: "include",
         });
-=======
-        const response = await fetch(
-          "http://localhost:3000/api/v1/user/profile",
-          {
-            credentials: "include",
-          }
-        );
->>>>>>> main
 
         if (!response.ok) {
           throw new Error("User is not logged in");
         }
-<<<<<<< HEAD
         const data = await response.json();
 
         setUser(data);
         setProfileData(data);
         setEditFormData(data);
-=======
->>>>>>> main
       } catch (error) {
         navigate("/auth");
         throw new Error(error);
@@ -210,7 +160,6 @@ const Profile = () => {
   }, []);
   return (
     <>
-<<<<<<< HEAD
       <section className="flex justify-center h-full w-full items-center">
         <div className="w-3xl mx-auto p-6">
           <div className="flex items-center mb-8">
@@ -218,15 +167,6 @@ const Profile = () => {
               <div className="w-24 h-24 rounded-full overflow-hidden border-[2px] border-gray-200">
                 <img
                   src={`/${profileData?.profile_image_url}`}
-=======
-      <main>
-        <div className="max-w-3xl mx-auto p-6">
-          <div className="flex items-center mb-8">
-            <div className="relative mr-6">
-              <div className="w-24 h-24 rounded-full overflow-hidden bg-yellow-400">
-                <img
-                  src={user?.photoUrl}
->>>>>>> main
                   alt="Profile"
                   className="w-full h-full object-cover"
                 />
@@ -285,26 +225,17 @@ const Profile = () => {
                 <div>
                   <p className="text-sm text-gray-500 mb-1">Full Name</p>
                   <p className="font-medium">
-<<<<<<< HEAD
                     {profileData?.firstName} {profileData?.lastName}
-=======
-                    {user?.firstName} {user?.lastName}
->>>>>>> main
                   </p>
                 </div>
 
                 <div>
                   <p className="text-sm text-gray-500 mb-1">Email</p>
-<<<<<<< HEAD
                   <p className="font-medium">{profileData?.email}</p>
-=======
-                  <p className="font-medium">{user?.email}</p>
->>>>>>> main
                 </div>
 
                 <div>
                   <p className="text-sm text-gray-500 mb-1">Role</p>
-<<<<<<< HEAD
                   <p className="font-medium capitalize">{profileData?.role}</p>
                 </div>
 
@@ -316,9 +247,6 @@ const Profile = () => {
                     <p>Logout</p>
                     <HiOutlineLogout />
                   </button>
-=======
-                  <p className="font-medium capitalize">{user?.role}</p>
->>>>>>> main
                 </div>
               </div>
             ) : (
@@ -427,11 +355,7 @@ const Profile = () => {
             )}
           </div>
         </div>
-<<<<<<< HEAD
       </section>
-=======
-      </main>
->>>>>>> main
     </>
   );
 };
