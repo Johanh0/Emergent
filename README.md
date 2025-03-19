@@ -65,8 +65,6 @@ Before you begin, make sure you have the following tools installed:
 > [!IMPORTANT]  
 > You will need two separate terminals to run both the front-end and the back-end simultaneously.
 
-<br>
-
 #### Terminal - 1
 
 ```bash
@@ -88,7 +86,7 @@ To run this project, you need to add the following environment variables to your
 ### **Database**
 
 > **Note:**  
-> This project requires a MySQL database. You will need a database management tool like MySQL Workbench or phpMyAdmin to create and manage the database.
+> This project requires a MySQL database. You will need a database management tool like MySQL Workbench to create and manage the database.
 >
 > - Ensure that MySQL is installed and running on your system.
 > - Create a new database and provide its credentials below.
