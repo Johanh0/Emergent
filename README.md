@@ -123,9 +123,20 @@ To run this project, you need to add the following environment variables to your
 
 <br>
 
-### API Links/Documentation
+### **API Keys**
 
-[shelter]()
+> **Note:**  
+> These API keys are used for external service integrations with [API Ninja](https://api-ninjas.com/).
+>
+> - Keep these keys secure and never commit them to public repositories.
+> - Store them in a `.env` file that is included in your `.gitignore`.
+> - Consider using environment variables for different deployment environments.
+> - Rotate these keys periodically for enhanced security.
+> - All keys can be managed from your [API Ninja dashboard](https://api-ninjas.com/dashboard).
+
+- `VITE_MAPS_API_KEY` - API key for [API Ninja Maps](https://api-ninjas.com/api/geocoding) integration service.
+- `VITE_HOSPITAL_API_KEY` - API key for [API Ninja Hospital](https://api-ninjas.com/api/hospitals) data service.
+- `VITE_RAPID_API_KEY` - API key for accessing API Ninja services through [RapidAPI](https://rapidapi.com/apininjas/api/api-ninjas/).
 
 <br>
 
