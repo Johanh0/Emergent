@@ -35,12 +35,9 @@ const UserAuth = () => {
   useEffect(() => {
     const isUserLoggedIn = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3000/api/v1/user/profile",
-          {
-            credentials: "include",
-          }
-        );
+        const response = await fetch("/api/v1/user/profile", {
+          credentials: "include",
+        });
         if (!response.ok) {
           throw new Error("User is not logged in");
         }

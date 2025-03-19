@@ -82,7 +82,7 @@ export default function ContactPage() {
   return (
     <>
       <div className="flex flex-col min-h-screen">
-        <main className="-mb-20 h-full flex-grow flex flex-col justify-center items-center bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] p-6 min-h-screen">
+        <main className=" h-full flex-grow flex flex-col justify-center items-center bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] p-6 min-h-screen">
           <motion.div
             className="bg-white p-10 rounded-lg shadow-lg w-full max-w-3xl flex flex-col items-center"
             initial={{ y: -50, opacity: 0 }}
@@ -97,12 +97,12 @@ export default function ContactPage() {
               back to you as soon as possible.
             </p>
             <form className="space-y-6 w-full max-w-lg" onSubmit={handleSubmit}>
-              <div className="flex gap-5">
+              <div className="flex flex-col lg:flex-row gap-5">
                 <input
                   type="text"
                   name="firstName"
                   placeholder="First Name"
-                  className="w-1/2 p-4 border rounded-md text-lg bg-gray-100"
+                  className="lg:w-1/2 p-4 border rounded-md text-lg bg-gray-100"
                   value={formData.firstName}
                   onChange={handleChange}
                   required
@@ -111,7 +111,7 @@ export default function ContactPage() {
                   type="text"
                   name="lastName"
                   placeholder="Last Name"
-                  className="w-1/2 p-4 border rounded-md text-lg bg-gray-100"
+                  className="lg:w-1/2 p-4 border rounded-md text-lg bg-gray-100"
                   value={formData.lastName}
                   onChange={handleChange}
                   required

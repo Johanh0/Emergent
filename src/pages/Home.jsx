@@ -34,10 +34,10 @@ const Home = () => {
       >
         {/* Hero Section */}
         <section
-          className="h-[600px] flex items-center bg-white
+          className="h-fit flex items-center bg-white
         "
         >
-          <div className="container mx-auto px-4 mt-20 lg:mt-0">
+          <div className="container mx-auto px-4 lg:my-20 ">
             <div className="grid md:grid-cols-2 gap-12 items-center text-center lg:text-start">
               <div>
                 <h1 className="text-5xl font-bold text-gray-900 mb-6">
@@ -47,7 +47,7 @@ const Home = () => {
                   Connect with volunteers and access emergency resources in your
                   community. Together we can make a difference.
                 </p>
-                <div className="flex gap-4 justify-center lg:justify-start">
+                <div className="flex flex-col lg:flex-row gap-4 justify-center lg:justify-start">
                   <Link to={"/find-help"}>
                     <button className="px-6 py-3 font-bold border-3 border-orange-600 rounded-lg bg-orange-600 text-white hover:bg-white hover:text-orange-600 transition-all">
                       Get Help Now
