@@ -58,6 +58,7 @@ userRouter.get("/profile", userAuthenticateToken, async (req, res) => {
       email: user[0].email,
       role: user[0].role,
       profile_image_url: user[0].profile_image_url,
+      total_donated: user[0].total_donated,
     });
   } catch (error) {
     console.error("Error trying to login:", error);
@@ -120,6 +121,7 @@ userRouter.post("/signup", async (req, res) => {
         lastName: user[0].lastName,
         email: user[0].email,
         profile_image_url: user[0].profile_image_url,
+        total_donated: user[0].total_donated,
       });
   } catch (error) {
     console.error("Error trying to create the user:", error);
@@ -166,10 +168,11 @@ userRouter.post("/login", async (req, res) => {
       .status(200)
       .json({
         message: "Login successful",
-        first_name: user[0].first_name,
-        last_name: user[0].last_name,
+        first_name: user[0].firstName,
+        last_name: user[0].lastName,
         email: user[0].email,
         profile_image_url: user[0].profile_image_url,
+        total_donated: user[0].total_donated,
       });
   } catch (error) {
     console.error("Error trying to login:", error);

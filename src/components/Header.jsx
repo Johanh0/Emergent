@@ -19,7 +19,7 @@ const buttonVariants = {
 
 const Header = () => {
   const { user } = useContext(UserContext);
-  const [isBurgerOpen, setIsBurgerOpen] = useState(true);
+  const [isBurgerOpen, setIsBurgerOpen] = useState(false);
   return (
     <header className="  py-6 w-full bg-white border-b border-gray-200 z-50 shadow-md">
       <div className="container mx-auto px-4">

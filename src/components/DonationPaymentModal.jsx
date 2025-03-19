@@ -139,7 +139,7 @@ const DonationPaymentModal = ({ isOpen, onClose }) => {
 
         setTimeout(() => {
           onClose();
-        }, 4000);
+        }, 2000);
       } catch (error) {
         throw new Error(error);
       }

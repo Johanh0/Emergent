@@ -1,5 +1,5 @@
 const UserCard = ({ user, onDeleteClick }) => {
-  const { firstName, lastName, email, profile_image_url } = user;
+  const { firstName, lastName, email, profile_image_url, total_donated } = user;
 
   return (
     <div className="w-full flex-1 min-w-[400px] lg:max-w-[400px] bg-white shadow-md rounded-lg overflow-hidden border border-gray-200">
@@ -34,6 +34,12 @@ const UserCard = ({ user, onDeleteClick }) => {
                   <polyline points="22,6 12,13 2,6"></polyline>
                 </svg>
                 <span>{email}</span>
+              </div>
+              <div className="mt-2">
+                <p className="text-xs font-bold">
+                  Donated:{" "}
+                  <span className="font-normal">$ {total_donated}</span>
+                </p>
               </div>
             </div>
           </div>

@@ -153,7 +153,7 @@ const Profile = () => {
         }
         const data = await response.json();
 
-        console.log(data);
+        setUser(data);
         setProfileData(data);
         setEditFormData(data);
       } catch (error) {

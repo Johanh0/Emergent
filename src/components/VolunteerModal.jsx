@@ -99,11 +99,6 @@ const VolunteerModal = ({ isOpen, onClose }) => {
         }
 
         const data = await response.json();
-
-        setTimeout(() => {
-          isModalOpen(false);
-          onClose();
-        }, 5000);
       } catch (error) {
         throw new Error(error);
       }
@@ -117,6 +112,11 @@ const VolunteerModal = ({ isOpen, onClose }) => {
         skills: "",
         motivation: "",
       });
+
+      setTimeout(() => {
+        setIsModalOpen(false);
+        onClose();
+      }, 2000);
     }
   };
 
@@ -331,12 +331,6 @@ const VolunteerModal = ({ isOpen, onClose }) => {
               <p className="text-gray-600 mt-2">
                 We will get back to you shortly.
               </p>
-              <button
-                className="mt-4 bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 cursor-pointer"
-                onClick={() => setIsModalOpen(false)}
-              >
-                Close
-              </button>
             </div>
           </div>
         )}
