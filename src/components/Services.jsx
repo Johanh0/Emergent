@@ -38,7 +38,7 @@ const Services = () => {
               </div>
               <div className="px-6 py-4 bg-gray-50 border-t">
                 <Link to={"/about"}>
-                  <button className="w-full py-2 bg-red-600 text-white rounded-lg hover:text-red-600 hover:bg-red-100">
+                  <button className="w-full py-2 bg-red-100 text-red-600 rounded-lg hover:text-red-100 hover:bg-red-600">
                     Learn More
                   </button>
                 </Link>
@@ -70,7 +70,7 @@ const Services = () => {
               </div>
               <div className="px-6 py-4 bg-gray-50 border-t">
                 <Link to={"/find-help"}>
-                  <button className="w-full py-2 bg-orange-600 text-white rounded-lg hover:text-orange-600 hover:bg-orange-100">
+                  <button className="w-full py-2 bg-orange-100 text-orange-600 rounded-lg hover:text-white hover:bg-orange-600">
                     Find Help
                   </button>
                 </Link>
@@ -102,7 +102,7 @@ const Services = () => {
               </div>
               <div className="px-6 py-4 bg-gray-50 border-t">
                 <Link to={"/resources"}>
-                  <button className="w-full py-2 bg-indigo-800 text-white rounded-lg hover:text-indigo-800 hover:bg-indigo-100">
+                  <button className="w-full py-2 bg-indigo-100 text-indigo-800 rounded-lg hover:text-white hover:bg-indigo-800">
                     Get Prepared
                   </button>
                 </Link>

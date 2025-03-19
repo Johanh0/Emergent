@@ -58,7 +58,7 @@ const Header = () => {
           <div className="flex items-center gap-5">
             {/* Sign In Button with Framer Motion */}
             {!user ? (
-              <div className=" flex gap-3">
+              <div className="hidden lg:flex gap-3">
                 <Link to={"/auth?view=sign-in"}>
                   <motion.button
                     variants={buttonVariants}

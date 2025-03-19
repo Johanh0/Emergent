@@ -185,7 +185,7 @@ const FindHelp = () => {
               ? "Find Nearby Medical Assistance"
               : "Find Nearby Food Banks and Shelters"}
           </h2>
-          <div className="flex gap-2">
+          <div className="flex flex-col lg:flex-row gap-2">
             <input
               type="text"
               placeholder="Enter City"
@@ -210,9 +210,9 @@ const FindHelp = () => {
         </div>
 
         {/* Results Section */}
-        <div className="grid grid-cols-2 gap-4 mt-6">
+        <div className="grid grid-cols-2 grid-rows-2 lg:grid-rows-1 gap-4 mt-6">
           {/* List of Results */}
-          <div className="bg-white p-4 rounded-lg shadow-md">
+          <div className="bg-white p-4 row-start-1 lg:row-end-2 col-start-1 col-end-3 lg:col-end-2 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold mb-3">
               {isHospitalMode
                 ? `Nearby Hospitals (${hospitals.length} found)`
@@ -252,7 +252,7 @@ const FindHelp = () => {
           </div>
 
           {/* Map Section */}
-          <div className="bg-gray-200 flex justify-center items-center text-gray-600 text-lg font-semibold rounded-lg shadow-md">
+          <div className="bg-gray-200 row-start-2 lg:row-start-1 col-start-1 lg:col-start-2 col-end-3 flex justify-center items-center text-gray-600 text-lg font-semibold rounded-lg shadow-md">
             <div id="map" className="w-full h-96"></div>
           </div>
         </div>

@@ -3,6 +3,17 @@ import { UserContext } from "../context/UserProvider";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
+const buttonVariants = {
+  hover: {
+    scale: 1.05,
+    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+    transition: {
+      duration: 0.3,
+      ease: "easeInOut",
+    },
+  },
+};
+
 const BurgerMenu = ({ isOpen }) => {
   const { user } = useContext(UserContext);
   return (
@@ -42,12 +53,22 @@ const BurgerMenu = ({ isOpen }) => {
             <p>Contact</p>
           </Link>
         </li>
-        {user && (
+        {user ? (
           <li>
             <Link to={"/profile"}>
               <p>Account</p>
             </Link>
           </li>
+        ) : (
+          <>
+            <Link to={"/auth?view=sign-in"}>
+              <p>Sign in</p>
+            </Link>
+
+            <Link to={"/auth?view=sign-up"}>
+              <p>Sign up</p>
+            </Link>
+          </>
         )}
       </ul>
     </div>
