@@ -1,9 +1,43 @@
 import express from "express";
 import bcrypt from "bcrypt";
+import multer from "multer";
+import path from "node:path";
+import fs from "node:fs";
 import { promisePool } from "../database/db.js";
 import { generateToken } from "../utils/jwt.js";
 import { userAuthenticateToken } from "../middleware/auth.js";
 const userRouter = express.Router();
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+const uploadDir = path.join(__dirname, "../uploads");
+
+// Upload Configuration
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+// Initializate multer
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith("image/")) {
+      cb(null, true);
+    } else {
+      cb(new Error("El archivo debe ser una imagen"), false);
+    }
+  },
+  limits: {
+    fileSize: 1024 * 1024 * 5,
+  },
+});
 
 userRouter.get("/profile", userAuthenticateToken, async (req, res) => {
   const { id } = req.user;
@@ -16,8 +50,6 @@ userRouter.get("/profile", userAuthenticateToken, async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    console.log(user);
-
     res.status(200).json({
       message: "Login successful",
       id: user[0].id,
@@ -26,6 +58,7 @@ userRouter.get("/profile", userAuthenticateToken, async (req, res) => {
       email: user[0].email,
       role: user[0].role,
       profile_image_url: user[0].profile_image_url,
+      total_donated: user[0].total_donated,
     });
   } catch (error) {
     console.error("Error trying to login:", error);
@@ -88,6 +121,7 @@ userRouter.post("/signup", async (req, res) => {
         lastName: user[0].lastName,
         email: user[0].email,
         profile_image_url: user[0].profile_image_url,
+        total_donated: user[0].total_donated,
       });
   } catch (error) {
     console.error("Error trying to create the user:", error);
@@ -134,10 +168,11 @@ userRouter.post("/login", async (req, res) => {
       .status(200)
       .json({
         message: "Login successful",
-        first_name: user[0].first_name,
-        last_name: user[0].last_name,
+        first_name: user[0].firstName,
+        last_name: user[0].lastName,
         email: user[0].email,
         profile_image_url: user[0].profile_image_url,
+        total_donated: user[0].total_donated,
       });
   } catch (error) {
     console.error("Error trying to login:", error);
@@ -194,102 +229,63 @@ userRouter.post("/update_user", userAuthenticateToken, async (req, res) => {
   }
 });
 
-userRouter.post("/missing-family", userAuthenticateToken, async (req, res) => {
-  const user_id = req.user.id;
-  const { name, relationship, last_seen, location, description } = req.body;
-
-  //   Validate if the data is complete
-  if (
-    !user_id ||
-    !name ||
-    !relationship ||
-    !last_seen ||
-    !location ||
-    !description
-  ) {
-    return res.status(400).json({
-      error: "All fields are required",
-    });
-  }
-
-  try {
-    // Try to insert missing family member
-    const query =
-      "INSERT INTO missing_family (user_id, name, relationship, last_seen, location, description) VALUES (?, ?, ?, ?, ?, ?)";
-
-    const values = [
-      user_id,
-      name,
-      relationship,
-      last_seen,
-      location,
-      description,
-    ];
-
-    const [result] = await promisePool.execute(query, values);
-
-    res.status(200).json(result);
-  } catch (error) {
-    console.error("Error trying to add missing family:", error);
-    res.status(500).json({ error: "Error" });
-  }
-});
-
-userRouter.get("/missing-family", userAuthenticateToken, async (req, res) => {
-  const user_id = req.user.id;
-
-  //   Validate if the data is complete
-  if (!user_id) {
-    return res.status(400).json({
-      error: "All fields are required",
-    });
-  }
-
-  try {
-    const query = "SELECT * FROM missing_family WHERE user_id = ?";
-    const [results] = await promisePool.execute(query, [user_id]);
-
-    res.status(200).json(results);
-  } catch (error) {
-    console.error("Error fetching missing family members:", error);
-    res.status(500).json({ error: "Error retrieving data" });
-  }
-});
-
-userRouter.delete(
-  "/missing-family/:id",
+userRouter.post(
+  "/upload",
   userAuthenticateToken,
+  upload.single("image"),
   async (req, res) => {
-    const user_id = req.user.id;
-    const missing_id = req.params.id;
+    if (!req.file) {
+      return res.status(400).json({ error: "You need to upload an image" });
+    }
 
-    //   Validate if the data is complete
-    if (!user_id || !missing_id) {
-      return res.status(400).json({
-        error: "All fields are required",
-      });
+    const { id } = req.user;
+
+    if (!id) {
+      return res.status(400).json({ error: "User ID is required" });
     }
 
     try {
-      const checkQuery =
-        "SELECT * FROM missing_family WHERE id = ? AND user_id = ?";
-      const [rows] = await promisePool.execute(checkQuery, [
-        missing_id,
-        user_id,
-      ]);
+      const [currentUser] = await promisePool.execute(
+        "SELECT profile_image_url FROM users WHERE id = ?",
+        [id]
+      );
 
-      if (rows.length === 0) {
-        return res.status(404).json({ error: "Family member not found" });
+      const oldImageFilename = currentUser[0]?.profile_image_url;
+      const imageFilename = req.file.filename;
+
+      const query = "UPDATE users SET profile_image_url = ? WHERE id = ?";
+      const [result] = await promisePool.execute(query, [imageFilename, id]);
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ message: "User not found" });
       }
 
-      const deleteQuery =
-        "DELETE FROM missing_family WHERE id = ? AND user_id = ?";
-      await promisePool.execute(deleteQuery, [missing_id, user_id]);
+      if (oldImageFilename && oldImageFilename !== "user.jpg") {
+        const oldImagePath = path.join(uploadDir, oldImageFilename);
 
-      res.status(200).json({ message: "Family member deleted successfully" });
+        fs.access(oldImagePath, fs.constants.F_OK, (err) => {
+          if (!err) {
+            fs.unlink(oldImagePath, (unlinkErr) => {
+              if (unlinkErr) {
+                console.error("Error deleting old image:", unlinkErr);
+              }
+            });
+          }
+        });
+      }
+
+      const [updatedUser] = await promisePool.execute(
+        "SELECT firstName, lastName, email, role, profile_image_url FROM users WHERE id = ?",
+        [id]
+      );
+
+      res.status(200).json({
+        message: "Image successfully uploaded and user profile updated",
+        user: updatedUser[0],
+      });
     } catch (error) {
-      console.error("Error deleting missing family member:", error);
-      res.status(500).json({ error: "Error deleting data" });
+      console.error("Error updating user profile image:", error);
+      res.status(500).json({ error: "Error updating profile image" });
     }
   }
 );

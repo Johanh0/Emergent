@@ -8,12 +8,9 @@ const adminAuth = () => {
   useEffect(() => {
     const isAdminLoggedIn = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3000/api/v1/admin/profile",
-          {
-            credentials: "include",
-          }
-        );
+        const response = await fetch("/api/v1/admin/profile", {
+          credentials: "include",
+        });
 
         if (!response.ok) {
           throw new Error("Admin is not logged in");
@@ -28,7 +25,7 @@ const adminAuth = () => {
     isAdminLoggedIn();
   }, []);
   return (
-    <section className="flex justify-center items-center w-full h-screen">
+    <section className="absolute top-0 left-0 flex justify-center items-center w-full h-screen">
       <AdminLogin />
     </section>
   );

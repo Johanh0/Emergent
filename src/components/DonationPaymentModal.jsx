@@ -109,18 +109,15 @@ const DonationPaymentModal = ({ isOpen, onClose }) => {
       try {
         setIsSubmitting(false);
         setIsSuccess(true);
-        const response = await fetch(
-          "http://localhost:3000/api/v1/user/send_donation",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(donationData),
-            mode: "cors",
-            credentials: "include",
-          }
-        );
+        const response = await fetch("/api/v1/user/send_donation", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(donationData),
+          mode: "cors",
+          credentials: "include",
+        });
 
         if (!response.ok) {
           const errorData = await response.json();
@@ -139,7 +136,7 @@ const DonationPaymentModal = ({ isOpen, onClose }) => {
 
         setTimeout(() => {
           onClose();
-        }, 4000);
+        }, 2000);
       } catch (error) {
         throw new Error(error);
       }
@@ -421,7 +418,7 @@ const DonationPaymentModal = ({ isOpen, onClose }) => {
               <div className="mt-6">
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 font-medium transition-colors duration-300 disabled:bg-blue-400 cursor-pointer"
+                  className="w-full bg-[#161128] text-white py-2 px-4 rounded-md  font-medium transition-colors duration-300 disabled:bg-blue-400 cursor-pointer"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (

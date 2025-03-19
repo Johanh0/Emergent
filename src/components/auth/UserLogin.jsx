@@ -12,12 +12,49 @@ const UserLogin = ({ authView }) => {
   //   useState to handle the input values
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+    form: "",
+  });
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) {
+      return "Email is required";
+    } else if (!emailRegex.test(email)) {
+      return "Please enter a valid email address";
+    }
+    return "";
+  };
+
+  const validatePassword = (password) => {
+    if (!password) {
+      return "Password is required";
+    } else if (password.length < 6) {
+      return "Password must be at least 6 characters";
+    }
+    return "";
+  };
 
   const handleLogin = async (event) => {
     event.preventDefault();
 
+    const emailError = validateEmail(email);
+    const passwordError = validatePassword(password);
+
+    setErrors({
+      email: emailError,
+      password: passwordError,
+      form: "",
+    });
+
+    if (emailError || passwordError) {
+      return;
+    }
+
     try {
-      const response = await fetch("http://localhost:3000/api/v1/user/login", {
+      const response = await fetch("/api/v1/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,53 +66,84 @@ const UserLogin = ({ authView }) => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Error trying to login");
+        setErrors({
+          ...errors,
+          form: errorData.message || "Invalid email or password",
+        });
+        return;
       }
 
       const data = await response.json();
-
+      console.log(data);
       setUser(data);
       navigate("/profile");
     } catch (error) {
-      throw new Error(error);
+      setErrors({
+        ...errors,
+        form: "An error occurred. Please try again.",
+      });
     }
   };
   return (
     <form
       onSubmit={(event) => handleLogin(event)}
       action=""
-      className="flex flex-col gap-10 w-1/2"
+      className="flex flex-col gap-10 w-full lg:w-2/3"
     >
       <div>
         <p className=" text-3xl font-bold">Nice to see you again!</p>
       </div>
+      {errors.form && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+          {errors.form}
+        </div>
+      )}
       <div className="flex flex-col gap-10">
         <div className="flex flex-col gap-2">
-          <label className="pl-3 text-sm" htmlFor="">
+          <label className="pl-3 text-sm" htmlFor="email">
             Login
           </label>
-          <div className="w-full p-3 bg-gray-100 rounded-md border-2 border-gray-200">
+          <div
+            className={`w-full p-3 bg-gray-100 rounded-md border-2 ${
+              errors.email ? "border-red-500" : "border-gray-200"
+            }`}
+          >
             <input
               className="outline-none w-full"
               type="email"
+              id="email"
               placeholder="Email"
               value={email}
-              onInput={(event) => setEmail(event.target.value)}
+              onChange={(event) => setEmail(event.target.value)}
+              onBlur={() =>
+                setErrors({ ...errors, email: validateEmail(email) })
+              }
               required
             />
           </div>
+          {errors.email && (
+            <p className="text-red-500 text-xs pl-3">{errors.email}</p>
+          )}
         </div>
         <div className="flex flex-col gap-2">
-          <label className="pl-3 text-sm" htmlFor="">
+          <label className="pl-3 text-sm" htmlFor="password">
             Password
           </label>
-          <div className="flex items-center gap-3 w-full p-3 bg-gray-100 rounded-md border-2 border-gray-200">
+          <div
+            className={`flex items-center gap-3 w-full p-3 bg-gray-100 rounded-md border-2 ${
+              errors.password ? "border-red-500" : "border-gray-200"
+            }`}
+          >
             <input
               className="outline-none w-full"
               type={showPassword ? "text" : "password"}
+              id="password"
               placeholder="Enter Password"
               value={password}
-              onInput={(event) => setPassword(event.target.value)}
+              onChange={(event) => setPassword(event.target.value)}
+              onBlur={() =>
+                setErrors({ ...errors, password: validatePassword(password) })
+              }
               required
             />
             {showPassword ? (
@@ -90,6 +158,9 @@ const UserLogin = ({ authView }) => {
               />
             )}
           </div>
+          {errors.password && (
+            <p className="text-red-500 text-xs pl-3">{errors.password}</p>
+          )}
         </div>
         <div>
           <Submit valueContent="Sign in" />

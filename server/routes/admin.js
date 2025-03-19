@@ -87,7 +87,6 @@ adminRouter.post("/signup", async (req, res) => {
 
 adminRouter.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  
   //   Validate if the admin data is complete
   if (!email || !password) {
     return res.status(400).json({

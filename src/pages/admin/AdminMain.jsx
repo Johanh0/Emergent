@@ -7,12 +7,9 @@ const AdminMain = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3000/api/v1/admin/all_users",
-          {
-            credentials: "include",
-          }
-        );
+        const response = await fetch("/api/v1/admin/all_users", {
+          credentials: "include",
+        });
 
         if (!response.ok) {
         }
@@ -28,7 +25,6 @@ const AdminMain = () => {
       <div className="w-full h-fit">
         <AdminDonationsView />
       </div>
-
       <div className=" ">
         <AdminUserOverview users={users} />
       </div>

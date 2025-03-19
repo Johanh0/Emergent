@@ -1,6 +1,7 @@
 import { useEffect, useContext, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserProvider";
+import { HiOutlineLogout } from "react-icons/hi";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -30,18 +31,15 @@ const Profile = () => {
     console.log(firstName, lastName, email, role, id);
 
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/v1/user/update_user",
-        {
-          method: "POST", // Cambia a "PUT" si el backend lo soporta
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ firstName, lastName, email, role, id }),
-          mode: "cors",
-          credentials: "include",
-        }
-      );
+      const response = await fetch("/api/v1/user/update_user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ firstName, lastName, email, role, id }),
+        mode: "cors",
+        credentials: "include",
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -50,6 +48,7 @@ const Profile = () => {
 
       const data = await response.json();
       setUser(data);
+      setProfileData(data);
       setIsEditing(false);
     } catch (error) {
       console.error("Error updating user:", error);
@@ -63,7 +62,8 @@ const Profile = () => {
   };
 
   // Handle file selection
-  const handleFileChange = (e) => {
+  // Handle file selection
+  const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
@@ -74,31 +74,82 @@ const Profile = () => {
       return;
     }
 
-    // Create a URL for the selected file
-    const fileURL = URL.createObjectURL(file);
-    setProfileData({
-      ...profileData,
-      photoUrl: fileURL,
-    });
-    setEditFormData({
-      ...editFormData,
-      photoUrl: fileURL,
-    });
+    try {
+      // Create FormData to send the file
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("userId", user.id);
+
+      // Send the file to the server
+      const response = await fetch("/api/v1/user/upload", {
+        method: "POST",
+        body: formData,
+        mode: "cors",
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Error uploading image");
+      }
+
+      const data = await response.json();
+
+      // Update the profile data with the new image URL
+      setProfileData({
+        ...profileData,
+        profile_image_url: data.user.profile_image_url,
+      });
+
+      setEditFormData({
+        ...editFormData,
+        profile_image_url: data.user.profile_image_url,
+      });
+
+      // Update user context if needed
+      setUser({
+        ...user,
+        profile_image_url: data.user.profile_image_url,
+      });
+
+      alert("Profile picture updated successfully!");
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      alert(error.message);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("/api/v1/user/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+      });
+
+      setUser(null);
+      navigate("/");
+    } catch (error) {}
   };
 
   useEffect(() => {
     const isUserLoggedIn = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3000/api/v1/user/profile",
-          {
-            credentials: "include",
-          }
-        );
+        const response = await fetch("/api/v1/user/profile", {
+          credentials: "include",
+        });
 
         if (!response.ok) {
           throw new Error("User is not logged in");
         }
+        const data = await response.json();
+
+        setUser(data);
+        setProfileData(data);
+        setEditFormData(data);
       } catch (error) {
         navigate("/auth");
         throw new Error(error);
@@ -109,13 +160,13 @@ const Profile = () => {
   }, []);
   return (
     <>
-      <main>
-        <div className="max-w-3xl mx-auto p-6">
+      <section className="flex justify-center h-full w-full items-center">
+        <div className="w-3xl mx-auto p-6">
           <div className="flex items-center mb-8">
             <div className="relative mr-6">
-              <div className="w-24 h-24 rounded-full overflow-hidden bg-yellow-400">
+              <div className="w-24 h-24 rounded-full overflow-hidden border-[2px] border-gray-200">
                 <img
-                  src={user?.photoUrl}
+                  src={`/${profileData?.profile_image_url}`}
                   alt="Profile"
                   className="w-full h-full object-cover"
                 />
@@ -174,18 +225,28 @@ const Profile = () => {
                 <div>
                   <p className="text-sm text-gray-500 mb-1">Full Name</p>
                   <p className="font-medium">
-                    {user?.firstName} {user?.lastName}
+                    {profileData?.firstName} {profileData?.lastName}
                   </p>
                 </div>
 
                 <div>
                   <p className="text-sm text-gray-500 mb-1">Email</p>
-                  <p className="font-medium">{user?.email}</p>
+                  <p className="font-medium">{profileData?.email}</p>
                 </div>
 
                 <div>
                   <p className="text-sm text-gray-500 mb-1">Role</p>
-                  <p className="font-medium capitalize">{user?.role}</p>
+                  <p className="font-medium capitalize">{profileData?.role}</p>
+                </div>
+
+                <div
+                  onClick={handleLogout}
+                  className="w-fit text-lg bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer"
+                >
+                  <button className="flex items-center gap-3 px-5 py-2 ">
+                    <p>Logout</p>
+                    <HiOutlineLogout />
+                  </button>
                 </div>
               </div>
             ) : (
@@ -294,7 +355,7 @@ const Profile = () => {
             )}
           </div>
         </div>
-      </main>
+      </section>
     </>
   );
 };

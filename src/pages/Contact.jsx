@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -45,18 +46,15 @@ export default function ContactPage() {
         const name = formData.firstName + " " + formData.lastName;
         const { email, subject, message } = formData;
 
-        const response = await fetch(
-          "http://localhost:3000/api/v1/user/send_message",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ name, email, subject, message }),
-            mode: "cors",
-            credentials: "include",
-          }
-        );
+        const response = await fetch("/api/v1/user/send_message", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, email, subject, message }),
+          mode: "cors",
+          credentials: "include",
+        });
 
         if (!response.ok) {
           const errorData = await response.json();
@@ -80,101 +78,105 @@ export default function ContactPage() {
 
   return (
     <>
-      <section className="flex items-center justify-center min-h-screen bg-gray-100 p-6 relative">
-        <div className="bg-white p-10 rounded-lg shadow-md w-full max-w-2xl">
-          <h2 className="text-3xl font-bold text-center mb-6">Get in Touch</h2>
-          <p className="text-gray-600 text-center mb-8">
-            We'd love to hear from you! Fill out the form below and we'll get
-            back to you as soon as possible.
-          </p>
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div className="flex space-x-6">
-              <div className="w-1/2">
+      <div className="flex flex-col min-h-screen">
+        <main className=" h-full flex-grow flex flex-col justify-center items-center bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] p-6 min-h-screen">
+          <motion.div
+            className="bg-white p-10 rounded-lg shadow-lg w-full max-w-3xl flex flex-col items-center"
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-4xl font-bold text-center text-black mb-6">
+              Get in Touch
+            </h2>
+            <p className="text-gray-600 text-center mb-8">
+              We'd love to hear from you! Fill out the form below and we'll get
+              back to you as soon as possible.
+            </p>
+            <form className="space-y-6 w-full max-w-lg" onSubmit={handleSubmit}>
+              <div className="flex flex-col lg:flex-row gap-5">
                 <input
                   type="text"
                   name="firstName"
                   placeholder="First Name"
-                  className="w-full p-4 border rounded-lg"
+                  className="lg:w-1/2 p-4 border rounded-md text-lg bg-gray-100"
                   value={formData.firstName}
                   onChange={handleChange}
+                  required
                 />
-                {errors.firstName && (
-                  <p className="text-red-500 text-sm">{errors.firstName}</p>
-                )}
-              </div>
-              <div className="w-1/2">
                 <input
                   type="text"
                   name="lastName"
                   placeholder="Last Name"
-                  className="w-full p-4 border rounded-lg"
+                  className="lg:w-1/2 p-4 border rounded-md text-lg bg-gray-100"
                   value={formData.lastName}
                   onChange={handleChange}
+                  required
                 />
-                {errors.lastName && (
-                  <p className="text-red-500 text-sm">{errors.lastName}</p>
-                )}
               </div>
-            </div>
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              className="w-full p-4 border rounded-lg"
-              value={formData.email}
-              onChange={handleChange}
-            />
-            {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email}</p>
-            )}
-            <input
-              type="text"
-              name="subject"
-              placeholder="Subject"
-              className="w-full p-4 border rounded-lg"
-              value={formData.subject}
-              onChange={handleChange}
-            />
-            {errors.subject && (
-              <p className="text-red-500 text-sm">{errors.subject}</p>
-            )}
-            <textarea
-              name="message"
-              placeholder="Your message here..."
-              className="w-full p-4 border rounded-lg h-40"
-              value={formData.message}
-              onChange={handleChange}
-            ></textarea>
-            {errors.message && (
-              <p className="text-red-500 text-sm">{errors.message}</p>
-            )}
-            <button
-              type="submit"
-              className="w-full bg-black text-white p-4 rounded-lg hover:bg-gray-800 cursor-pointer"
-            >
-              Send Message
-            </button>
-          </form>
-        </div>
-
-        {/* Modal */}
-        {isModalOpen && (
-          <div className="fixed inset-0 bg-gray-9 bg-opacity-50 backdrop-blur-sm flex justify-center items-center">
-            <div className="bg-white p-6 rounded-lg shadow-lg w-80 text-center">
-              <h3 className="text-xl font-semibold">Thank You!</h3>
-              <p className="text-gray-600 mt-2">
-                We will get back to you shortly.
-              </p>
-              <button
-                className="mt-4 bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 cursor-pointer"
-                onClick={() => setIsModalOpen(false)}
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                className="w-full p-4 border rounded-md text-lg bg-gray-100"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+              {errors.email && (
+                <p className="text-red-500 text-sm">{errors.email}</p>
+              )}
+              <input
+                type="text"
+                name="subject"
+                placeholder="Subject"
+                className="w-full p-4 border rounded-md text-lg bg-gray-100"
+                value={formData.subject}
+                onChange={handleChange}
+                required
+              />
+              {errors.subject && (
+                <p className="text-red-500 text-sm">{errors.subject}</p>
+              )}
+              <textarea
+                name="message"
+                placeholder="Your message here..."
+                className="w-full p-4 border rounded-md h-40 text-lg bg-gray-100"
+                value={formData.message}
+                onChange={handleChange}
+                required
+              ></textarea>
+              {errors.message && (
+                <p className="text-red-500 text-sm">{errors.message}</p>
+              )}
+              <motion.button
+                type="submit"
+                className="w-full bg-black text-white p-4 rounded-md text-lg hover:bg-indigo-800 transition"
+                whileHover={{ scale: 1.05 }}
               >
-                Close
-              </button>
-            </div>
-          </div>
-        )}
-      </section>
+                Send Message
+              </motion.button>
+            </form>
+            {/* Modal */}
+            {isModalOpen && (
+              <div className="fixed inset-0 bg-gray-9 bg-opacity-50 backdrop-blur-sm flex justify-center items-center">
+                <div className="bg-white p-6 rounded-lg shadow-lg w-80 text-center">
+                  <h3 className="text-xl font-semibold">Thank You!</h3>
+                  <p className="text-gray-600 mt-2">
+                    We will get back to you shortly.
+                  </p>
+                  <button
+                    className="mt-4 bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 cursor-pointer"
+                    onClick={() => setIsModalOpen(false)}
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            )}
+          </motion.div>
+        </main>
+      </div>
     </>
   );
 }

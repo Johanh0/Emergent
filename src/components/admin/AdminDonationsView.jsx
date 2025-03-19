@@ -8,20 +8,15 @@ const AdminDonationsView = () => {
   useEffect(() => {
     const fetchDonations = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3000/api/v1/user/donations",
-          {
-            credentials: "include",
-          }
-        );
+        const response = await fetch("/api/v1/user/donations", {
+          credentials: "include",
+        });
 
         if (!response.ok) {
           throw new Error("Failed to fetch donations");
         }
 
         const data = await response.json();
-        console.log(data);
-
         setDonations(data);
       } catch (error) {
         console.error("Error fetching donations:", error);
@@ -45,7 +40,7 @@ const AdminDonationsView = () => {
   return (
     <section className="w-full h-fit flex flex-col gap-10">
       <h5 className="text-4xl font-bold">Dashboard Overview</h5>
-      <div className="grid grid-cols-5 grid-rows-6 gap-4">
+      <div className="flex flex-col lg:grid grid-cols-5 grid-rows-6 gap-4">
         <div className="col-span-2 row-span-3 bg-gray-100 rounded-lg p-5">
           <p className="text-2xl font-medium">Donations</p>
           <p className="text-4xl">${donationsTotal.toFixed(2)}</p>
@@ -65,6 +60,7 @@ const AdminDonationsView = () => {
                 {
                   data: amounts,
                   label: "Amount Donated",
+                  color: "#E4572E",
                 },
               ]}
               xAxis={[{ scaleType: "point", data: names }]}

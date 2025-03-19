@@ -12,12 +12,73 @@ const UserSignup = ({ authView }) => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    form: "",
+  });
+
+  const validateFirstName = (firstName) => {
+    if (!firstName) {
+      return "First name is required";
+    } else if (firstName.length < 2) {
+      return "First name must be at least 2 characters";
+    }
+    return "";
+  };
+
+  const validateLastName = (lastName) => {
+    if (!lastName) {
+      return "Last name is required";
+    } else if (lastName.length < 2) {
+      return "Last name must be at least 2 characters";
+    }
+    return "";
+  };
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) {
+      return "Email is required";
+    } else if (!emailRegex.test(email)) {
+      return "Please enter a valid email address";
+    }
+    return "";
+  };
+
+  const validatePassword = (password) => {
+    if (!password) {
+      return "Password is required";
+    } else if (password.length < 6) {
+      return "Password must be at least 6 characters";
+    }
+    return "";
+  };
 
   const handleSignup = async (event) => {
     event.preventDefault();
 
+    const firstNameError = validateFirstName(firstName);
+    const lastNameError = validateLastName(lastName);
+    const emailError = validateEmail(email);
+    const passwordError = validatePassword(password);
+
+    setErrors({
+      firstName: firstNameError,
+      lastName: lastNameError,
+      email: emailError,
+      password: passwordError,
+      form: "",
+    });
+
+    if (firstNameError || lastNameError || emailError || passwordError) {
+      return;
+    }
+
     try {
-      const response = await fetch("http://localhost:3000/api/v1/user/signup", {
+      const response = await fetch("/api/v1/user/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,7 +90,11 @@ const UserSignup = ({ authView }) => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Error trying to login");
+        setErrors({
+          ...errors,
+          form: errorData.message || "Error creating account",
+        });
+        return;
       }
 
       const data = await response.json();
@@ -37,7 +102,10 @@ const UserSignup = ({ authView }) => {
       setUser(data);
       navigate("/profile");
     } catch (error) {
-      throw new Error(error);
+      setErrors({
+        ...errors,
+        form: "An error occurred. Please try again.",
+      });
     }
   };
 
@@ -45,48 +113,78 @@ const UserSignup = ({ authView }) => {
     <form
       onSubmit={(event) => handleSignup(event)}
       action=""
-      className="flex flex-col gap-10 w-1/2"
+      className="flex flex-col gap-0 w-full lg:w-2.9/3"
     >
       <div>
-        <p className=" text-3xl font-bold">Help Disaster Victims</p>
+        <p className=" mb-10 text-3xl font-bold">Join the community!</p>
       </div>
+      {errors.form && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+          {errors.form}
+        </div>
+      )}
       <div className="flex flex-col gap-10">
-        <div className="flex gap-5">
-          <div className="flex flex-col gap-2 w-1/2">
+        <div className="flex flex-col lg:flex-row gap-5">
+          <div className="flex flex-col gap-2 w-full lg:w-1/2">
             <label
               className="pl-3 text-sm cursor-pointer"
               htmlFor="signup--first_name"
             >
               First Name
             </label>
-            <div className="w-full p-3 bg-gray-100 rounded-md border-2 border-gray-200">
+            <div
+              className={`w-full p-3 bg-gray-100 rounded-md border-2 ${
+                errors.firstName ? "border-red-500" : "border-gray-200"
+              }`}
+            >
               <input
                 id="signup--first_name"
                 className="outline-none w-full"
                 type="text"
                 placeholder="Enter First Name"
-                onInput={(event) => setFirstName(event.target.value)}
+                value={firstName}
+                onChange={(event) => setFirstName(event.target.value)}
+                onBlur={() =>
+                  setErrors({
+                    ...errors,
+                    firstName: validateFirstName(firstName),
+                  })
+                }
                 required
               />
             </div>
+            {errors.firstName && (
+              <p className="text-red-500 text-xs pl-3">{errors.firstName}</p>
+            )}
           </div>
-          <div className="flex flex-col gap-2 w-1/2">
+          <div className="flex flex-col gap-2 w-full lg:w-1/2">
             <label
               className="pl-3 text-sm cursor-pointer"
               htmlFor="signup--last_name"
             >
               Last Name
             </label>
-            <div className="w-full p-3 bg-gray-100 rounded-md border-2 border-gray-200">
+            <div
+              className={`w-full p-3 bg-gray-100 rounded-md border-2 ${
+                errors.lastName ? "border-red-500" : "border-gray-200"
+              }`}
+            >
               <input
                 id="signup--last_name"
                 className="outline-none w-full"
                 type="text"
                 placeholder="Enter Last Name"
-                onInput={(event) => setLastName(event.target.value)}
+                value={lastName}
+                onChange={(event) => setLastName(event.target.value)}
+                onBlur={() =>
+                  setErrors({ ...errors, lastName: validateLastName(lastName) })
+                }
                 required
               />
             </div>
+            {errors.lastName && (
+              <p className="text-red-500 text-xs pl-3">{errors.lastName}</p>
+            )}
           </div>
         </div>
         <div className="flex flex-col gap-2">
@@ -96,16 +194,27 @@ const UserSignup = ({ authView }) => {
           >
             Email
           </label>
-          <div className="w-full p-3 bg-gray-100 rounded-md border-2 border-gray-200">
+          <div
+            className={`w-full p-3 bg-gray-100 rounded-md border-2 ${
+              errors.email ? "border-red-500" : "border-gray-200"
+            }`}
+          >
             <input
               id="signup--email"
               className="outline-none w-full"
               type="email"
               placeholder="Enter Email"
-              onInput={(event) => setEmail(event.target.value)}
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              onBlur={() =>
+                setErrors({ ...errors, email: validateEmail(email) })
+              }
               required
             />
           </div>
+          {errors.email && (
+            <p className="text-red-500 text-xs pl-3">{errors.email}</p>
+          )}
         </div>
         <div className="flex flex-col gap-2">
           <label
@@ -114,13 +223,21 @@ const UserSignup = ({ authView }) => {
           >
             Password
           </label>
-          <div className="flex items-center gap-3 w-full p-3 bg-gray-100 rounded-md border-2 border-gray-200">
+          <div
+            className={`flex items-center gap-3 w-full p-3 bg-gray-100 rounded-md border-2 ${
+              errors.password ? "border-red-500" : "border-gray-200"
+            }`}
+          >
             <input
               id="signup--password"
               className="outline-none w-full"
               type={showPassword ? "text" : "password"}
               placeholder="Enter Password"
-              onInput={(event) => setPassword(event.target.value)}
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              onBlur={() =>
+                setErrors({ ...errors, password: validatePassword(password) })
+              }
               required
             />
             {showPassword ? (
@@ -135,12 +252,15 @@ const UserSignup = ({ authView }) => {
               />
             )}
           </div>
+          {errors.password && (
+            <p className="text-red-500 text-xs pl-3">{errors.password}</p>
+          )}
         </div>
         <div>
           <Submit valueContent="Sign up" />
         </div>
       </div>
-      <div className="w-full h-[2px] bg-gray-100"></div>
+      <div className="w-full my-10 h-[2px] bg-gray-100"></div>
       <div className="flex justify-center">
         <p>
           Already have an account?{" "}

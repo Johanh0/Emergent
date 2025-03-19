@@ -7,19 +7,17 @@ import {
   FaLightbulb,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 
 const About = () => {
   return (
     <>
-      <Header />
-      <main className="pt-16">
+      <section className="">
         {/* Hero Section */}
-        <section className="text-white py-20 bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] text-center">
+        <section className="py-20 text-center bg-[linear-gradient(to_right,#161128,#E11D48,#F97316,#161128)] text-white">
           <div className="container mx-auto px-6">
             <h1 className="text-5xl mt-7 font-bold mb-4">About Us</h1>
-            <p className="text-lg max-w-3xl mx-auto">
+            <p className=" mt-8 text-lg max-w-3xl mx-auto">
               We are committed to providing essential resources, support, and
               safety education to communities in need. Whether you are looking
               for help, seeking to volunteer, or want to prepare for
@@ -160,7 +158,7 @@ const About = () => {
         </section>
 
         {/* Call to Action */}
-        <section className="py-16 text-white text-center ">
+        <section className="py-16 bg-[#161128] text-white text-center ">
           <div className="container mx-auto px-6">
             <h2 className="text-4xl font-bold mb-4">Join Us Today</h2>
             <p className="text-lg max-w-2xl mx-auto">
@@ -168,16 +166,15 @@ const About = () => {
               communities, and educates people on safety.
             </p>
             <div className="mt-6 flex justify-center space-x-4">
-              <button className="px-6 py-3 bg-white text-blue-900 font-bold rounded-md shadow-lg hover:bg-opacity-80 transition-all">
-                Get Involved
-              </button>
-              <button className="px-6 py-3 border-2 border-white text-white font-bold rounded-md hover:bg-white hover:text-blue-900 transition-all">
-                Learn More
-              </button>
+              <Link to={"/auth?view=sign-up"}>
+                <button className="px-6 py-3 bg-white text-red-600 font-bold rounded-md shadow-lg hover:bg-red-100 transition-all">
+                  Get Involved
+                </button>
+              </Link>
             </div>
           </div>
         </section>
-      </main>
+      </section>
     </>
   );
 };
