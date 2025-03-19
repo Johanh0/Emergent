@@ -13,7 +13,7 @@ const AdminLogin = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/api/v1/admin/login", {
+      const response = await fetch("/api/v1/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

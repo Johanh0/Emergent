@@ -85,7 +85,7 @@ const Header = () => {
                   <div className="flex gap-5">
                     <div className=" w-[50px] h-[50px]">
                       <img
-                        src={`http://localhost:3000/${user?.profile_image_url}`}
+                        src={`/${user?.profile_image_url}`}
                         alt="profile picture"
                         className="w-full h-full object-cover rounded-full"
                       />

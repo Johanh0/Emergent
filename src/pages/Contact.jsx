@@ -46,18 +46,15 @@ export default function ContactPage() {
         const name = formData.firstName + " " + formData.lastName;
         const { email, subject, message } = formData;
 
-        const response = await fetch(
-          "http://localhost:3000/api/v1/user/send_message",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ name, email, subject, message }),
-            mode: "cors",
-            credentials: "include",
-          }
-        );
+        const response = await fetch("/api/v1/user/send_message", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, email, subject, message }),
+          mode: "cors",
+          credentials: "include",
+        });
 
         if (!response.ok) {
           const errorData = await response.json();

@@ -8,7 +8,7 @@ const UserCard = ({ user, onDeleteClick }) => {
           <div className="flex gap-10 items-center">
             <div>
               <img
-                src={`http://localhost:3000/${profile_image_url}`}
+                src={`/${profile_image_url}`}
                 alt="profile picture"
                 className="w-[80px] h-[80px] rounded-full object-cover"
               />

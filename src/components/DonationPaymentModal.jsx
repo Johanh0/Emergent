@@ -109,18 +109,15 @@ const DonationPaymentModal = ({ isOpen, onClose }) => {
       try {
         setIsSubmitting(false);
         setIsSuccess(true);
-        const response = await fetch(
-          "http://localhost:3000/api/v1/user/send_donation",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(donationData),
-            mode: "cors",
-            credentials: "include",
-          }
-        );
+        const response = await fetch("/api/v1/user/send_donation", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(donationData),
+          mode: "cors",
+          credentials: "include",
+        });
 
         if (!response.ok) {
           const errorData = await response.json();

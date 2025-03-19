@@ -8,12 +8,9 @@ const AdminDonationsView = () => {
   useEffect(() => {
     const fetchDonations = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3000/api/v1/user/donations",
-          {
-            credentials: "include",
-          }
-        );
+        const response = await fetch("/api/v1/user/donations", {
+          credentials: "include",
+        });
 
         if (!response.ok) {
           throw new Error("Failed to fetch donations");

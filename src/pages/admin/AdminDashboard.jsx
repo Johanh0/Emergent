@@ -10,12 +10,9 @@ const AdminDashboard = () => {
   useEffect(() => {
     const isAdminLoggedIn = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3000/api/v1/admin/profile",
-          {
-            credentials: "include",
-          }
-        );
+        const response = await fetch("/api/v1/admin/profile", {
+          credentials: "include",
+        });
         if (!response.ok) {
           throw new Error("Admin is not logged in");
         }

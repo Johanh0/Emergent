@@ -38,25 +38,19 @@ const EmailViewer = () => {
   const handleDeleteClick = async () => {
     const id = selectedEmail.id;
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/v1/admin/delete_message",
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ id }),
-          mode: "cors",
-          credentials: "include",
-        }
-      );
+      const response = await fetch("/api/v1/admin/delete_message", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+        mode: "cors",
+        credentials: "include",
+      });
 
-      const response2 = await fetch(
-        "http://localhost:3000/api/v1/admin/get_messages",
-        {
-          credentials: "include",
-        }
-      );
+      const response2 = await fetch("/api/v1/admin/get_messages", {
+        credentials: "include",
+      });
 
       const newRow = await response2.json();
 
@@ -74,18 +68,15 @@ const EmailViewer = () => {
     const subject = replySubject;
     const message = replyText;
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/v1/admin/send_email",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ to, subject, message }),
-          mode: "cors",
-          credentials: "include",
-        }
-      );
+      const response = await fetch("/api/v1/admin/send_email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ to, subject, message }),
+        mode: "cors",
+        credentials: "include",
+      });
     } catch (error) {}
     alert(`Reply sent to ${selectedEmail.email}`);
     setIsReplying(false);
@@ -94,12 +85,9 @@ const EmailViewer = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3000/api/v1/admin/get_messages",
-          {
-            credentials: "include",
-          }
-        );
+        const response = await fetch("/api/v1/admin/get_messages", {
+          credentials: "include",
+        });
 
         const data = await response.json();
         setRows(data);

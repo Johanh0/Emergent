@@ -31,18 +31,15 @@ const Profile = () => {
     console.log(firstName, lastName, email, role, id);
 
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/v1/user/update_user",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ firstName, lastName, email, role, id }),
-          mode: "cors",
-          credentials: "include",
-        }
-      );
+      const response = await fetch("/api/v1/user/update_user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ firstName, lastName, email, role, id }),
+        mode: "cors",
+        credentials: "include",
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -84,7 +81,7 @@ const Profile = () => {
       formData.append("userId", user.id);
 
       // Send the file to the server
-      const response = await fetch("http://localhost:3000/api/v1/user/upload", {
+      const response = await fetch("/api/v1/user/upload", {
         method: "POST",
         body: formData,
         mode: "cors",
@@ -124,7 +121,7 @@ const Profile = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/v1/user/logout", {
+      const response = await fetch("/api/v1/user/logout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -141,12 +138,9 @@ const Profile = () => {
   useEffect(() => {
     const isUserLoggedIn = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3000/api/v1/user/profile",
-          {
-            credentials: "include",
-          }
-        );
+        const response = await fetch("/api/v1/user/profile", {
+          credentials: "include",
+        });
 
         if (!response.ok) {
           throw new Error("User is not logged in");
@@ -172,7 +166,7 @@ const Profile = () => {
             <div className="relative mr-6">
               <div className="w-24 h-24 rounded-full overflow-hidden border-[2px] border-gray-200">
                 <img
-                  src={`http://localhost:3000/${profileData?.profile_image_url}`}
+                  src={`/${profileData?.profile_image_url}`}
                   alt="Profile"
                   className="w-full h-full object-cover"
                 />
