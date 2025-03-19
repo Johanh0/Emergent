@@ -10,7 +10,7 @@ import Home from "./pages/Home";
 import ContactPage from "./pages/Contact";
 import Resource from "./pages/Resources";
 import AdminAuth from "./pages/admin/AdminAuth";
-import UserAuth from "./pages/userAuth";
+import UserAuth from "./pages/UserAuth";
 import Profile from "./pages/Profile";
 import Volunteer from "./pages/Volunteer";
 import AdminDashboard from "./pages/admin/AdminDashboard";
