@@ -10,7 +10,7 @@ const UserCard = ({ user, onDeleteClick }) => {
               <img
                 src={`/${profile_image_url}`}
                 alt="profile picture"
-                className="w-[80px] h-[80px] rounded-full object-cover"
+                className="max-w-[80px] max-h-[80px] rounded-full object-cover"
               />
             </div>
             <div>

@@ -58,12 +58,12 @@ const UserAuth = () => {
     <section className="absolute top-0 left-0 flex w-screen h-screen p-5 md:p-10 gap-16 bg-gradient-to-r from-purple-600 to-indigo-700 justify-center items-center">
       {/* Left Side: Enlarged User Login/Signup Form */}
       <motion.div
-        className="relative flex flex-col justify-center items-center bg-white p-16 rounded-lg shadow-lg w-full max-w-2xl"
+        className="relative flex flex-col justify-center items-center bg-white p-5 lg:p-16 rounded-lg shadow-lg w-full max-w-2xl"
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="absolute top-5 left-5">
+        <div className="flex justify-start w-full mb-10 lg:mb-10 lg:absolute top-5 left-5">
           <Link to="/">
             <FaArrowLeft className="bg-bunker-100 w-12 h-12 p-3 rounded-full text-bunker-950 cursor-pointer" />
           </Link>
